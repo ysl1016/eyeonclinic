@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이연의원 EYEON CLINIC - 메인 페이지</title>
+    <title>이연의원 EYEON CLINIC</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,6 +28,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transition: height 0.3s ease-in-out; /* 높이 변경 시 부드러운 전환 효과 */
         }
 
         /* Hero 섹션의 오버레이 (이미지의 텍스트 가독성을 위해 유지) */
@@ -57,6 +58,13 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        /* 모바일 반응형 스타일: 화면 너비 768px 이하 */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 70vh; /* 모바일에서 이미지 섹션의 높이를 줄여서 이미지 잘림 최소화 */
+            }
         }
     </style>
 </head>
@@ -185,7 +193,7 @@
     
     <!-- Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
-        <a href="tel:02-123-4567" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
             <i class="fas fa-phone fa-lg"></i>
         </a>
         <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
