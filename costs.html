@@ -19,6 +19,51 @@
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; }
         .nav-active { color: #3b82f6; font-weight: 700; }
+
+        /* 모바일 반응형 테이블 스타일 */
+        @media (max-width: 768px) {
+            .responsive-table thead {
+                display: none; /* 모바일에서 기존 테이블 헤더 숨기기 */
+            }
+
+            .responsive-table,
+            .responsive-table tbody,
+            .responsive-table tr {
+                display: block;
+                width: 100%;
+            }
+
+            .responsive-table tr {
+                margin-bottom: 1rem; /* 각 항목(카드) 사이의 간격 */
+                border: 1px solid #e5e7eb; /* gray-200 */
+                border-radius: 0.5rem; /* rounded-lg */
+                overflow: hidden;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            }
+
+            .responsive-table td {
+                display: flex; /* Flexbox를 사용하여 정렬 */
+                justify-content: space-between; /* 라벨과 데이터를 양쪽 끝으로 정렬 */
+                align-items: center;
+                width: 100%;
+                padding: 0.75rem 1rem; /* py-3 px-4 */
+                text-align: right; /* 데이터는 오른쪽 정렬 */
+                border-bottom: 1px solid #f3f4f6; /* gray-100 */
+            }
+            
+            .responsive-table tr:last-child td:last-child {
+                 border-bottom: none;
+            }
+            
+            /* ::before 가상 요소를 사용하여 각 데이터 셀 앞에 라벨(제목) 추가 */
+            .responsive-table td::before {
+                content: attr(data-label); /* data-label 속성 값 가져오기 */
+                font-weight: 600; /* font-semibold */
+                text-align: left;
+                margin-right: 1rem; /* 라벨과 데이터 사이 간격 */
+                color: #374151; /* gray-700 */
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -74,7 +119,7 @@
                 <!-- 안내 문구 -->
                 <div class="prose max-w-none text-gray-700">
                     <p>이연의원은 건강보험심사평가원의 비급여 진료비용 등 공개항목 565개(보건복지부 고시 제2023-168호, '23.9.4. 시행)에 근거하여 공개항목 565개에 해당하는 비급여 항목의 비용을 아래와 같이 게시합니다.</p>
-                    <h3 class="font-semibold">제증명서 발급 시 참고사항</h3>
+                    <h3 class="font-semibold mt-6">제증명서 발급 시 참고사항</h3>
                     <p>제증명서 중 진료확인서 및 통원확인서는 진료날짜, 진단명만 기입되며 내용 및 소견은 들어가지 않습니다. 진료내용 및 소견이 필요한 경우 일반진단서 또는 소견서를 발급받아야 합니다.</p>
                 </div>
                 
@@ -84,25 +129,25 @@
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">초음파검사</h2>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500">
+                            <table class="min-w-full text-sm text-gray-500 responsive-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">코드</th>
-                                        <th scope="col" class="px-6 py-3">분류 및 명칭</th>
-                                        <th scope="col" class="px-6 py-3">비용 (원)</th>
-                                        <th scope="col" class="px-6 py-3">비고</th>
+                                        <th scope="col" class="px-6 py-3 text-center">코드</th>
+                                        <th scope="col" class="px-6 py-3 text-center">분류 및 명칭</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비용 (원)</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비고</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB414</td><td class="px-6 py-4">갑상선초음파</td><td class="px-6 py-4">75,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB415</td><td class="px-6 py-4">경부초음파</td><td class="px-6 py-4">75,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB461</td><td class="px-6 py-4">근골격초음파(손)</td><td class="px-6 py-4">45,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB464</td><td class="px-6 py-4">근골격초음파(무릎)</td><td class="px-6 py-4">65,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB470</td><td class="px-6 py-4">근골격초음파</td><td class="px-6 py-4">100,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB471</td><td class="px-6 py-4">근골격초음파(정밀)</td><td class="px-6 py-4">150,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB482</td><td class="px-6 py-4">경동맥초음파</td><td class="px-6 py-4">56,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">EB401</td><td class="px-6 py-4">기본초음파 I</td><td class="px-6 py-4">50,000</td><td class="px-6 py-4"></td></tr>
-                                    <tr class="bg-white"><td class="px-6 py-4">EB402</td><td class="px-6 py-4">기본초음파 II</td><td class="px-6 py-4">96,000</td><td class="px-6 py-4"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB414</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">갑상선초음파</td><td data-label="비용 (원)" class="px-6 py-4 text-center">75,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB415</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">경부초음파</td><td data-label="비용 (원)" class="px-6 py-4 text-center">75,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB461</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">근골격초음파(손)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">45,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB464</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">근골격초음파(무릎)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">65,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB470</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">근골격초음파</td><td data-label="비용 (원)" class="px-6 py-4 text-center">100,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB471</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">근골격초음파(정밀)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">150,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB482</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">경동맥초음파</td><td data-label="비용 (원)" class="px-6 py-4 text-center">56,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB401</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">기본초음파 I</td><td data-label="비용 (원)" class="px-6 py-4 text-center">50,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">EB402</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">기본초음파 II</td><td data-label="비용 (원)" class="px-6 py-4 text-center">96,000</td><td data-label="비고" class="px-6 py-4 text-center"></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -112,23 +157,23 @@
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">이학요법료</h2>
                          <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500">
+                            <table class="min-w-full text-sm text-gray-500 responsive-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">코드</th>
-                                        <th scope="col" class="px-6 py-3">분류 및 명칭</th>
-                                        <th scope="col" class="px-6 py-3">비용 (원)</th>
-                                        <th scope="col" class="px-6 py-3">비고</th>
+                                        <th scope="col" class="px-6 py-3 text-center">코드</th>
+                                        <th scope="col" class="px-6 py-3 text-center">분류 및 명칭</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비용 (원)</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비고</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MZ007</td><td class="px-6 py-4">신장분사치료</td><td class="px-6 py-4">48,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MX122</td><td class="px-6 py-4">도수치료</td><td class="px-6 py-4">96,000</td><td class="px-6 py-4">전문의</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MY142</td><td class="px-6 py-4">프롤로테라피(사지)</td><td class="px-6 py-4">120,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MY142</td><td class="px-6 py-4">프롤로테라피(일반)</td><td class="px-6 py-4">96,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MY143</td><td class="px-6 py-4">프롤로테라피(척추)</td><td class="px-6 py-4">200,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">MZ001</td><td class="px-6 py-4">FIMS(정밀)</td><td class="px-6 py-4">300,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white"><td class="px-6 py-4">MZ001</td><td class="px-6 py-4">FIMS</td><td class="px-6 py-4">150,000</td><td class="px-6 py-4">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MZ007</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">신장분사치료</td><td data-label="비용 (원)" class="px-6 py-4 text-center">48,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MX122</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">도수치료</td><td data-label="비용 (원)" class="px-6 py-4 text-center">96,000</td><td data-label="비고" class="px-6 py-4 text-center">전문의</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MY142</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">프롤로테라피(사지)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">120,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MY142</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">프롤로테라피(일반)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">96,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MY143</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">프롤로테라피(척추)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">200,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MZ001</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">FIMS(정밀)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">300,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">MZ001</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">FIMS</td><td data-label="비용 (원)" class="px-6 py-4 text-center">150,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -138,19 +183,19 @@
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">처치 및 수술료</h2>
                          <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500">
+                            <table class="min-w-full text-sm text-gray-500 responsive-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">코드</th>
-                                        <th scope="col" class="px-6 py-3">분류 및 명칭</th>
-                                        <th scope="col" class="px-6 py-3">비용 (원)</th>
-                                        <th scope="col" class="px-6 py-3">비고</th>
+                                        <th scope="col" class="px-6 py-3 text-center">코드</th>
+                                        <th scope="col" class="px-6 py-3 text-center">분류 및 명칭</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비용 (원)</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비고</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">SZ035</td><td class="px-6 py-4">손발톱무좀(레이저)</td><td class="px-6 py-4">56,000</td><td class="px-6 py-4">시행안함</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">SZ084</td><td class="px-6 py-4">체외충격파(사지)</td><td class="px-6 py-4">96,000</td><td class="px-6 py-4">1부위</td></tr>
-                                    <tr class="bg-white"><td class="px-6 py-4">SZ084</td><td class="px-6 py-4">체외충격파(척추)</td><td class="px-6 py-4">96,000</td><td class="px-6 py-4">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">SZ035</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">손발톱무좀(레이저)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">56,000</td><td data-label="비고" class="px-6 py-4 text-center">시행안함</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">SZ084</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">체외충격파(사지)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">96,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">SZ084</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">체외충격파(척추)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">96,000</td><td data-label="비고" class="px-6 py-4 text-center">1부위</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -160,17 +205,17 @@
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">예방접종</h2>
                          <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500">
+                            <table class="min-w-full text-sm text-gray-500 responsive-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">코드</th>
-                                        <th scope="col" class="px-6 py-3">분류 및 명칭</th>
-                                        <th scope="col" class="px-6 py-3">비용 (원)</th>
-                                        <th scope="col" class="px-6 py-3">비고</th>
+                                        <th scope="col" class="px-6 py-3 text-center">코드</th>
+                                        <th scope="col" class="px-6 py-3 text-center">분류 및 명칭</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비용 (원)</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비고</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white"><td class="px-6 py-4">3Z5200301</td><td class="px-6 py-4">대상포진예방접종</td><td class="px-6 py-4">150,000</td><td class="px-6 py-4">예약필수</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">3Z5200301</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">대상포진예방접종</td><td data-label="비용 (원)" class="px-6 py-4 text-center">150,000</td><td data-label="비고" class="px-6 py-4 text-center">예약필수</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -180,25 +225,25 @@
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 border-b pb-2">제증명수수료</h2>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full text-sm text-left text-gray-500">
+                            <table class="min-w-full text-sm text-gray-500 responsive-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">코드</th>
-                                        <th scope="col" class="px-6 py-3">분류 및 명칭</th>
-                                        <th scope="col" class="px-6 py-3">비용 (원)</th>
-                                        <th scope="col" class="px-6 py-3">비고</th>
+                                        <th scope="col" class="px-6 py-3 text-center">코드</th>
+                                        <th scope="col" class="px-6 py-3 text-center">분류 및 명칭</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비용 (원)</th>
+                                        <th scope="col" class="px-6 py-3 text-center">비고</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ01</td><td class="px-6 py-4">일반진단서 및 소견서</td><td class="px-6 py-4">20,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDE01</td><td class="px-6 py-4">일반진단서(영문)</td><td class="px-6 py-4">20,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ09</td><td class="px-6 py-4">통원확인서</td><td class="px-6 py-4">3,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ09</td><td class="px-6 py-4">진료확인서</td><td class="px-6 py-4">3,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ01</td><td class="px-6 py-4">채용신체검사서(공무원)</td><td class="px-6 py-4">40,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ01</td><td class="px-6 py-4">채용신체검사서(일반)</td><td class="px-6 py-4">30,000</td><td class="px-6 py-4">1매</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ11</td><td class="px-6 py-4">진료기록사본(1~5매)</td><td class="px-6 py-4">1,000</td><td class="px-6 py-4">1매당</td></tr>
-                                    <tr class="bg-white border-b"><td class="px-6 py-4">PDZ11</td><td class="px-6 py-4">진료기록사본(6매이상)</td><td class="px-6 py-4">100</td><td class="px-6 py-4">1매당</td></tr>
-                                    <tr class="bg-white"><td class="px-6 py-4">PDZ16</td><td class="px-6 py-4">제증명서 사본</td><td class="px-6 py-4">1,000</td><td class="px-6 py-4">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ01</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">일반진단서 및 소견서</td><td data-label="비용 (원)" class="px-6 py-4 text-center">20,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDE01</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">일반진단서(영문)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">20,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ09</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">통원확인서</td><td data-label="비용 (원)" class="px-6 py-4 text-center">3,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ09</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">진료확인서</td><td data-label="비용 (원)" class="px-6 py-4 text-center">3,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ01</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">채용신체검사서(공무원)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">40,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ01</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">채용신체검사서(일반)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">30,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ11</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">진료기록사본(1~5매)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">1,000</td><td data-label="비고" class="px-6 py-4 text-center">1매당</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ11</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">진료기록사본(6매이상)</td><td data-label="비용 (원)" class="px-6 py-4 text-center">100</td><td data-label="비고" class="px-6 py-4 text-center">1매당</td></tr>
+                                    <tr><td data-label="코드" class="px-6 py-4 text-center">PDZ16</td><td data-label="분류 및 명칭" class="px-6 py-4 text-center">제증명서 사본</td><td data-label="비용 (원)" class="px-6 py-4 text-center">1,000</td><td data-label="비고" class="px-6 py-4 text-center">1매</td></tr>
                                 </tbody>
                             </table>
                         </div>
