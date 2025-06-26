@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이연의원 EYEON CLINIC</title>
+    <title>이연의원 EYEON CLINIC - 메인 페이지</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -27,15 +27,10 @@
             height: 100vh;
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
         }
 
-        /* Hero 섹션의 오버레이 */
+        /* Hero 섹션의 오버레이 (이미지의 텍스트 가독성을 위해 유지) */
         .hero-section::before {
             content: '';
             position: absolute;
@@ -43,13 +38,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        
-        /* 컨텐츠가 오버레이 위에 오도록 설정 */
-        .hero-content {
-            position: relative;
-            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.3); /* 오버레이를 약간 연하게 조정 */
         }
 
         /* 네비게이션 활성 메뉴 스타일 */
@@ -77,11 +66,11 @@
     <header id="header" class="bg-white/80 backdrop-blur-md shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="#" class="text-2xl font-bold text-gray-800">이연의원 <span class="text-blue-600">EYEON</span></a>
+                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-6">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600">진료안내</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600">의료진소개</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600">진료일정</a>
@@ -101,7 +90,7 @@
 
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
@@ -116,55 +105,22 @@
     <main>
         <!-- Section 1: 기능의학 피부개선 -->
         <section class="hero-section" style="background-image: url('images/main1.jpeg');">
-            <div class="hero-content text-center px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">기능의학을 접목한<br>근본적인 피부개선</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto">
-                    일반적인 피부 시술이 아닌 환자의 상태에 따라 보다 근본적인 피부 개선을 위해 개인의 생활습관을 고려하여 전반적인 피부 노화를 개선하는 이연의원 피부과 만의 차별화 된 노화방지 프로그램을 진행합니다.
-                </p>
-                <p class="text-md md:text-lg max-w-3xl mx-auto mt-4 font-light">
-                    다양한 기능의학 검사 및 기능의학 처방전을 통해 보다 근본적인 피부노화의 개선이 가능합니다. 기능의학적 피부시술은 이연이 가장 자신있는 치료분야입니다.
-                </p>
-            </div>
+            <!-- 텍스트는 이미지에 포함되어 있으므로 제거되었습니다. -->
         </section>
 
         <!-- Section 2: 통증없는 피부시술 -->
         <section class="hero-section" style="background-image: url('images/main2.jpeg');">
-            <div class="hero-content text-center px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">내 얼굴에 가장 맞는<br>통증없는 피부시술</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto">
-                    개인의 피부 상태 및 얼굴 윤곽 그리고 근육의 분포까지 놓치지 않고 다년 간의 피부시술 경력으로 가장 최적의 장비를 사용하여 만들어내는 통증없는 동안 시술을 만듭니다.
-                </p>
-                 <p class="text-md md:text-lg max-w-3xl mx-auto mt-4 bg-black/30 rounded-lg p-2 font-medium">
-                    잡티, 기미는 알렉스 토닝으로! 팽팽한 리프팅은 슈퍼-샷 리프팅!
-                </p>
-            </div>
+            <!-- 텍스트는 이미지에 포함되어 있으므로 제거되었습니다. -->
         </section>
 
         <!-- Section 3: 비만 클리닉 -->
         <section class="hero-section" style="background-image: url('images/main3.jpeg');">
-            <div class="hero-content text-center px-4">
-                <h2 class="text-2xl font-semibold opacity-80">OBESITY CLINIC</h2>
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 mt-2">내 체형에 가장 맞는<br>부작용없는 비만처방</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto">
-                    본인의 식습관과 생활습관 그리고 운동방식에 따라 늘어난 체중을 가장 효과적으로 감량시킬 수 있습니다. 생활습관의 교정없다면 평생 요요의 굴레에서 벗어날 수 없습니다.
-                </p>
-                 <p class="text-md md:text-lg max-w-3xl mx-auto mt-4 font-light">
-                    조절안되는 식욕은 바른 처방을 통해 반드시 감량가능합니다.
-                </p>
-            </div>
+            <!-- 텍스트는 이미지에 포함되어 있으므로 제거되었습니다. -->
         </section>
 
         <!-- Section 4: 통증 클리닉 -->
         <section class="hero-section" style="background-image: url('images/main4.jpeg');">
-            <div class="hero-content text-center px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">스포츠 및 근골격통증<br>통증치료도 이연의원</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto">
-                    이응승 원장의 전공은 노화방지의학입니다. 우리가 평생 아프지 않고 늙지않는 모습을 유지하도록 만드는 것이 궁극적인 기능의학의 치료입니다. 우리 몸의 근본적으로 가장 건강하게 유지하도록 하는 기본적인 통증 치료를 운동과 접목하고 있습니다.
-                </p>
-                 <p class="text-md md:text-lg max-w-3xl mx-auto mt-4 font-light">
-                    어깨, 허리, 무릎통증은 근골격초음파 및 의학적 검사로 정확하게 진단 후에 필요한 치료를 해야합니다.
-                </p>
-            </div>
+            <!-- 텍스트는 이미지에 포함되어 있으므로 제거되었습니다. -->
         </section>
         
         <!-- Info Section -->
@@ -204,11 +160,11 @@
                     <div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
                         <ul class="space-y-4">
                             <li class="flex justify-between items-center pb-2 border-b">
-                                <a href="#" class="text-gray-700 hover:text-blue-600">[안내] 2024년 하계 휴진 안내</a>
+                                <a href="#" class="text-gray-700 hover:text-blue-600">[안내] 2025년 하계 휴진 안내</a>
                                 <span class="text-sm text-gray-500">2024.07.15</span>
                             </li>
                             <li class="flex justify-between items-center pb-2 border-b">
-                                <a href="#" class="text-gray-700 hover:text-blue-600">[이벤트] 여름맞이 피부관리 이벤트 오픈!</a>
+                                <a href="#" class="text-gray-700 hover:text-blue-600">[이벤트] 6월 피부/쁘띠 이벤트 시작</a>
                                 <span class="text-sm text-gray-500">2024.06.30</span>
                             </li>
                              <li class="flex justify-between items-center pb-2 border-b">
@@ -216,11 +172,17 @@
                                 <span class="text-sm text-gray-500">2024.06.20</span>
                             </li>
                              <li class="flex justify-between items-center">
-                                <a href="#" class="text-gray-700 hover:text-blue-600">이연의원 확장 이전 안내</a>
+                                <a href="#" class="text-gray-700 hover:text-blue-600">이연의원 홈페이지 보수</a>
                                 <span class="text-sm text-gray-500">2024.06.01</span>
                             </li>
                         </ul>
-@@ -230,38 +119,7 @@ <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">공지사항</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
     <!-- Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
         <a href="tel:02-123-4567" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
@@ -245,8 +207,8 @@
                 <div>
                     <h3 class="font-semibold mb-2">진료시간</h3>
                     <ul class="text-gray-400 space-y-1 text-sm">
-                        <li>평일: 09:30 - 18:30</li>Add commentMore actions
-                        <li>토요일: 09:30 - 14:00 (점심시간 없음)</li>
+                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
                         <li>점심시간: 13:00 - 14:00</li>
                         <li>일요일/공휴일: 휴진</li>
                     </ul>
@@ -254,32 +216,13 @@
                 <div>
                     <h3 class="font-semibold mb-2">연락처 및 주소</h3>
                      <ul class="text-gray-400 space-y-1 text-sm">
-                        <li><i class="fas fa-phone-alt mr-2"></i> 02-123-4567</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> 서울특별시 강남구 테헤란로 123, 4층 (이연빌딩)</li>
-            <i class="fas fa-phone층</li>
-                     </ul>
-                </div>
-            </div>
-  시</a>
-                                <span class="text-sm text-gray-500">2024.06.01</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-    
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-6 right-6 space-y-3 z-40">
-        <a href="tel:02-123-4567" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
-            <i class="fas fa-phone층</li>
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
                      </ul>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
-                <p>&copy; 2024 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
                 <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
             </div>
         </div>
