@@ -47,6 +47,13 @@
         .dot.active {
             background-color: #3b82f6; /* 활성화된 점 색상 */
         }
+        #slideshow-container {
+            cursor: grab; /* 기본 커서를 잡는 모양으로 설정 */
+            user-select: none; /* 드래그 시 텍스트 선택 방지 */
+        }
+        #slideshow-container.grabbing {
+            cursor: grabbing; /* 드래그 중 커서를 쥐는 모양으로 변경 */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -271,11 +278,17 @@
                 appearOnScroll.observe(fader);
             });
 
-            // Slideshow logic
+            // --- Slideshow with Drag/Swipe Logic ---
+            const slideshowContainer = document.getElementById('slideshow-container');
             const slides = document.querySelectorAll('.slide');
             const dotsContainer = document.getElementById('dots-container');
             let currentSlide = 0;
             let slideInterval;
+            
+            // Swipe/Drag variables
+            let isDragging = false;
+            let startPos = 0;
+            let walk = 0;
 
             // Create navigation dots
             slides.forEach((slide, index) => {
@@ -291,15 +304,9 @@
             const dots = dotsContainer.querySelectorAll('.dot');
 
             function showSlide(n) {
-                // Hide all slides
                 slides.forEach(slide => slide.classList.remove('opacity-100'));
-                // Deactivate all dots
                 dots.forEach(dot => dot.classList.remove('active'));
-
-                // Set current slide index
                 currentSlide = (n + slides.length) % slides.length;
-
-                // Show the current slide and activate the corresponding dot
                 slides[currentSlide].classList.add('opacity-100');
                 dots[currentSlide].classList.add('active');
             }
@@ -308,10 +315,57 @@
                 showSlide(currentSlide + 1);
             }
 
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
             function resetInterval() {
                 clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, 5000);
             }
+
+            // --- Event Handlers for Drag/Swipe ---
+            function dragStart(e) {
+                isDragging = true;
+                startPos = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                clearInterval(slideInterval);
+                slideshowContainer.classList.add('grabbing');
+            }
+
+            function dragEnd(e) {
+                isDragging = false;
+                slideshowContainer.classList.remove('grabbing');
+                
+                if(walk !== 0) { // Only process if there was a move
+                    const endPos = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+                    const moveThreshold = 50; // Minimum distance to be considered a swipe
+                    
+                    if (startPos - endPos > moveThreshold) {
+                        nextSlide(); // Swiped left
+                    } else if (endPos - startPos > moveThreshold) {
+                        prevSlide(); // Swiped right
+                    }
+                }
+
+                walk = 0; // Reset walk
+                resetInterval();
+            }
+
+            function dragMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+            }
+
+            // Mouse Event Listeners
+            slideshowContainer.addEventListener('mousedown', dragStart);
+            slideshowContainer.addEventListener('mouseup', dragEnd);
+            slideshowContainer.addEventListener('mouseleave', dragEnd); // End drag if mouse leaves container
+            slideshowContainer.addEventListener('mousemove', dragMove);
+
+            // Touch Event Listeners
+            slideshowContainer.addEventListener('touchstart', dragStart, { passive: true });
+            slideshowContainer.addEventListener('touchend', dragEnd);
+            slideshowContainer.addEventListener('touchmove', dragMove, { passive: false });
 
             // Initial setup
             showSlide(0);
