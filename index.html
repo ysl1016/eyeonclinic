@@ -288,7 +288,11 @@
             // Swipe/Drag variables
             let isDragging = false;
             let startPos = 0;
-            let walk = 0;
+            let currentX = 0;
+            let prevX = 0;
+            let initialY = 0;
+            let isScrolling = false;
+
 
             // Create navigation dots
             slides.forEach((slide, index) => {
@@ -327,17 +331,44 @@
             // --- Event Handlers for Drag/Swipe ---
             function dragStart(e) {
                 isDragging = true;
+                isScrolling = false;
                 startPos = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                initialY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                prevX = startPos;
                 clearInterval(slideInterval);
                 slideshowContainer.classList.add('grabbing');
             }
 
+            function dragMove(e) {
+                if (!isDragging) return;
+
+                currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+                const diffX = Math.abs(currentX - startPos);
+                const diffY = Math.abs(currentY - initialY);
+                
+                // If it's the first move, determine if it's a scroll or swipe
+                if (!isScrolling && diffY > diffX && diffY > 10) { 
+                    isScrolling = true;
+                }
+                
+                // If it's not a vertical scroll, prevent default to allow horizontal swipe
+                if (!isScrolling) {
+                    e.preventDefault();
+                }
+
+                prevX = currentX;
+            }
+
             function dragEnd(e) {
+                if (!isDragging) return;
                 isDragging = false;
                 slideshowContainer.classList.remove('grabbing');
                 
-                if(walk !== 0) { // Only process if there was a move
-                    const endPos = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+                // Only trigger slide change if it wasn't a vertical scroll
+                if (!isScrolling) {
+                    const endPos = currentX;
                     const moveThreshold = 50; // Minimum distance to be considered a swipe
                     
                     if (startPos - endPos > moveThreshold) {
@@ -346,26 +377,21 @@
                         prevSlide(); // Swiped right
                     }
                 }
-
-                walk = 0; // Reset walk
+                
                 resetInterval();
-            }
-
-            function dragMove(e) {
-                if (!isDragging) return;
-                e.preventDefault();
             }
 
             // Mouse Event Listeners
             slideshowContainer.addEventListener('mousedown', dragStart);
             slideshowContainer.addEventListener('mouseup', dragEnd);
-            slideshowContainer.addEventListener('mouseleave', dragEnd); // End drag if mouse leaves container
+            slideshowContainer.addEventListener('mouseleave', dragEnd);
             slideshowContainer.addEventListener('mousemove', dragMove);
 
             // Touch Event Listeners
             slideshowContainer.addEventListener('touchstart', dragStart, { passive: true });
             slideshowContainer.addEventListener('touchend', dragEnd);
             slideshowContainer.addEventListener('touchmove', dragMove, { passive: false });
+
 
             // Initial setup
             showSlide(0);
