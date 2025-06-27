@@ -1,8 +1,15 @@
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">Add commentMore actions
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이연의원 EYEON CLINIC - 메인 페이지</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="이연의원. 통증, 스포츠의학, 기능의학, 피부, 비만 클리닉. 환자 중심의 근본적인 치료를 제공합니다. 경기도 용인시 수지구 신봉동 위치.">
+    <meta name="keywords" content="이연의원, 용인 피부과, 수지 피부과, 신봉동 피부과, 통증 클리닉, 스포츠의학, 기능의학, 보톡스, 리프팅, 비만 클리닉">
 
     <!-- Tailwind CSS CDN -->
-    <!-- CSS and Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts: Noto Sans KR -->
@@ -14,131 +21,82 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* 기본 폰트 설정 */
+        /* Custom Styles */
         body {
             font-family: 'Noto Sans KR', sans-serif;
         }
-
-        /* 네비게이션 활성 메뉴 스타일 */
         .nav-active {
             color: #3b82f6; /* Tailwind blue-500 */
             font-weight: 700;
         }
-        
-        /* 스크롤 애니메이션을 위한 클래스 */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
         
-        /* 슬라이드쇼 관련 스타일 */
+        /* Slideshow Styles */
         .slide {
-            transition: opacity 1.5s ease-in-out; /* 페이드 효과를 위한 트랜지션 */
+            transition: opacity 1.5s ease-in-out;
         }
         .dot.active {
-            background-color: #3b82f6; /* 활성화된 점 색상 */
+            background-color: #3b82f6;
         }
         #slideshow-container {
-            cursor: grab; /* 기본 커서를 잡는 모양으로 설정 */
-            user-select: none; /* 드래그 시 텍스트 선택 방지 */
-        body { font-family: 'Noto Sans KR', sans-serif; }
-        .nav-active { color: #3b82f6; font-weight: 700; }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .slide { transition: opacity 1.5s ease-in-out; }
-        .dot.active { background-color: #3b82f6; }
-        #slideshow-container { cursor: grab; user-select: none; }
-        #slideshow-container.grabbing { cursor: grabbing; }
-
-        /* Dropdown Styles */
-        .dropdown .dropdown-menu { 
-            display: none;
-            transition: opacity 0.3s ease;
+            cursor: grab;
+            user-select: none; /* Prevent text selection during drag */
         }
         #slideshow-container.grabbing {
-            cursor: grabbing; /* 드래그 중 커서를 쥐는 모양으로 변경 */
-        .dropdown:hover .dropdown-menu { 
-            display: block; 
+            cursor: grabbing;
         }
     </style>
 </head>
-                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+<body class="bg-gray-50">
 
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                
                 <!-- Desktop Navigation -->
-                <nav class="hidden lg:flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
-                    <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600">진료안내</a>
-                    <a href="doctor.html" class="text-gray-700 hover:text-blue-600">의료진소개</a>
-                    <a href="schedule.html" class="text-gray-700 hover:text-blue-600">진료일정</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">이벤트안내</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">비만클리닉</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600">공지사항</a>
-                    <a href="costs.html" class="text-gray-700 hover:text-blue-600">비급여 비용안내</a>
-                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                <nav class="hidden lg:flex items-center space-x-4 text-sm">
                     <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md nav-active">이연EYEON</a>
                     <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료안내</a>
                     <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
                     <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이벤트안내</a>
-                    
-                    <!-- Dropdown Menu -->
-                    <div class="relative dropdown">
-                        <button class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md flex items-center focus:outline-none">
-                            피부/윤곽클리닉 <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                        </button>
-                        <div class="dropdown-menu absolute hidden bg-white shadow-lg rounded-md mt-2 py-2 w-48 z-20 border">
-                            <a href="laser-petit.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">레이저/쁘띠</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">제모</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">여드름</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">여드름 치료비용안내</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">탈모</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">피부질환</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">시술후 주의사항</a>
-                        </div>
-                    </div>
-
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">피부/윤곽클리닉</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비만클리닉</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
                     <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
                 </nav>
 
                 <!-- Mobile Navigation Button -->
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
 
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
-            <!-- Mobile navigation updated with dropdown logic -->
-            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
             <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
             <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
             <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
-            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
-            <div>
-                <button id="mobile-dropdown-button" class="w-full text-left py-2 text-gray-700 hover:text-blue-600 flex justify-between items-center">
-                    <span>피부/윤곽클리닉</span>
-                    <i class="fas fa-chevron-down text-xs"></i>
-                </button>
-                <div id="mobile-dropdown-menu" class="hidden pl-4">
-                    <a href="laser-petit.html" class="block py-2 text-sm text-gray-600 hover:text-blue-600">레이저/쁘띠</a>
-                    <a href="#" class="block py-2 text-sm text-gray-600 hover:text-blue-600">제모</a>
-                    <a href="#" class="block py-2 text-sm text-gray-600 hover:text-blue-600">여드름</a>
-                </div>
-            </div>
+            <a href="laser-petit.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
             <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">공지사항</a>
             <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
         <!-- Slideshow container -->
         <div id="slideshow-container" class="relative w-full h-[60vh] md:h-[85vh] overflow-hidden">
@@ -148,7 +106,7 @@
             <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main3.jpeg');"></div>
             <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main4.jpeg');"></div>
             
-             <!-- 오버레이 -->
+            <!-- Overlay -->
             <div class="absolute inset-0 bg-black/30"></div>
 
             <!-- Navigation Dots -->
@@ -216,7 +174,6 @@
             </div>
         </div>
 
-        <!-- ... (index.html의 나머지 main 내용) ... -->
     </main>
     
     <!-- Floating Action Buttons -->
@@ -251,10 +208,10 @@
                 </div>
                 <div>
                     <h3 class="font-semibold mb-2">연락처 및 주소</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
+                     <ul class="text-gray-400 space-y-1 text-sm">
                         <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
                         <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
-                    </ul>
+                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
@@ -262,7 +219,6 @@
                 <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
             </div>
         </div>
-        <!-- ... (index.html의 footer 내용) ... -->
     </footer>
 
 
@@ -332,10 +288,8 @@
             let isDragging = false;
             let startPos = 0;
             let currentX = 0;
-            let prevX = 0;
             let initialY = 0;
             let isScrolling = false;
-
 
             // Create navigation dots
             slides.forEach((slide, index) => {
@@ -346,15 +300,6 @@
                     resetInterval();
                 });
                 dotsContainer.appendChild(dot);
-    document.addEventListener('DOMContentLoaded', function() {
-        // ... (기존 index.html의 모든 스크립트) ...
-
-        // Mobile dropdown toggle
-        const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
-        const mobileDropdownMenu = document.getElementById('mobile-dropdown-menu');
-        if(mobileDropdownButton) {
-            mobileDropdownButton.addEventListener('click', function() {
-                mobileDropdownMenu.classList.toggle('hidden');
             });
 
             const dots = dotsContainer.querySelectorAll('.dot');
@@ -386,7 +331,6 @@
                 isScrolling = false;
                 startPos = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
                 initialY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-                prevX = startPos;
                 clearInterval(slideInterval);
                 slideshowContainer.classList.add('grabbing');
             }
@@ -394,23 +338,25 @@
             function dragMove(e) {
                 if (!isDragging) return;
 
-                currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-                const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
 
-                const diffX = Math.abs(currentX - startPos);
-                const diffY = Math.abs(currentY - initialY);
+                if (isScrolling) return;
+
+                const diffX = Math.abs(x - startPos);
+                const diffY = Math.abs(y - initialY);
                 
-                // If it's the first move, determine if it's a scroll or swipe
-                if (!isScrolling && diffY > diffX && diffY > 10) { 
+                if (diffY > diffX && diffY > 10) { 
                     isScrolling = true;
+                    isDragging = false; 
+                    slideshowContainer.classList.remove('grabbing');
+                    return;
                 }
                 
-                // If it's not a vertical scroll, prevent default to allow horizontal swipe
-                if (!isScrolling) {
+                if (diffX > 10) {
                     e.preventDefault();
                 }
-
-                prevX = currentX;
+                currentX = x;
             }
 
             function dragEnd(e) {
@@ -418,15 +364,14 @@
                 isDragging = false;
                 slideshowContainer.classList.remove('grabbing');
                 
-                // Only trigger slide change if it wasn't a vertical scroll
                 if (!isScrolling) {
                     const endPos = currentX;
-                    const moveThreshold = 50; // Minimum distance to be considered a swipe
+                    const moveThreshold = 50; 
                     
                     if (startPos - endPos > moveThreshold) {
-                        nextSlide(); // Swiped left
+                        nextSlide();
                     } else if (endPos - startPos > moveThreshold) {
-                        prevSlide(); // Swiped right
+                        prevSlide();
                     }
                 }
                 
@@ -444,13 +389,10 @@
             slideshowContainer.addEventListener('touchend', dragEnd);
             slideshowContainer.addEventListener('touchmove', dragMove, { passive: false });
 
-
             // Initial setup
             showSlide(0);
             resetInterval();
         });
-        }
-    });
     </script>
 </body>
 </html>
