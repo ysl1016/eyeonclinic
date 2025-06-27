@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 - 이연의원 EYEON CLINIC</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- SimpleMDE Markdown Editor for rich text editing -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <!-- Marked.js to render Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .main-nav-active { color: #3b82f6; font-weight: 700; }
+        .editor-toolbar, .CodeMirror { border-radius: 0.5rem; border-color: #d1d5db; }
+        .CodeMirror-scroll { min-height: 250px; }
+        .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        .prose a { color: #3b82f6; }
+        .prose h1, .prose h2, .prose h3 { font-weight: 700; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이연EYEON</a>
+                    <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료안내</a>
+                    <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
+                    <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이벤트안내</a>
+                    <a href="skin-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비만클리닉</a>
+                    <a href="notice.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md main-nav-active">공지사항</a>
+                    <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
+            <!-- Mobile menu links here... -->
+        </div>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <div class="container mx-auto px-6">
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">공지사항</h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">이연의원의 새로운 소식과 중요한 정보를 안내해 드립니다.</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Content Area: List View and Detail View -->
+            <div id="notice-content" class="max-w-4xl mx-auto">
+                <!-- This will be populated by JavaScript -->
+            </div>
+
+            <!-- Write/Edit Modal -->
+            <div id="write-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                <div class="relative top-10 mx-auto p-5 border w-full max-w-3xl shadow-lg rounded-md bg-white">
+                    <div class="flex justify-between items-center pb-3">
+                        <h3 id="modal-title" class="text-2xl font-bold">새 글 작성</h3>
+                        <button id="close-modal" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+                    </div>
+                    <div class="space-y-4">
+                        <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-2 border rounded-md">
+                        <textarea id="post-content"></textarea>
+                        <div class="flex justify-end space-x-2">
+                            <button id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
+                            <button id="save-post" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">저장</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- Password Modal -->
+            <div id="password-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[60]">
+                <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm">
+                    <h4 class="font-bold mb-4">관리자 비밀번호를 입력하세요.</h4>
+                    <input type="password" id="admin-password" class="w-full p-2 border rounded-md">
+                    <div class="flex justify-end mt-4">
+                         <button id="cancel-password" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                        <button id="submit-password" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">확인</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        /*
+         * DR_BreakFast님, 여기에 Firebase 프로젝트의 구성 정보를 붙여넣어 주세요.
+         * Firebase 콘솔 > 프로젝트 설정(톱니바퀴) > 일반 탭에서 '웹 앱'을 선택하여 찾을 수 있습니다.
+         *
+         * 예시:
+         * const firebaseConfig = {
+         * apiKey: "AIzaSy...",
+         * authDomain: "your-project-id.firebaseapp.com",
+         * projectId: "your-project-id",
+         * storageBucket: "your-project-id.appspot.com",
+         * messagingSenderId: "1234567890",
+         * appId: "1:1234567890:web:abcdef123456"
+         * };
+         */
+        const firebaseConfig = {
+             apiKey: "YOUR_API_KEY",
+             authDomain: "YOUR_AUTH_DOMAIN",
+             projectId: "YOUR_PROJECT_ID",
+             storageBucket: "YOUR_STORAGE_BUCKET",
+             messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+             appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const postsCollection = collection(db, "notices");
+        
+        const noticeContent = document.getElementById('notice-content');
+        const writeModal = document.getElementById('write-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelPost = document.getElementById('cancel-post');
+        const savePost = document.getElementById('save-post');
+        const modalTitle = document.getElementById('modal-title');
+        const postTitleInput = document.getElementById('post-title');
+        const passwordModal = document.getElementById('password-modal');
+        const adminPasswordInput = document.getElementById('admin-password');
+        const submitPasswordBtn = document.getElementById('submit-password');
+        const cancelPasswordBtn = document.getElementById('cancel-password');
+
+        let simplemde;
+        let currentPostId = null; 
+        let currentAction = null;
+        const ADMIN_PASSWORD = "eyeon-admin-2025"; // <-- 여기에 강력한 비밀번호를 설정하세요
+
+        function initializeEditor(content = '') {
+            if (simplemde) {
+                simplemde.toTextArea();
+                simplemde = null;
+            }
+            simplemde = new SimpleMDE({ 
+                element: document.getElementById("post-content"),
+                initialValue: content,
+                spellChecker: false,
+                status: false,
+            });
+        }
+        
+        function showPasswordModal(action) {
+            currentAction = action;
+            passwordModal.classList.remove('hidden');
+            adminPasswordInput.focus();
+        }
+        
+        submitPasswordBtn.addEventListener('click', () => {
+            if (adminPasswordInput.value === ADMIN_PASSWORD) {
+                passwordModal.classList.add('hidden');
+                adminPasswordInput.value = '';
+                currentAction();
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        });
+        
+        cancelPasswordBtn.addEventListener('click', () => passwordModal.classList.add('hidden'));
+
+        async function renderListView() {
+            window.location.hash = ''; // URL 해시 초기화
+            noticeContent.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">전체 글</h2>
+                    <button id="write-new-post" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm">글쓰기</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="p-4 text-center">번호</th>
+                                    <th class="p-4">제목</th>
+                                    <th class="p-4 text-center hidden md:table-cell">작성일</th>
+                                </tr>
+                            </thead>
+                            <tbody id="post-list">
+                               <tr><td colspan="3" class="text-center p-8 text-gray-500">게시물을 불러오는 중...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            const postList = document.getElementById('post-list');
+            const q = query(postsCollection, orderBy("createdAt", "desc"));
+            onSnapshot(q, (querySnapshot) => {
+                postList.innerHTML = '';
+                let count = querySnapshot.size;
+                if(querySnapshot.empty){
+                    postList.innerHTML = '<tr><td colspan="3" class="text-center p-8 text-gray-500">게시물이 없습니다.</td></tr>';
+                } else {
+                    querySnapshot.forEach(doc => {
+                        const post = doc.data();
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b hover:bg-gray-50 cursor-pointer";
+                        tr.addEventListener('click', () => renderDetailView(doc.id));
+                        tr.innerHTML = `
+                            <td class="p-4 text-center text-gray-500">${count--}</td>
+                            <td class="p-4 font-medium text-gray-800">${post.title}</td>
+                            <td class="p-4 text-center text-gray-500 hidden md:table-cell">${new Date(post.createdAt.toDate()).toLocaleDateString()}</td>
+                        `;
+                        postList.appendChild(tr);
+                    });
+                }
+            });
+
+            document.getElementById('write-new-post').addEventListener('click', () => {
+                showPasswordModal(openWriteModal);
+            });
+        }
+
+        async function renderDetailView(postId) {
+            window.location.hash = postId;
+            const docRef = doc(db, "notices", postId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const post = docSnap.data();
+                noticeContent.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">${post.title}</h2>
+                        <p class="text-sm text-gray-500 mb-6 border-b pb-4">작성일: ${new Date(post.createdAt.toDate()).toLocaleString()}</p>
+                        <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
+                        <div class="flex justify-between items-center mt-8 border-t pt-6">
+                            <button id="back-to-list" class="text-gray-600 hover:text-blue-600">&larr; 목록으로</button>
+                            <div class="space-x-2">
+                                <button id="edit-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-sm">수정</button>
+                                <button id="delete-post" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('back-to-list').addEventListener('click', renderListView);
+                document.getElementById('edit-post').addEventListener('click', () => showPasswordModal(() => openWriteModal(postId, post.title, post.content)));
+                document.getElementById('delete-post').addEventListener('click', () => showPasswordModal(() => deletePost(postId)));
+            } else {
+                renderListView();
+            }
+        }
+        
+        function openWriteModal(postId = null, title = '', content = '') {
+            currentPostId = postId;
+            modalTitle.textContent = postId ? '글 수정' : '새 글 작성';
+            postTitleInput.value = title;
+            initializeEditor(content);
+            writeModal.classList.remove('hidden');
+        }
+
+        function closeWriteModal() { writeModal.classList.add('hidden'); }
+        cancelPost.addEventListener('click', closeWriteModal);
+        closeModal.addEventListener('click', closeWriteModal);
+        
+        async function savePostData() {
+            const title = postTitleInput.value;
+            const content = simplemde.value();
+            if (!title || !content) {
+                alert('제목과 내용을 모두 입력해주세요.');
+                return;
+            }
+
+            try {
+                if (currentPostId) {
+                    const postRef = doc(db, "notices", currentPostId);
+                    await updateDoc(postRef, { title, content });
+                    renderDetailView(currentPostId);
+                } else {
+                    await addDoc(postsCollection, { title, content, createdAt: new Date() });
+                    renderListView();
+                }
+                closeWriteModal();
+            } catch (error) {
+                console.error("Error saving post: ", error);
+                alert("저장에 실패했습니다. Firebase 설정을 확인해주세요.");
+            }
+        }
+
+        async function deletePost(postId) {
+            if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
+                await deleteDoc(doc(db, "notices", postId));
+                renderListView();
+            }
+        }
+        
+        savePost.addEventListener('click', savePostData);
+
+        function handleHashChange() {
+            const postIdFromHash = window.location.hash.substring(1);
+            if (postIdFromHash) {
+                renderDetailView(postIdFromHash);
+            } else {
+                renderListView();
+            }
+        }
+        
+        window.addEventListener('hashchange', handleHashChange);
+        handleHashChange(); // Initial load
+        
+    </script>
+</body>
+</html>
