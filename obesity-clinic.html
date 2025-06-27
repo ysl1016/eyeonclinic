@@ -1,1 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비만클리닉 - 이연의원 EYEON CLINIC</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body { 
+            font-family: 'Noto Sans KR', sans-serif; 
+        }
+        .main-nav-active { 
+            color: #3b82f6; 
+            font-weight: 700; 
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Tab Styles */
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            color: #ffffff;
+            background-color: #3b82f6;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeInContent 0.5s ease-in-out;
+        }
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이연EYEON</a>
+                    <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료안내</a>
+                    <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
+                    <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이벤트안내</a>
+                    <a href="skin-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md main-nav-active">비만클리닉</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
+                    <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
+                </nav>
+
+                <!-- Mobile Navigation Button -->
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
+            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
+            <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
+            <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
+            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
+            <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600 main-nav-active">비만클리닉</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">공지사항</a>
+            <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
+        </div>
+    </header>
+
+    <main class="py-12 md:py-20">
+        <div class="container mx-auto px-6">
+            <!-- 페이지 헤더 -->
+            <div class="text-center mb-16 fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">비만클리닉</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">단순한 체중 감량을 넘어, 건강한 몸과 삶의 균형을 되찾는 이연의원의 비만 프로그램을 만나보세요.</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="mb-12 no-scrollbar overflow-x-auto">
+                <div id="tab-buttons" class="flex justify-start sm:justify-center border-b-2 border-gray-200 min-w-max">
+                    <button data-tab="obesity-info" class="tab-button whitespace-nowrap text-sm sm:text-base px-6 py-3 text-gray-600 font-medium rounded-t-lg">비만 진료내용</button>
+                    <button data-tab="vanquish" class="tab-button whitespace-nowrap text-sm sm:text-base px-6 py-3 text-gray-600 font-medium rounded-t-lg">뱅퀴시 고주파시술</button>
+                    <button data-tab="medication" class="tab-button whitespace-nowrap text-sm sm:text-base px-6 py-3 text-gray-600 font-medium rounded-t-lg">비만약 바로알기</button>
+                </div>
+            </div>
+            
+            <!-- Tab Content Area -->
+            <div id="tab-contents" class="max-w-6xl mx-auto">
+                <!-- 비만 진료내용 Content -->
+                <div id="obesity-info" class="tab-content space-y-20">
+                    <!-- 원장님의 비만치료 철학 -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                        <div class="text-center mb-8">
+                            <i class="fas fa-quote-left text-3xl text-blue-500"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">원장의 비만치료 철학: 건강한 몸을 위한 동반자</h2>
+                        <p class="text-gray-700 leading-relaxed indent-4">제게 비만치료는 단순히 살을 빼는 것을 넘어, 통증 치료의 연장선상이었습니다. 많은 통증 환자분들에게 체중 감량이 통증 완화의 핵심 열쇠임을 깨달았고, 이를 통해 환자분들이 통증 없는 건강한 몸과 함께 잃어버렸던 자존감까지 되찾는 모습을 보며 큰 보람을 느꼈습니다.</p>
+                        <p class="text-gray-700 leading-relaxed mt-4 indent-4">이연의원의 비만클리닉은 일시적인 체중 감량이 아닌, 평생 건강하게 체중을 유지하고 관리하는 것을 목표로 합니다. 통증과 부작용 없는 최신 시술, 그리고 의학적 근거에 기반한 운동 프로그램을 병행하여 가장 자연스럽고 이상적인 비만 치료를 경험하실 수 있도록 돕겠습니다.</p>
+                    </div>
+
+                    <!-- 이연의원 비만치료 프로그램 -->
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold text-gray-800">이연의원 비만치료 프로그램</h2>
+                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">개인에게 특화된 고주파 시술과 체형교정을 위한 메디컬 필라테스를 결합하여, 가장 안전하고 자연스러운 비만/체형교정 프로그램을 제공합니다.</p>
+                    </div>
+                    
+                    <!-- 뉴-뱅퀴시 -->
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                        <div class="rounded-2xl shadow-xl overflow-hidden">
+                            <img src="images/vanquish.jpg" alt="뉴-뱅퀴시 시술 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">뉴-뱅퀴시 (VANQUISH)</h3>
+                            <p class="text-gray-700 mb-6">피부에 직접 닿지 않는 비접촉성 고주파를 이용하여 지방 세포만을 선택적으로 파괴하는 최신 비만 치료 장비입니다. 미 FDA와 국내 식약처의 허가를 받아 안전성이 입증되었으며, 통증 없이 편안하게 시술받을 수 있습니다.</p>
+                            <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+                                <p class="flex items-center text-blue-800"><i class="fas fa-check-circle mr-2"></i>비접촉성 고주파 치료</p>
+                                <p class="flex items-center text-blue-800"><i class="fas fa-check-circle mr-2"></i>통증 없는 무통 시술</p>
+                                <p class="flex items-center text-blue-800"><i class="fas fa-check-circle mr-2"></i>복부, 허리, 옆구리 등 넓은 부위 동시 시술</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 메디컬 필라테스 -->
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                        <div class="order-2 md:order-1">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">메디컬 필라테스</h3>
+                            <p class="text-gray-700 mb-6">여성과 남성의 신체적 특성을 고려하여 체지방률 감소와 아름다운 바디라인에 초점을 맞춘 '마네킹톤 필라테스' 프로그램을 운영합니다. 근육량에만 치중하는 운동이 아닌, 몸의 균형과 라인을 바로잡는 과학적인 운동법입니다.</p>
+                            <p class="text-xs text-gray-500">* 메디컬 필라테스는 2018년 8월 27일부터 <span class="font-semibold">'필라테스 호두'</span>와 함께하고 있습니다.</p>
+                        </div>
+                        <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
+                             <img src="images/medical-pilates.jpg" alt="메디컬 필라테스 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                        </div>
+                    </div>
+
+                    <!-- 체외충격파 -->
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                        <div class="rounded-2xl shadow-xl overflow-hidden">
+                             <img src="images/eswt.jpg" alt="체외충격파 시술 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">체외충격파 (ESWT)</h3>
+                            <p class="text-gray-700 mb-6">강력한 충격파 에너지를 이용하여 지방이 뭉쳐 생긴 셀룰라이트를 효과적으로 치료하고, 염증성 비만세포를 개선합니다. 방사형과 집중형 충격파를 함께 사용하여 섬세하고 정교한 시술이 가능합니다.</p>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                 <p class="flex items-center text-green-800"><i class="fas fa-check-circle mr-2"></i>울퉁불퉁한 셀룰라이트 개선</p>
+                                 <p class="flex items-center text-green-800 mt-2"><i class="fas fa-check-circle mr-2"></i>염증성 비만세포 치료</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 다른 탭들의 Content 영역 -->
+                <div id="vanquish" class="tab-content"><p class="text-center text-gray-500 py-20">뱅퀴시 고주파시술 컨텐츠가 준비 중입니다.</p></div>
+                <div id="medication" class="tab-content"><p class="text-center text-gray-500 py-20">비만약 바로알기 컨텐츠가 준비 중입니다.</p></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
+            <i class="fab fa-kickstarter-k"></i> <!-- 카카오톡 아이콘 예시 -->
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-opacity opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Tab Navigation Logic ---
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        function switchTab(tabId) {
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
+            const activeContent = document.getElementById(tabId);
+
+            if (activeButton && activeContent) {
+                activeButton.classList.add('active');
+                activeContent.classList.add('active');
+            }
+        }
+
+        function handleHashChange() {
+            const hash = window.location.hash.substring(1);
+            const validTabs = Array.from(tabButtons).map(b => b.dataset.tab);
+
+            if (hash && validTabs.includes(hash)) {
+                switchTab(hash);
+            } else {
+                switchTab('obesity-info');
+            }
+        }
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tabId = button.dataset.tab;
+                window.location.hash = tabId;
+            });
+        });
+
+        window.addEventListener('hashchange', handleHashChange);
+        handleHashChange();
+
+        // --- Other Scripts ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        const topBtn = document.getElementById('top-btn');
+        if(topBtn) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 400) {
+                    topBtn.classList.remove('opacity-0');
+                    topBtn.classList.add('opacity-100');
+                } else {
+                    topBtn.classList.remove('opacity-100');
+                    topBtn.classList.add('opacity-0');
+                }
+            });
+            
+            topBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        faders.forEach(fader => appearOnScroll.observe(fader));
+    });
+    </script>
+</body>
+</html>
 
