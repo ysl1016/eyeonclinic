@@ -389,6 +389,13 @@
         </div>
     </footer>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="relative">
+            <img id="modalImage" src="" alt="Enlarged Image" class="max-w-full max-h-screen object-contain">
+            <button id="closeModal" class="absolute top-4 right-4 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center leading-none">&times;</button>
+        </div>
+    </div>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // --- Tab Navigation Logic ---
@@ -498,12 +505,5 @@
             }
         });
     </script>
-            <!-- Image Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="relative">
-            <img id="modalImage" src="" alt="Enlarged Image" class="max-w-full max-h-screen object-contain">
-            <button id="closeModal" class="absolute top-4 right-4 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center leading-none">&times;</button>
-        </div>
-    </div>
 </body>
 </html>
