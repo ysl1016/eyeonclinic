@@ -231,13 +231,14 @@
         </div>
     </div>
     
-    <div id="password-modal" class="modal">
+    <div id="login-modal" class="modal">
         <div class="modal-content max-w-sm">
-            <h4 class="font-bold mb-4">관리자 비밀번호를 입력하세요.</h4>
-            <input type="password" id="admin-password" class="w-full p-2 border rounded-md">
+            <h4 class="font-bold mb-4">관리자 로그인</h4>
+            <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md mb-2">
+            <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md">
             <div class="flex justify-end mt-4">
-                 <button id="cancel-password" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
-                <button id="submit-password" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">확인</button>
+                 <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submit-login" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">로그인</button>
             </div>
         </div>
     </div>
@@ -290,6 +291,7 @@
     <!-- Firebase SDK & App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
         import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
         
         /* * DR_BreakFast님, 여기에 1단계에서 복사한 Firebase 구성 정보를 붙여넣어 주세요.
@@ -306,7 +308,9 @@
           measurementId: "G-FMRGG5P8H6"
         };
         
-        const ADMIN_PASSWORD = "Jeje@@1016"; // <-- 여기에 강력한 관리자 비밀번호를 설정하세요
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
 
         try {
             const app = initializeApp(firebaseConfig);
