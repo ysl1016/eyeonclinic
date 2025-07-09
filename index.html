@@ -4,17 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이연의원 EYEON CLINIC - 메인 페이지</title>
-    <!-- ... 기존 head 코드 ... -->
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="이연의원. 통증, 스포츠의학, 기능의학, 피부, 비만 클리닉. 환자 중심의 근본적인 치료를 제공합니다. 경기도 용인시 수지구 신봉동 위치.">
+    <meta name="keywords" content="이연의원, 용인 피부과, 수지 피부과, 신봉동 피부과, 통증 클리닉, 스포츠의학, 기능의학, 보톡스, 리프팅, 비만 클리닉">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .nav-active {
+            color: #3b82f6; /* Tailwind blue-500 */
+            font-weight: 700;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Slideshow Styles */
+        .slide {
+            transition: opacity 1.5s ease-in-out;
+        }
+        .dot.active {
+            background-color: #3b82f6;
+        }
+        #slideshow-container {
+            cursor: grab;
+            user-select: none; /* Prevent text selection during drag */
+        }
+        #slideshow-container.grabbing {
+            cursor: grabbing;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
+
     <!-- Header & Navigation -->
-    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                
                 <!-- Desktop Navigation -->
-                <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md main-nav-active">이연EYEON</a>
+                <nav class="hidden lg:flex items-center space-x-4 text-sm">
+                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md nav-active">이연EYEON</a>
                     <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료안내</a>
                     <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
                     <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
@@ -24,15 +75,17 @@
                     <a href="notice.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
                     <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
                 </nav>
+
                 <!-- Mobile Navigation Button -->
                 <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
                     <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
+
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
-            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600 main-nav-active">이연EYEON</a>
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600 nav-active">이연EYEON</a>
             <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
             <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
             <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
@@ -43,6 +96,303 @@
             <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
         </div>
     </header>
-    <!-- ... 이하 기존 코드 ... -->
+
+    <main>
+        <!-- Slideshow container -->
+        <div id="slideshow-container" class="relative w-full h-[60vh] md:h-[85vh] overflow-hidden">
+            <!-- Slides -->
+            <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main1.jpeg');"></div>
+            <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main2.jpeg');"></div>
+            <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main3.jpeg');"></div>
+            <div class="slide absolute inset-0 w-full h-full bg-cover bg-center opacity-0" style="background-image: url('images/main4.jpeg');"></div>
+            
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/30"></div>
+
+            <!-- Navigation Dots -->
+            <div id="dots-container" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
+                <!-- Dots will be generated by JavaScript -->
+            </div>
+        </div>
+
+        
+        <!-- Info Section -->
+        <div class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 space-y-16">
+                 <!-- Clinic Specialities -->
+                 <div class="fade-in text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">이연의원만의 특별한 진료</h2>
+                    <p class="text-gray-600 mb-10">차별화된 전문성으로 최상의 의료 서비스를 제공합니다.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                             <div class="text-blue-500 mb-4"><i class="fas fa-smile fa-3x"></i></div>
+                             <h3 class="text-xl font-bold mb-2">피부/윤곽 클리닉</h3>
+                             <p class="text-gray-600">최신 장비와 기술로 개인 맞춤형 아름다움을 찾아드립니다.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                             <div class="text-blue-500 mb-4"><i class="fas fa-weight-scale fa-3x"></i></div>
+                             <h3 class="text-xl font-bold mb-2">비만 클리닉</h3>
+                             <p class="text-gray-600">요요없는 건강한 다이어트, 이연의원이 함께합니다.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                             <div class="text-blue-500 mb-4"><i class="fas fa-running fa-3x"></i></div>
+                             <h3 class="text-xl font-bold mb-2">통증/스포츠의학</h3>
+                             <p class="text-gray-600">정확한 진단으로 만성 통증과 스포츠 손상을 치료합니다.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                             <div class="text-blue-500 mb-4"><i class="fas fa-leaf fa-3x"></i></div>
+                             <h3 class="text-xl font-bold mb-2">기능의학 클리닉</h3>
+                             <p class="text-gray-600">세포기능, 영양상태 평가로 만성질환의 근본 원인을 치료합니다.</p>
+                        </div>
+                    </div>
+                 </div>
+
+                <!-- Notices -->
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">공지사항</h2>
+                    <div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center pb-2 border-b">
+                                <a href="#" class="text-gray-700 hover:text-blue-600">[안내] 2025년 하계 휴진 안내</a>
+                                <span class="text-sm text-gray-500">2025.07.01</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b">
+                                <a href="#" class="text-gray-700 hover:text-blue-600">[이벤트] 6월 피부/쁘띠 이벤트 시작</a>
+                                <span class="text-sm text-gray-500">2025.06.16</span>
+                            </li>
+                             <li class="flex justify-between items-center pb-2 border-b">
+                                <a href="#" class="text-gray-700 hover:text-blue-600">[안내] 비급여 항목 비용 변경 안내</a>
+                                <span class="text-sm text-gray-500">2020.03.02</span>
+                            </li>
+                             <li class="flex justify-between items-center">
+                                <a href="#" class="text-gray-700 hover:text-blue-600">이연의원 홈페이지 보수</a>
+                                <span class="text-sm text-gray-500">2025.06.27</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
+            <i class="fab fa-kickstarter-k"></i> <!-- Example for KakaoTalk icon -->
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-opacity opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Header transparency on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.remove('bg-white/80', 'backdrop-blur-md');
+                    header.classList.add('bg-white', 'shadow-lg');
+                } else {
+                    header.classList.add('bg-white/80', 'backdrop-blur-md');
+                    header.classList.remove('bg-white', 'shadow-lg');
+                }
+            });
+            
+            // Scroll to top button
+            const topBtn = document.getElementById('top-btn');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 400) {
+                    topBtn.classList.remove('opacity-0');
+                    topBtn.classList.add('opacity-100');
+                } else {
+                    topBtn.classList.remove('opacity-100');
+                    topBtn.classList.add('opacity-0');
+                }
+            });
+            
+            topBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Fade-in animation for sections below the slideshow
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // --- Slideshow with Drag/Swipe Logic ---
+            const slideshowContainer = document.getElementById('slideshow-container');
+            const slides = document.querySelectorAll('.slide');
+            const dotsContainer = document.getElementById('dots-container');
+            let currentSlide = 0;
+            let slideInterval;
+            
+            // Swipe/Drag variables
+            let isDragging = false;
+            let startPos = 0;
+            let currentX = 0;
+            let initialY = 0;
+            let isScrolling = false;
+
+            // Create navigation dots
+            slides.forEach((slide, index) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot', 'w-3', 'h-3', 'bg-white', 'rounded-full', 'cursor-pointer', 'transition-colors');
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    resetInterval();
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('opacity-100'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('opacity-100');
+                dots[currentSlide].classList.add('active');
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            function resetInterval() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            // --- Event Handlers for Drag/Swipe ---
+            function dragStart(e) {
+                isDragging = true;
+                isScrolling = false;
+                startPos = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                initialY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+                clearInterval(slideInterval);
+                slideshowContainer.classList.add('grabbing');
+            }
+
+            function dragMove(e) {
+                if (!isDragging) return;
+
+                const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+                if (isScrolling) return;
+
+                const diffX = Math.abs(x - startPos);
+                const diffY = Math.abs(y - initialY);
+                
+                if (diffY > diffX && diffY > 10) { 
+                    isScrolling = true;
+                    isDragging = false; 
+                    slideshowContainer.classList.remove('grabbing');
+                    return;
+                }
+                
+                if (diffX > 10) {
+                    e.preventDefault();
+                }
+                currentX = x;
+            }
+
+            function dragEnd(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                slideshowContainer.classList.remove('grabbing');
+                
+                if (!isScrolling) {
+                    const endPos = currentX;
+                    const moveThreshold = 50; 
+                    
+                    if (startPos - endPos > moveThreshold) {
+                        nextSlide();
+                    } else if (endPos - startPos > moveThreshold) {
+                        prevSlide();
+                    }
+                }
+                
+                resetInterval();
+            }
+
+            // Mouse Event Listeners
+            slideshowContainer.addEventListener('mousedown', dragStart);
+            slideshowContainer.addEventListener('mouseup', dragEnd);
+            slideshowContainer.addEventListener('mouseleave', dragEnd);
+            slideshowContainer.addEventListener('mousemove', dragMove);
+
+            // Touch Event Listeners
+            slideshowContainer.addEventListener('touchstart', dragStart, { passive: true });
+            slideshowContainer.addEventListener('touchend', dragEnd);
+            slideshowContainer.addEventListener('touchmove', dragMove, { passive: false });
+
+            // Initial setup
+            showSlide(0);
+            resetInterval();
+        });
+    </script>
 </body>
 </html>
