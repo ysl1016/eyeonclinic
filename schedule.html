@@ -384,8 +384,70 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
 
-    <script>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB-LCbB5jfGfoi5BS6qRdfxzrbHbe6vWr4",
+          authDomain: "eyeon-clinic-website.firebaseapp.com",
+          projectId: "eyeon-clinic-website",
+          storageBucket: "eyeon-clinic-website.firebasestorage.app",
+          messagingSenderId: "765605581069",
+          appId: "1:765605581069:web:ee49f0531ff0b55b72a044",
+          measurementId: "G-FMRGG5P8H6"
+      };
+        
+       // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const scheduleCollection = collection(db, "schedule");
+
+        // --- DOM Elements ---
+        const calendarBody = document.getElementById('calendarBody');
+        const currentMonthEl = document.getElementById('currentMonth');
+        const modal = document.getElementById('scheduleModal');
+        const passwordModal = document.getElementById('password-modal');
+        const adminToggleBtn = document.getElementById('adminToggle');
+
+        // --- State Variables ---
+        let currentDate = new Date();
+        let selectedDateStr = null;
+        let isAdminMode = false;
+        let scheduleData = {};
+        let currentAction = null;
+        const ADMIN_PASSWORD = "Jeje@@1016"; // <-- 여기에 강력한 비밀번호를 설정하세요
+
+        // --- Realtime Data Sync with Firebase ---
+        onSnapshot(scheduleCollection, (snapshot) => {
+            scheduleData = {};
+            snapshot.forEach((doc) => {
+                scheduleData[doc.id] = doc.data();
+            });
+            renderCalendar(); // 데이터 변경 시 달력 다시 그리기
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             // 기본 설정
             let currentDate = new Date();
@@ -672,6 +734,57 @@
             loadScheduleData();
             renderCalendar();
         });
+        // --- Admin & Modal Logic ---
+        function showPasswordModal(action) {
+            currentAction = action;
+            passwordModal.classList.add('active');
+            document.getElementById('admin-password').focus();
+        }
+        
+        document.getElementById('submit-password').addEventListener('click', () => {
+            if (document.getElementById('admin-password').value === ADMIN_PASSWORD) {
+                passwordModal.classList.remove('active');
+                document.getElementById('admin-password').value = '';
+                currentAction();
+            } else {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        });
+        
+        adminToggleBtn.addEventListener('click', () => {
+            if (isAdminMode) {
+                isAdminMode = false;
+                adminToggleBtn.textContent = '관리자 모드';
+                adminToggleBtn.classList.replace('bg-blue-600', 'bg-gray-600');
+                document.body.classList.remove('admin-mode');
+            } else {
+                showPasswordModal(() => {
+                    isAdminMode = true;
+                    adminToggleBtn.textContent = '관리자 모드 종료';
+                    adminToggleBtn.classList.replace('bg-gray-600', 'bg-blue-600');
+                    document.body.classList.add('admin-mode');
+                });
+            }
+            renderCalendar(); // 모드 변경 시 클릭 이벤트 재설정을 위해 다시 렌더링
+        });
+        
+        // --- CRUD with Firebase ---
+        async function saveSchedule() {
+            // ...
+            const scheduleDocRef = doc(db, "schedule", selectedDateStr);
+            await setDoc(scheduleDocRef, dataToSave);
+            // ...
+        }
+
+        async function deleteSchedule() {
+            // ...
+            await deleteDoc(doc(db, "schedule", selectedDateStr));
+            // ...
+        }
+
+        // --- Initial Load ---
+        renderCalendar();
+   
     </script>
 </body>
 </html>
