@@ -4,52 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이벤트안내 - 이연의원 EYEON CLINIC</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Noto Sans KR -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <style>
-        body { 
-            font-family: 'Noto Sans KR', sans-serif; 
-        }
-        .main-nav-active { 
-            color: #3b82f6; 
-            font-weight: 700; 
-        }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .event-card {
-            transition: all 0.3s ease;
-        }
-        .event-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-    </style>
+    <!-- ... 기존 head 코드 ... -->
 </head>
 <body class="bg-gray-100">
-
     <!-- Header & Navigation -->
     <header id="header" class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
-                
                 <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-1 text-sm">
                     <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이연EYEON</a>
@@ -62,14 +24,12 @@
                     <a href="notice.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
                     <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
                 </nav>
-
                 <!-- Mobile Navigation Button -->
                 <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
                     <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
-
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
@@ -83,203 +43,6 @@
             <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
         </div>
     </header>
-
-    <main class="py-12 md:py-20">
-        <div class="container mx-auto px-6">
-            <!-- 페이지 헤더 -->
-            <div class="text-center mb-16 fade-in">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">이벤트 안내</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">이연의원에서 준비한 특별한 혜택으로<br>건강과 아름다움을 동시에 관리하세요.</p>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-6 rounded-full"></div>
-            </div>
-
-            <!-- 2025년 7월 이벤트 -->
-            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 fade-in">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-gray-800">2025년 7월 여름맞이 이벤트</h2>
-                    <p class="mt-4 text-gray-600">폭염과 함께 찾아온 7월, 이연의원에서 준비한 쿨한 혜택으로<br>짙어진 잡티, 푸석한 모발, 늘어난 체중 고민을 해결하세요!</p>
-                    <div class="mt-4 text-lg font-semibold text-white bg-blue-600 inline-block px-4 py-1 rounded-full">
-                        이벤트 기간: 2025년 7월 10일 (목) ~ 7월 24일 (목)
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Event cards... -->
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-blue-500">
-                        <h3 class="font-bold text-lg text-gray-800">화이트닝 기본패키지</h3>
-                        <p class="text-sm text-gray-500 mb-4">잡티 없는 맑은 피부</p>
-                        <p class="text-4xl font-extrabold text-blue-600">44.0<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">레이저토닝 10회 + 색소레이저 1회</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-green-500">
-                        <h3 class="font-bold text-lg text-gray-800">파워풀 화이트닝</h3>
-                        <p class="text-sm text-gray-500 mb-4">기미특화 레이저시술</p>
-                        <p class="text-4xl font-extrabold text-green-600">77.0<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">듀얼토닝 6회 + 제네시스 4회</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-red-500">
-                        <h3 class="font-bold text-lg text-gray-800">하이드로리프팅</h3>
-                        <p class="text-sm text-gray-500 mb-4">주름/탄력/보습 한번에</p>
-                        <p class="text-4xl font-extrabold text-red-600">16.5<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">하이드로리프팅 1회 + 주름보톡스 1부위</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-orange-500">
-                        <h3 class="font-bold text-lg text-gray-800">슈퍼젯 리프팅 패키지</h3>
-                        <p class="text-sm text-gray-500 mb-4">강력한 V라인 리프팅</p>
-                        <p class="text-4xl font-extrabold text-orange-600">33.0<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">에어젯 1회 + 슈링크 200샷</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-purple-500">
-                        <h3 class="font-bold text-lg text-gray-800">슈링크 여름맞이 특가</h3>
-                        <p class="text-sm text-gray-500 mb-4">갸름한 턱선 집중 공략</p>
-                        <p class="text-4xl font-extrabold text-purple-600">8.8<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">슈링크 300샷</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-teal-500">
-                        <h3 class="font-bold text-lg text-gray-800">프락셀 패키지</h3>
-                        <p class="text-sm text-gray-500 mb-4">모공/흉터 개선</p>
-                        <p class="text-4xl font-extrabold text-teal-600">44.0<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">프락셀 2회 + 줄기재생앰플 2회</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-red-500">
-                        <h3 class="font-bold text-lg text-gray-800">여드름 아트레이저</h3>
-                        <p class="text-sm text-gray-500 mb-4">염증성 여드름 치료</p>
-                        <p class="text-4xl font-extrabold text-red-600">38.5<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">아트레이저 4회</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-yellow-500">
-                        <h3 class="font-bold text-lg text-gray-800">뉴-뱅퀴시</h3>
-                        <p class="text-sm text-gray-500 mb-4">통증없이 체지방만 쏙!</p>
-                        <p class="text-4xl font-extrabold text-yellow-600">28.6<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">복부 4회 (비만약 1개월 처방료 무료)</p>
-                    </div>
-                    <div class="event-card bg-gray-50 rounded-xl p-6 border-t-4 border-pink-500">
-                        <h3 class="font-bold text-lg text-gray-800">두피 메조테라피</h3>
-                        <p class="text-sm text-gray-500 mb-4">모발을 풍성하게</p>
-                        <p class="text-4xl font-extrabold text-pink-600">44.0<span class="text-xl font-medium ml-1">만원</span></p>
-                        <p class="mt-2 text-gray-700 font-semibold">두피시술 10회 (탈모약 처방료 별도)</p>
-                    </div>
-                </div>
-
-                <div class="mt-12 text-center text-sm text-gray-500 border-t pt-6">
-                    <p><i class="fas fa-exclamation-circle mr-1"></i> 본 이벤트는 기간 한정 이벤트로 1인 1회 등록 가능하며, 인원 초과 시 공지 없이 조기 마감될 수 있습니다.</p>
-                </div>
-            </div>
-
-            <!-- 지도 및 문의 섹션 -->
-            <div class="mt-20 fade-in">
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div class="w-full">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.940244598565!2d127.10477731531038!3d37.31466427984074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b5d3f1a9e3c5d%3A0x2b2a3c1a3a3a3a3a!2z6rK96riw64-EIOyaqeyngOyLnCDsiJjsp4Dqtawg7Iug67SJMuuhnCAxNQ!5e0!3m2!1sko!2skr!4v1624000000000!5m2!1sko!2skr"
-                            width="100%" 
-                            height="300" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                    <div class="p-6 text-center">
-                        <p class="font-semibold text-gray-700"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</p>
-                    </div>
-                </div>
-                <div class="mt-6 text-center">
-                     <a href="tel:031-896-3800" class="inline-block bg-blue-800 text-white font-bold text-lg py-4 px-10 rounded-lg hover:bg-blue-900 transition-colors shadow-lg w-full max-w-md">
-                        <i class="fas fa-phone-volume mr-3"></i>7월 이벤트 문의 바로연결
-                    </a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-6 right-6 space-y-3 z-40">
-        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
-            <i class="fas fa-phone fa-lg"></i>
-        </a>
-        <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
-            <i class="fab fa-kickstarter-k"></i>
-        </a>
-        <button id="top-btn" class="w-14 h-14 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-opacity opacity-0">
-            <i class="fas fa-arrow-up fa-lg"></i>
-        </button>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-16">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
-                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">진료시간</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
-                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
-                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
-                        <li>점심시간: 13:00 - 14:00</li>
-                        <li>일요일/공휴일: 휴진</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
-                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
-                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
-                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if(mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-        
-        // Scroll to top button
-        const topBtn = document.getElementById('top-btn');
-        if(topBtn) {
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 400) {
-                    topBtn.classList.remove('opacity-0');
-                    topBtn.classList.add('opacity-100');
-                } else {
-                    topBtn.classList.remove('opacity-100');
-                    topBtn.classList.add('opacity-0');
-                }
-            });
-            
-            topBtn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
-        // Fade-in animation
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-        faders.forEach(fader => appearOnScroll.observe(fader));
-    });
-    </script>
+    <!-- ... 이하 기존 코드 ... -->
 </body>
 </html>
