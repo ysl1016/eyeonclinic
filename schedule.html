@@ -244,7 +244,7 @@
                 </div>
                 <div class="flex gap-3 pt-2">
                     <button id="saveSchedule" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300"><i class="fas fa-save mr-2"></i>저장</button>
-                    <button id="deleteSchedule" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"><i class="fas fa-trash mr-2"></i>초기화</button>
+                    <button id="deleteSchedule" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"><i class="fas fa-trash mr-2"></i>삭제</button>
                 </div>
             </div>
         </div>
@@ -261,6 +261,16 @@
             <div class="flex justify-end mt-4">
                  <button id="cancelLogin" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
                 <button id="submitLogin" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-blue-300">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 id="confirmMessage" class="font-bold mb-4 text-center"></h4>
+            <div class="flex justify-center mt-6">
+                <button id="cancelConfirm" class="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-4">취소</button>
+                <button id="confirmAction" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">확인</button>
             </div>
         </div>
     </div>
@@ -350,12 +360,14 @@
         // Modals
         const scheduleModal = document.getElementById('scheduleModal');
         const loginModal = document.getElementById('loginModal');
+        const confirmModal = document.getElementById('confirmModal');
 
         // --- State Variables ---
         let currentDate = new Date();
         let selectedDateStr = null;
         let isAdminMode = false;
         let scheduleData = {};
+        let confirmCallback = null;
 
         // --- Toast Notification ---
         function showToast(message, isError = false) {
@@ -513,6 +525,12 @@
             scheduleModal.classList.add('active');
         }
 
+        function showConfirmModal(message, callback) {
+            document.getElementById('confirmMessage').textContent = message;
+            confirmCallback = callback;
+            confirmModal.classList.add('active');
+        }
+
         async function saveSchedule() {
             const type = document.getElementById('scheduleType').value;
             const memo = document.getElementById('scheduleMemo').value;
@@ -545,16 +563,20 @@
             }
         }
 
-        async function deleteSchedule() {
+        async function performDelete() {
             if (scheduleData[selectedDateStr]) {
                 try {
                     await deleteDoc(doc(db, "schedule", selectedDateStr));
-                    showToast('일정이 초기화되었습니다.');
+                    showToast('일정이 삭제되었습니다.');
                 } catch (error) {
                     showToast('삭제 실패: ' + error.message, true);
                 }
             }
             scheduleModal.classList.remove('active');
+        }
+
+        function deleteSchedule() {
+            showConfirmModal(`${selectedDateStr}의 일정을 정말 삭제하시겠습니까?`, performDelete);
         }
         
         // --- Event Listeners ---
@@ -571,25 +593,52 @@
         
         // Login Modal Listeners
         document.getElementById('cancelLogin').addEventListener('click', () => loginModal.classList.remove('active'));
-        document.getElementById('submitLogin').addEventListener('click', async () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+        
+        const submitLoginBtn = document.getElementById('submitLogin');
+        const loginEmailInput = document.getElementById('loginEmail');
+        const loginPasswordInput = document.getElementById('loginPassword');
+
+        const handleLogin = async () => {
+            const email = loginEmailInput.value;
+            const password = loginPasswordInput.value;
             const errorP = document.getElementById('loginError');
-            const loginBtn = document.getElementById('submitLogin');
 
             errorP.textContent = '';
-            loginBtn.disabled = true;
+            submitLoginBtn.disabled = true;
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
                 loginModal.classList.remove('active');
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
+                loginEmailInput.value = '';
+                loginPasswordInput.value = '';
             } catch (error) {
                 errorP.textContent = '로그인 정보가 올바르지 않습니다.';
             } finally {
-                loginBtn.disabled = false;
+                submitLoginBtn.disabled = false;
             }
+        };
+
+        submitLoginBtn.addEventListener('click', handleLogin);
+
+        const handleLoginKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleLogin();
+            }
+        };
+
+        loginEmailInput.addEventListener('keydown', handleLoginKeyPress);
+        loginPasswordInput.addEventListener('keydown', handleLoginKeyPress);
+
+        // Confirm Modal Listeners
+        document.getElementById('cancelConfirm').addEventListener('click', () => {
+            confirmModal.classList.remove('active');
+        });
+        document.getElementById('confirmAction').addEventListener('click', () => {
+            if (confirmCallback) {
+                confirmCallback();
+            }
+            confirmModal.classList.remove('active');
         });
 
         // --- General Page Scripts ---
