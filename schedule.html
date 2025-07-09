@@ -291,19 +291,19 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
         
         /* * DR_BreakFast님, 여기에 1단계에서 복사한 Firebase 구성 정보를 붙여넣어 주세요.
          * 이 정보가 없으면 데이터베이스에 연결할 수 없습니다.
          */
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
-            apiKey: "AIzaSyB-LCbB5jfGfoi5BS6qRdfxzrbHbe6vWr4",
-            authDomain: "eyeon-clinic-website.firebaseapp.com",
-            projectId: "eyeon-clinic-website",
-            storageBucket: "eyeon-clinic-website.firebasestorage.app",
-            messagingSenderId: "765605581069",
-            appId: "1:765605581069:web:ee49f0531ff0b55b72a044",
-            measurementId: "G-FMRGG5P8H6"
+          apiKey: "AIzaSyB-LCbB5jfGfoi5BS6qRdfxzrbHbe6vWr4",
+          authDomain: "eyeon-clinic-website.firebaseapp.com",
+          projectId: "eyeon-clinic-website",
+          storageBucket: "eyeon-clinic-website.firebasestorage.app",
+          messagingSenderId: "765605581069",
+          appId: "1:765605581069:web:ee49f0531ff0b55b72a044",
+          measurementId: "G-FMRGG5P8H6"
         };
         
         const ADMIN_PASSWORD = "Jeje@@1016"; // <-- 여기에 강력한 관리자 비밀번호를 설정하세요
@@ -311,7 +311,6 @@
         try {
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
-            const analytics = getAnalytics(app);
             const scheduleCollection = collection(db, "schedule");
 
             // --- DOM Elements ---
