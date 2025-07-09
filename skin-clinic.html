@@ -143,14 +143,14 @@
                             </div>
                         </div>
                         <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/pico-toning.jpeg" alt="피코토닝 시술 이미지" class="w-full h-full object-cover">
+                            <img src="images/pico-toning.jpeg" alt="피코토닝 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
                         </div>
                     </div>
 
                     <!-- 턱보톡스 -->
                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                         <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/jaw-botox.jpeg" alt="턱보톡스 시술 이미지" class="w-full h-full object-cover">
+                            <img src="images/jaw-botox.jpeg" alt="턱보톡스 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-4">턱 보톡스</h3>
@@ -173,14 +173,14 @@
                             </div>
                         </div>
                         <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/facial-botox.jpeg" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover">
+                            <img src="images/facial-botox.jpeg" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
                         </div>
                     </div>
 
                     <!-- 파워 V-리프팅 -->
                      <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                         <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/power-lifting.jpeg" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover">
+                            <img src="images/power-lifting.jpeg" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-4">파워 V-리프팅</h3>
@@ -246,7 +246,7 @@
                     <!-- 제모 시 유의사항 -->
                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                         <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/hair-removal-info.jpeg" alt="제모 시술 정보" class="w-full h-full object-cover">
+                            <img src="images/hair-removal-info.jpeg" alt="제모 시술 정보" class="w-full h-full object-cover gallery-image cursor-pointer">
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-4">레이저 제모 시 유의사항</h3>
@@ -302,14 +302,14 @@
                             </div>
                         </div>
                         <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-scaling.jpeg" alt="여드름 스켈링 시술 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                            <img src="images/acne-scaling.jpeg" alt="여드름 스켈링 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
                         </div>
                     </div>
 
                     <!-- 아트레이저 -->
                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                         <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-art-laser.jpeg" alt="아트레이저 시술 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                            <img src="images/acne-art-laser.jpeg" alt="아트레이저 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-4">여드름 염증/붉음증: 아트레이저</h3>
@@ -332,7 +332,7 @@
                             </div>
                         </div>
                         <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-scar-laser.jpeg" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                            <img src="images/acne-scar-laser.jpeg" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
                         </div>
                     </div>
                 </div>
@@ -680,6 +680,14 @@
         </div>
     </footer>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="relative">
+            <img id="modalImage" src="" alt="Enlarged Image" class="max-w-full max-h-screen object-contain">
+            <button id="closeModal" class="absolute top-4 right-4 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center leading-none">&times;</button>
+        </div>
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // --- Tab Navigation Logic ---
@@ -752,6 +760,32 @@
             });
         }, appearOptions);
         faders.forEach(fader => appearOnScroll.observe(fader));
+
+        // --- Image Modal Logic ---
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        const galleryImages = document.querySelectorAll('.gallery-image');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', function() {
+                modalImage.src = this.src;
+                imageModal.classList.remove('hidden');
+            });
+        });
+
+        closeModal.addEventListener('click', function() {
+            imageModal.classList.add('hidden');
+            modalImage.src = ''; // Clear image src
+        });
+
+        // Close modal when clicking outside the image
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.classList.add('hidden');
+                modalImage.src = '';
+            }
+        });
     });
     </script>
 </body>
