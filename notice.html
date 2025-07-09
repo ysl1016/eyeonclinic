@@ -62,7 +62,15 @@
 
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
-            <!-- Mobile menu links here... -->
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
+            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
+            <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
+            <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
+            <a href="events.html" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
+            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
+            <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
+            <a href="notice.html" class="block py-2 text-gray-700 hover:text-blue-600 main-nav-active">공지사항</a>
+            <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
         </div>
     </header>
 
@@ -361,6 +369,13 @@
             }
         }
         
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
         window.addEventListener('hashchange', handleHashChange);
         handleHashChange(); // Initial load
         
