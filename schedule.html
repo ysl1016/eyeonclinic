@@ -506,10 +506,10 @@
                             
                             date++;
                         }
+                        row.appendChild(cell); // Corrected: append cell inside inner loop
                     }
                     
-                    row.appendChild(cell);
-                    calendarBody.appendChild(row);
+                    calendarBody.appendChild(row); // Corrected: append row after inner loop
                     
                     // 모든 날짜를 표시했으면 중단
                     if (date > lastDate) {
