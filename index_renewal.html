@@ -35,7 +35,6 @@
             font-family: 'Manrope', sans-serif;
         }
         
-        /* Dr. LEE 텍스트를 위한 초기 폰트 'Inter' 클래스 추가 */
         .font-inter {
             font-family: 'Inter', sans-serif;
         }
@@ -56,6 +55,7 @@
         .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
         .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
 
+        /* 기본 스크롤 애니메이션 */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -67,9 +67,19 @@
             transform: translateY(0);
         }
 
-        /* 헤더 스크롤 효과를 위한 클래스 */
+        /* 저널 카드를 위한 부드러운 애니메이션 */
+        .reveal-journal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal-journal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
         .header-scrolled {
-            background-color: rgba(248, 248, 248, 0.85); /* 오프화이트 배경에 블러 효과 */
+            background-color: rgba(248, 248, 248, 0.85);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
@@ -105,10 +115,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- 
-      네비게이션 바 (Header)
-      - JavaScript를 통해 스크롤 위치에 따라 텍스트 색상이 동적으로 변경됩니다.
-    -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-5">
             <div class="flex justify-between items-center">
@@ -207,13 +213,9 @@
             </div>
         </section>
 
-        <!-- 
-          원장 철학 섹션 - 디자인 최종 수정
-        -->
         <section class="bg-white py-20 md:py-32">
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    <!-- 왼쪽: Dr. Lee 네이비 박스 (폰트 크기 조정) -->
                     <div class="relative rounded-2xl shadow-lg w-full h-[600px] lg:h-auto lg:min-h-[700px] overflow-hidden reveal bg-deep-navy">
                         <div class="relative z-10 flex flex-col justify-center items-center h-full text-white text-center p-8 md:p-12">
                             <h3 class="font-inter font-bold tracking-wider" style="font-size: 5.67rem; line-height: 1;">Dr. LEE</h3>
@@ -223,9 +225,8 @@
                         </div>
                     </div>
                     
-                    <!-- 오른쪽: 설명 텍스트 -->
                     <div class="reveal">
-                        <h2 class="font-eng text-[2.06rem] md:text-[2.47rem] font-bold tracking-tighter text-deep-navy">The Architect of EYEON</h2>
+                        <h2 class="font-eng text-[2.06rem] md:text-[2.47rem] font-bold tracking-tighter text-deep-navy">Architect of EYEON</h2>
                         <p class="mt-6 text-lg text-deep-navy opacity-80 leading-relaxed">
                             "아름다움은 단순히 피부 표면의 문제가 아닙니다. 저는 가정의학 전문의로서, 한 사람의 건강 상태, 생활 습관, 그리고 데이터에 기반한 과학적 분석을 통해 노화의 근본 원인을 찾습니다. 스포츠의학으로 신체의 균형을 바로잡고, 기능의학으로 내면의 건강을 채우며, 최신 AI 기술로 가장 정밀한 솔루션을 설계합니다. 이것이 바로 이연(EYEON)이 추구하는 통합적 안티에이징의 핵심입니다."
                         </p>
@@ -243,11 +244,11 @@
         <section class="py-20 md:py-32">
             <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto reveal">
-                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">The EYEON Journal</h2>
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Journal of EYEON</h2>
                     <p class="mt-4 text-deep-navy opacity-70 text-lg">최신 의학 정보와 데이터 과학으로 풀어내는 안티에이징의 비밀. 이연의원의 인사이트를 만나보세요.</p>
                 </div>
                 <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal">
                         <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2930&auto=format&fit=crop" class="w-full h-56 object-cover" alt="AI와 피부 과학 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+1';">
                         <div class="p-8">
                             <p class="text-sm font-semibold text-metallic-copper">DEEP DIVE</p>
@@ -255,7 +256,7 @@
                             <a href="#" class="mt-4 font-semibold text-emerald-teal inline-block">Read More</a>
                         </div>
                     </div>
-                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal" style="transition-delay: 100ms;">
+                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal" style="transition-delay: 150ms;">
                         <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=2940&auto=format&fit=crop" class="w-full h-56 object-cover" alt="스포츠 의학과 통증 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+2';">
                         <div class="p-8">
                             <p class="text-sm font-semibold text-metallic-copper">SPORTS MEDICINE</p>
@@ -263,7 +264,7 @@
                             <a href="#" class="mt-4 font-semibold text-emerald-teal inline-block">Read More</a>
                         </div>
                     </div>
-                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal" style="transition-delay: 200ms;">
+                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal" style="transition-delay: 300ms;">
                         <img src="https://images.unsplash.com/photo-1528716321680-815a8cdb8cbe?q=80&w=2831&auto=format&fit=crop" class="w-full h-56 object-cover" alt="기능의학과 영양 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+3';">
                         <div class="p-8">
                             <p class="text-sm font-semibold text-metallic-copper">FUNCTIONAL MEDICINE</p>
@@ -314,7 +315,6 @@
 
             const handleScroll = () => {
                 if (window.scrollY > 50) {
-                    // 스크롤 내렸을 때
                     header.classList.add('header-scrolled');
                     headerLogo.classList.remove('text-white');
                     headerLogo.classList.add('text-deep-navy');
@@ -325,7 +325,6 @@
                         item.classList.add('text-deep-navy');
                     });
                 } else {
-                    // 최상단일 때
                     header.classList.remove('header-scrolled');
                     headerLogo.classList.remove('text-deep-navy');
                     headerLogo.classList.add('text-white');
@@ -339,14 +338,14 @@
             };
 
             window.addEventListener('scroll', handleScroll);
-            handleScroll(); // 초기 로딩 시에도 한 번 실행
+            handleScroll(); 
 
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', function () {
                 mobileMenu.classList.toggle('hidden');
             });
 
-            const revealElements = document.querySelectorAll('.reveal');
+            const revealElements = document.querySelectorAll('.reveal, .reveal-journal');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
