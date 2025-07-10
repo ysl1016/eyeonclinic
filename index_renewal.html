@@ -67,8 +67,9 @@
             transform: translateY(0);
         }
 
+        /* 헤더 스크롤 효과를 위한 클래스 */
         .header-scrolled {
-            background-color: rgba(248, 248, 248, 0.85);
+            background-color: rgba(248, 248, 248, 0.85); /* 오프화이트 배경에 블러 효과 */
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
@@ -104,22 +105,26 @@
 </head>
 <body class="antialiased">
 
+    <!-- 
+      네비게이션 바 (Header)
+      - JavaScript를 통해 스크롤 위치에 따라 텍스트 색상이 동적으로 변경됩니다.
+    -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-5">
             <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold font-eng tracking-tighter text-deep-navy">EYEON</a>
+                <a href="#" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
                 
-                <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-                    <a href="#" class="text-deep-navy opacity-70 hover:opacity-100 hover:text-emerald-teal transition-colors">About EYEON</a>
-                    <a href="#" class="text-deep-navy opacity-70 hover:opacity-100 hover:text-emerald-teal transition-colors">Services</a>
-                    <a href="#" class="text-deep-navy opacity-70 hover:opacity-100 hover:text-emerald-teal transition-colors">Journal</a>
-                    <a href="#" class="text-deep-navy opacity-70 hover:opacity-100 hover:text-emerald-teal transition-colors">Promotions</a>
-                    <a href="#" class="text-deep-navy opacity-70 hover:opacity-100 hover:text-emerald-teal transition-colors">Pricing</a>
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">About EYEON</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Services</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Journal</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Pricing</a>
                 </nav>
 
                 <div class="flex items-center">
                     <a href="#" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
-                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-deep-navy">
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
@@ -208,22 +213,17 @@
         <section class="bg-white py-20 md:py-32">
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    <!-- 왼쪽: Dr. Lee 이미지 박스 (디자인 수정됨) -->
-                    <div class="relative rounded-2xl shadow-lg w-full h-[600px] lg:h-auto lg:min-h-[700px] overflow-hidden reveal">
-                         <img src="https://placehold.co/800x1000/0A2342/ffffff?text=" 
-                             alt="이용승 원장 프로필 배경" 
-                             class="absolute inset-0 w-full h-full object-cover"
-                             onerror="this.onerror=null;this.src='https://placehold.co/800x1000/0A2342/ffffff?text=';">
-                        <div class="absolute inset-0 bg-deep-navy opacity-60"></div>
+                    <!-- 왼쪽: Dr. Lee 네이비 박스 (폰트 크기 조정) -->
+                    <div class="relative rounded-2xl shadow-lg w-full h-[600px] lg:h-auto lg:min-h-[700px] overflow-hidden reveal bg-deep-navy">
                         <div class="relative z-10 flex flex-col justify-center items-center h-full text-white text-center p-8 md:p-12">
-                            <h3 class="font-inter text-7xl font-bold tracking-wider">Dr. LEE</h3>
+                            <h3 class="font-inter font-bold tracking-wider" style="font-size: 5.67rem; line-height: 1;">Dr. LEE</h3>
                             <p class="font-calligraphy mt-6 max-w-md leading-relaxed opacity-90 tracking-wide" style="font-size: 0.65rem;">
                                 "Beauty is not merely a matter of the skin's surface. As a family medicine specialist, I find the root cause of aging through scientific analysis based on an individual's health status, lifestyle, and data. I correct the body's balance with sports medicine, fill the inner health with functional medicine, and design the most precise solutions with the latest AI technology. This is the core of the integrated anti-aging that EYEON pursues."
                             </p>
                         </div>
                     </div>
                     
-                    <!-- 오른쪽: 설명 텍스트 (이전 버전으로 복구) -->
+                    <!-- 오른쪽: 설명 텍스트 -->
                     <div class="reveal">
                         <h2 class="font-eng text-[2.06rem] md:text-[2.47rem] font-bold tracking-tighter text-deep-navy">The Architect of EYEON</h2>
                         <p class="mt-6 text-lg text-deep-navy opacity-80 leading-relaxed">
@@ -308,15 +308,39 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const header = document.getElementById('header');
-            window.addEventListener('scroll', function () {
-                if (window.scrollY > 50) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
-            });
-
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    // 스크롤 내렸을 때
+                    header.classList.add('header-scrolled');
+                    headerLogo.classList.remove('text-white');
+                    headerLogo.classList.add('text-deep-navy');
+                    mobileMenuButton.classList.remove('text-white');
+                    mobileMenuButton.classList.add('text-deep-navy');
+                    menuItems.forEach(item => {
+                        item.classList.remove('text-white');
+                        item.classList.add('text-deep-navy');
+                    });
+                } else {
+                    // 최상단일 때
+                    header.classList.remove('header-scrolled');
+                    headerLogo.classList.remove('text-deep-navy');
+                    headerLogo.classList.add('text-white');
+                    mobileMenuButton.classList.remove('text-deep-navy');
+                    mobileMenuButton.classList.add('text-white');
+                    menuItems.forEach(item => {
+                        item.classList.remove('text-deep-navy');
+                        item.classList.add('text-white');
+                    });
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // 초기 로딩 시에도 한 번 실행
+
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenuButton.addEventListener('click', function () {
                 mobileMenu.classList.toggle('hidden');
