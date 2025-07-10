@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | EYEON Clinic</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        .font-eng {
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-white { color: var(--white); }
+
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-scrolled {
+            background-color: rgba(248, 248, 248, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="index_renewal.html" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
+                
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="about-eyeon.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">About EYEON</a>
+                    <a href="services.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Services</a>
+                    <a href="journal.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Journal</a>
+                    <a href="promotion.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="pricing.html" class="nav-menu-item text-emerald-teal opacity-100 transition-colors duration-300">Pricing</a>
+                </nav>
+
+                <div class="flex items-center">
+                    <a href="schedule.html" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="about-eyeon.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">About EYEON</a>
+            <a href="services.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Services</a>
+            <a href="journal.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Journal</a>
+            <a href="promotion.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Promotions</a>
+            <a href="pricing.html" class="block px-6 py-3 text-emerald-teal font-semibold">Pricing</a>
+            <div class="p-4">
+                <a href="schedule.html" class="block w-full text-center bg-emerald-teal text-white font-semibold px-5 py-3 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1516414447565-b14be0adf13e?q=80&w=2832&auto=format&fit=crop" 
+                     alt="계산기와 펜이 놓인 깔끔한 책상" 
+                     class="w-full h-full object-cover opacity-30"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Pricing';">
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    Transparent Pricing
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    이연의원은 모든 비급여 항목의 비용을 투명하게 공개하여, 신뢰를 바탕으로 진료합니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Pricing Content Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg reveal">
+                        <div class="prose max-w-none text-deep-navy opacity-90">
+                            <p>이연의원은 건강보험심사평가원의 비급여 진료비용 등 공개항목에 근거하여 비급여 항목의 비용을 아래와 같이 게시합니다. (보건복지부 고시 제2023-168호, '23.9.4. 시행)</p>
+                            <h3 class="font-semibold mt-6">제증명서 발급 시 참고사항</h3>
+                            <p>제증명서 중 진료확인서 및 통원확인서는 진료날짜, 진단명만 기입되며 내용 및 소견은 들어가지 않습니다. 진료내용 및 소견이 필요한 경우 일반진단서 또는 소견서를 발급받아야 합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-16 space-y-12">
+                        <!-- 초음파검사 -->
+                        <div class="reveal">
+                            <h2 class="font-eng text-2xl font-bold text-deep-navy border-b border-gray-200 pb-4 mb-6">Ultrasound Examinations</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4 items-center"><div class="col-span-2">갑상선초음파 (Thyroid)</div><div class="text-right font-semibold">75,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">경부초음파 (Cervical)</div><div class="text-right font-semibold">75,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">근골격초음파 (Musculoskeletal - Hand)</div><div class="text-right font-semibold">45,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">근골격초음파 (Musculoskeletal - Knee)</div><div class="text-right font-semibold">65,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">근골격초음파 (Musculoskeletal - General)</div><div class="text-right font-semibold">100,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">근골격초음파 (Musculoskeletal - Precision)</div><div class="text-right font-semibold">150,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">경동맥초음파 (Carotid)</div><div class="text-right font-semibold">56,000 won</div></div>
+                            </div>
+                        </div>
+
+                        <!-- 이학요법료 -->
+                        <div class="reveal">
+                            <h2 class="font-eng text-2xl font-bold text-deep-navy border-b border-gray-200 pb-4 mb-6">Physical Therapy</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4 items-center"><div class="col-span-2">신장분사치료 (Cryospray Stretch) - 1 part</div><div class="text-right font-semibold">48,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">도수치료 (Manual Therapy) - Specialist</div><div class="text-right font-semibold">96,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">프롤로테라피 (Prolotherapy - Limbs) - 1 part</div><div class="text-right font-semibold">120,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">프롤로테라피 (Prolotherapy - General) - 1 part</div><div class="text-right font-semibold">96,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">프롤로테라피 (Prolotherapy - Spine) - 1 part</div><div class="text-right font-semibold">200,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">FIMS (Precision) - 1 part</div><div class="text-right font-semibold">300,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">FIMS (General) - 1 part</div><div class="text-right font-semibold">150,000 won</div></div>
+                            </div>
+                        </div>
+
+                        <!-- 처치 및 수술료 -->
+                        <div class="reveal">
+                            <h2 class="font-eng text-2xl font-bold text-deep-navy border-b border-gray-200 pb-4 mb-6">Procedures & Treatments</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4 items-center"><div class="col-span-2">체외충격파 (ESWT - Limbs) - 1 part</div><div class="text-right font-semibold">96,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">체외충격파 (ESWT - Spine) - 1 part</div><div class="text-right font-semibold">96,000 won</div></div>
+                            </div>
+                        </div>
+
+                        <!-- 예방접종 -->
+                        <div class="reveal">
+                            <h2 class="font-eng text-2xl font-bold text-deep-navy border-b border-gray-200 pb-4 mb-6">Vaccinations</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4 items-center"><div class="col-span-2">대상포진 예방접종 (Shingles Vaccine) - Reservation required</div><div class="text-right font-semibold">150,000 won</div></div>
+                            </div>
+                        </div>
+
+                        <!-- 제증명수수료 -->
+                        <div class="reveal">
+                            <h2 class="font-eng text-2xl font-bold text-deep-navy border-b border-gray-200 pb-4 mb-6">Medical Certificates</h2>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4 items-center"><div class="col-span-2">일반진단서 및 소견서 (General Medical Certificate/Statement)</div><div class="text-right font-semibold">20,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">통원/진료확인서 (Proof of Outpatient Visit)</div><div class="text-right font-semibold">3,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">채용신체검사서 (Medical Check-up for Employment - Public)</div><div class="text-right font-semibold">40,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">채용신체검사서 (Medical Check-up for Employment - General)</div><div class="text-right font-semibold">30,000 won</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">진료기록사본 (Medical Record Copy) - 1-5 pages</div><div class="text-right font-semibold">1,000 won / page</div></div>
+                                <div class="grid grid-cols-3 gap-4 items-center border-t border-gray-100 pt-4"><div class="col-span-2">진료기록사본 (Medical Record Copy) - 6+ pages</div><div class="text-right font-semibold">100 won / page</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-eng tracking-tighter">EYEON</h3>
+                    <p class="mt-4 text-gray-400">Science-Led Anti-Aging Clinic</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Contact & Location</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone-alt fa-fw mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Hours</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>월,화,목,금: 09:00 - 18:00</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>수,일,공휴일: 휴진</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 EYEON Clinic. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-deep-navy' : 'text-white';
+                const activeColorClass = 'text-emerald-teal';
+                
+                headerLogo.classList.remove('text-white', 'text-deep-navy');
+                headerLogo.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                mobileMenuButton.classList.remove('text-white', 'text-deep-navy');
+                mobileMenuButton.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                menuItems.forEach(item => {
+                    const isActive = item.getAttribute('href') === 'pricing.html';
+                    if (isActive) {
+                        item.classList.add(activeColorClass);
+                        item.classList.remove('text-white', 'text-deep-navy', 'opacity-90');
+                    } else {
+                        item.classList.remove('text-white', 'text-deep-navy');
+                        item.classList.add(textColor, 'opacity-90');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
