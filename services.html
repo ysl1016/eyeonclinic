@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | EYEON Clinic</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        .font-eng {
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-calligraphy {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+        
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-white { color: var(--white); }
+
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-scrolled {
+            background-color: rgba(248, 248, 248, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 메인 탭 메뉴 스타일 */
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button.active {
+            color: var(--emerald-teal);
+            border-bottom-color: var(--emerald-teal);
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeInContent 0.7s ease-in-out;
+        }
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 서브 네비게이션 버튼 스타일 */
+        .sub-nav-button {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background-color: #e5e7eb;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .sub-nav-button:hover, .sub-nav-button.active {
+            background-color: var(--emerald-teal);
+            color: var(--white);
+        }
+
+        /* 스크롤 마진을 위한 클래스 (헤더 높이만큼) */
+        .scroll-mt-28 {
+            scroll-margin-top: 7rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="index.html" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
+                
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="about-eyeon.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">About EYEON</a>
+                    <a href="services.html" class="nav-menu-item text-emerald-teal opacity-100 transition-colors duration-300">Services</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Journal</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="#" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Pricing</a>
+                </nav>
+
+                <div class="flex items-center">
+                    <a href="#" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="about-eyeon.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">About EYEON</a>
+            <a href="services.html" class="block px-6 py-3 text-emerald-teal font-semibold">Services</a>
+            <a href="#" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Journal</a>
+            <a href="#" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Promotions</a>
+            <a href="#" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Pricing</a>
+            <div class="p-4">
+                <a href="#" class="block w-full text-center bg-emerald-teal text-white font-semibold px-5 py-3 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2929&auto=format&fit=crop" 
+                     alt="다양한 색상의 추상적인 배경" 
+                     class="w-full h-full object-cover opacity-30"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Our+Services';">
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    Our Services
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    데이터 기반의 정밀한 진단과 통합적 치료 계획을 통해 개인에게 최적화된 솔루션을 제공합니다.
+                </p>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <!-- Main Tab Navigation -->
+                <div class="border-b border-gray-200 mb-12 reveal">
+                    <div id="tab-buttons" class="flex justify-center space-x-4 md:space-x-8 -mb-px overflow-x-auto pb-2">
+                        <button data-tab="skin" class="tab-button whitespace-nowrap text-sm md:text-base px-1 py-3 text-deep-navy font-medium">Skin & Contouring</button>
+                        <button data-tab="obesity" class="tab-button whitespace-nowrap text-sm md:text-base px-1 py-3 text-deep-navy font-medium">Obesity Clinic</button>
+                        <button data-tab="pain" class="tab-button whitespace-nowrap text-sm md:text-base px-1 py-3 text-deep-navy font-medium">Pain & Sports Medicine</button>
+                        <button data-tab="functional" class="tab-button whitespace-nowrap text-sm md:text-base px-1 py-3 text-deep-navy font-medium">Functional Medicine</button>
+                    </div>
+                </div>
+
+                <!-- Tab Content Area -->
+                <div id="tab-contents">
+                    <!-- Skin & Contouring Tab -->
+                    <div id="skin" class="tab-content">
+                        <!-- Sub-navigation for Skin & Contouring -->
+                        <div class="sticky top-24 bg-off-white/80 backdrop-blur-sm py-4 z-20 text-center reveal">
+                            <div class="inline-flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-gray-100 rounded-full">
+                                <button class="sub-nav-button" data-target="#laser-petit">Laser & Petit</button>
+                                <button class="sub-nav-button" data-target="#hair-removal">Hair Removal</button>
+                                <button class="sub-nav-button" data-target="#acne">Acne</button>
+                                <button class="sub-nav-button" data-target="#skin-diseases">Skin Diseases</button>
+                            </div>
+                        </div>
+
+                        <!-- Laser & Petit Section -->
+                        <section id="laser-petit" class="py-16 scroll-mt-28">
+                            <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Laser & Petit</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">자연스러움 속에 숨겨진 강력한 효과. 이연의원의 레이저와 쁘띠 시술은 개인의 얼굴 균형과 피부 상태를 정밀하게 분석하여, 과하지 않으면서도 만족도 높은 결과를 만들어 냅니다.</p>
+                                <div class="mt-12 space-y-12">
+                                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f213dc395?q=80&w=2787&auto=format&fit=crop" alt="고급스러운 레이저 시술" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                        <div>
+                                            <h4 class="text-xl font-bold">Toning Laser (Pico-toning)</h4>
+                                            <p class="mt-2 opacity-70">기미, 잡티 등 색소 치료에 효과적이며 부작용이 적은 최신 레이저입니다. 빠른 조사속도로 피부 손상을 최소화하며 효과적으로 색소만을 선택 파괴합니다.</p>
+                                        </div>
+                                    </div>
+                                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                                        <div class="md:order-2">
+                                            <img src="https://images.unsplash.com/photo-1620912189836-121b66997682?q=80&w=2787&auto=format&fit=crop" alt="정교한 보톡스 시술" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                        </div>
+                                        <div class="md:order-1">
+                                            <h4 class="text-xl font-bold">Botox (Jawline / Wrinkles)</h4>
+                                            <p class="mt-2 opacity-70">과도하게 발달된 턱 근육을 축소하거나 표정 주름을 완화합니다. 정품, 정량 사용 원칙과 풍부한 임상경험으로 자연스러운 결과를 보장합니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Hair Removal Section -->
+                        <section id="hair-removal" class="py-16 bg-white rounded-2xl scroll-mt-28">
+                            <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Hair Removal</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">통증은 적게, 효과는 높게! 이연의원의 제모는 모낭을 정확히 파괴하고, 강력한 냉각장치로 통증과 피부 자극을 최소화합니다.</p>
+                                <div class="mt-12">
+                                     <img src="https://images.unsplash.com/photo-1621612429828-a2d72b0123c7?q=80&w=2787&auto=format&fit=crop" alt="깨끗한 피부를 위한 제모" class="rounded-xl shadow-lg w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Acne Section -->
+                        <section id="acne" class="py-16 scroll-mt-28">
+                            <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Acne Treatment</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">여드름, 조기 치료가 평생 피부를 좌우합니다. 피지 분비, 여드름균 등 복합적인 원인을 분석하여 개인별 맞춤 치료로 건강한 피부를 되찾아 드립니다.</p>
+                                <div class="mt-12 space-y-8">
+                                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                                        <img src="https://images.unsplash.com/photo-1621612439134-36aa3432d0e7?q=80&w=2787&auto=format&fit=crop" alt="여드름 치료 과정" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                        <div>
+                                            <h4 class="text-xl font-bold">Acne Scaling & Art Laser</h4>
+                                            <p class="mt-2 opacity-70">막힌 모공을 열어주는 스켈링부터 염증의 근본 원인인 여드름균을 제거하는 아트레이저까지, 단계별 최적의 치료를 진행합니다.</p>
+                                        </div>
+                                    </div>
+                                    <!-- Acne Pricing Section (Dr. Sturm Reference) -->
+                                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                                        <h4 class="font-eng text-xl font-bold text-center mb-6">Acne Treatment Pricing</h4>
+                                        <div class="divide-y divide-gray-200">
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">Acne Scaling (Aquapeel)</div>
+                                                <div class="text-right">55,000 won</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">Art Laser (1450nm)</div>
+                                                <div class="text-right">121,000 won</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">Art Laser Package (4 sessions)</div>
+                                                <div class="text-right">396,000 won</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">Vascular Laser (For Redness)</div>
+                                                <div class="text-right">110,000 won</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">MIMO Fraxel Laser (Pores & Scars)</div>
+                                                <div class="text-right">143,000 won</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4 py-4">
+                                                <div class="font-semibold col-span-2">Laser Toning Package (8+1)</div>
+                                                <div class="text-right">440,000 won</div>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-center mt-6 opacity-60">* All treatments are non-reimbursable and prices may vary based on individual condition.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Skin Diseases Section -->
+                        <section id="skin-diseases" class="py-16 bg-white rounded-2xl scroll-mt-28">
+                            <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Skin Diseases</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">섣부른 자가진단은 금물입니다. 알레르기, 사마귀, 무좀, 대상포진 등 다양한 피부 질환에 대해 정확한 진단과 치료를 제공합니다.</p>
+                                 <div class="mt-12">
+                                     <img src="https://images.unsplash.com/photo-1605252341064-150a0a5c4e8b?q=80&w=2787&auto=format&fit=crop" alt="피부 질환 진단" class="rounded-xl shadow-lg w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Obesity Clinic Tab -->
+                    <div id="obesity" class="tab-content">
+                        <!-- Sub-navigation for Obesity Clinic -->
+                        <div class="sticky top-24 bg-off-white/80 backdrop-blur-sm py-4 z-20 text-center reveal">
+                            <div class="inline-flex flex-wrap justify-center gap-2 md:gap-4 p-2 bg-gray-100 rounded-full">
+                                <button class="sub-nav-button" data-target="#obesity-intro">Treatment Info</button>
+                                <button class="sub-nav-button" data-target="#vanquish">Vanquish</button>
+                                <button class="sub-nav-button" data-target="#medication">Medication Guide</button>
+                            </div>
+                        </div>
+
+                        <!-- Treatment Info Section -->
+                        <section id="obesity-intro" class="py-16 scroll-mt-28">
+                             <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Obesity Treatment</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">단순한 체중 감량을 넘어, 요요 현상 없는 건강한 신체를 만드는 것을 목표로 합니다. 통증과 부작용 없는 최신 시술, 그리고 의학적 근거에 기반한 운동 프로그램을 병행하여 가장 자연스럽고 이상적인 비만 치료를 경험하실 수 있도록 돕겠습니다.</p>
+                                <div class="mt-12 space-y-12">
+                                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                                        <img src="https://github.com/ysl1016/eyeonclinic/blob/main/images/vanquish.jpeg?raw=true" alt="뱅퀴시 시술" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                        <div>
+                                            <h4 class="text-xl font-bold">뉴-뱅퀴시 (VANQUISH)</h4>
+                                            <p class="mt-2 opacity-70">피부에 직접 닿지 않는 비접촉성 고주파를 이용하여 지방 세포만을 선택적으로 파괴하는 최신 비만 치료 장비입니다.</p>
+                                        </div>
+                                    </div>
+                                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                                        <div class="md:order-2">
+                                            <img src="https://github.com/ysl1016/eyeonclinic/blob/main/images/medical-pilates.jpeg?raw=true" alt="메디컬 필라테스" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                        </div>
+                                        <div class="md:order-1">
+                                            <h4 class="text-xl font-bold">메디컬 필라테스</h4>
+                                            <p class="mt-2 opacity-70">체지방률 감소와 아름다운 바디라인에 초점을 맞춘 '마네킹톤 필라테스' 프로그램을 통해 몸의 균형과 라인을 바로잡습니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Vanquish Section -->
+                        <section id="vanquish" class="py-16 bg-white rounded-2xl scroll-mt-28">
+                            <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Vanquish™</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">통증 없이 편안하게, 지방 세포만 선택적으로 파괴하는 비접촉 고주파 비만 치료</p>
+                                <div class="mt-12">
+                                     <img src="https://github.com/ysl1016/eyeonclinic/blob/main/images/vanquish.jpeg?raw=true" alt="뱅퀴시 상세 정보" class="rounded-xl shadow-lg w-full h-80 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                      <p class="mt-8 opacity-70">뱅퀴시™는 '비접촉성 고주파와 비만세포 선택적 자연사 유도'를 결합한 매우 안전한 치료입니다. 기존의 지방흡입이나 지방분해 주사와는 달리, 피부를 뚫지 않고 비만세포만을 선택적으로 자연사시키는 원리로 통증이 거의 없습니다. 미 FDA와 국내 식약처의 허가를 받아 안전성이 입증되었습니다.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Medication Guide Section -->
+                        <section id="medication" class="py-16 scroll-mt-28">
+                             <div class="max-w-4xl mx-auto reveal">
+                                <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Medication Guide</h3>
+                                <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">비만약, 바로 알고 처방받아야 합니다. 이연의원은 다년간의 노하우를 바탕으로, 환자의 체성분, 식습관을 종합적으로 분석하여 가장 효과적이고 부작용이 적은 약물 치료를 진행합니다.</p>
+                                <div class="mt-12 space-y-12">
+                                     <img src="https://github.com/ysl1016/eyeonclinic/blob/main/images/obesity-treatment-diagram.jpeg?raw=true" alt="비만 치료의 이해" class="rounded-xl shadow-lg w-full" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e2e8f0/94a3b8?text=Image';">
+                                     <div class="grid md:grid-cols-2 gap-8 items-center">
+                                         <img src="https://github.com/ysl1016/eyeonclinic/blob/main/images/bikini-pack.jpeg?raw=true" alt="비키니 팩" class="rounded-xl shadow-lg w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
+                                         <div>
+                                            <h4 class="text-xl font-bold">비키니 팩 (수액 요법)</h4>
+                                            <p class="mt-2 opacity-70">체지방 분해와 에너지 대사에 필수적인 알파-리포산, 카르니틴, 고용량 비타민C 등을 고용량으로 공급하는 안전한 수액 요법입니다.</p>
+                                         </div>
+                                     </div>
+                                     <div class="bg-white p-8 rounded-2xl shadow-md text-center">
+                                         <i class="fas fa-key text-3xl text-metallic-copper mb-4"></i>
+                                         <h4 class="text-xl font-bold">체중 유지의 비밀: 감량 속도</h4>
+                                         <p class="mt-2 opacity-70 max-w-2xl mx-auto">감량된 체중을 꾸준히 유지하는 비밀은 '개인에게 맞는 체중 감량 속도'에 있습니다. 이연의원은 개인별 최적의 감량 속도를 연구하고, 이를 통해 효과적이면서도 요요 현상이 적은 비만 처방을 시행합니다.</p>
+                                     </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Placeholder for other tabs -->
+                    <div id="pain" class="tab-content">
+                        <div class="max-w-4xl mx-auto reveal">
+                            <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Pain & Sports Medicine</h3>
+                            <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">스포츠의학 전문성을 바탕으로 만성 통증과 급성 스포츠 손상에 대한 정확한 진단과 비수술적 치료를 제공합니다.</p>
+                            <div class="mt-12">
+                                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2940&auto=format&fit=crop" alt="스포츠 의학 이미지" class="w-full h-96 object-cover rounded-2xl shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="functional" class="tab-content">
+                        <div class="max-w-4xl mx-auto reveal">
+                            <h3 class="font-eng text-3xl font-bold text-deep-navy text-center">Functional Medicine</h3>
+                            <p class="mt-4 text-lg text-deep-navy opacity-80 leading-relaxed text-center">만성 피로, 소화 불량 등 현대인의 삶의 질을 떨어뜨리는 문제들의 근본 원인을 세포 단위에서 분석하고 맞춤형 영양 치료를 제안합니다.</p>
+                             <div class="mt-12">
+                                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2940&auto=format&fit=crop" alt="기능 의학 이미지" class="w-full h-96 object-cover rounded-2xl shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-eng tracking-tighter">EYEON</h3>
+                    <p class="mt-4 text-gray-400">Science-Led Anti-Aging Clinic</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Contact & Location</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone-alt fa-fw mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Hours</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>월,화,목,금: 09:00 - 18:00</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>수,일,공휴일: 휴진</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 EYEON Clinic. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Header Scroll Logic ---
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-deep-navy' : 'text-white';
+                const activeColorClass = 'text-emerald-teal';
+                
+                headerLogo.classList.remove('text-white', 'text-deep-navy');
+                headerLogo.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                mobileMenuButton.classList.remove('text-white', 'text-deep-navy');
+                mobileMenuButton.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                menuItems.forEach(item => {
+                    const isActive = item.getAttribute('href') === 'services.html';
+                    if (isActive) {
+                        item.classList.add(activeColorClass);
+                        item.classList.remove('text-white', 'text-deep-navy', 'opacity-90');
+                    } else {
+                        item.classList.remove('text-white', 'text-deep-navy');
+                        item.classList.add(textColor, 'opacity-90');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+
+            // --- Mobile Menu Logic ---
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Reveal on Scroll Logic ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // --- Tab Functionality ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const subNavContainers = document.querySelectorAll('.tab-content .sticky');
+
+            function switchTab(tabId) {
+                tabButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.tab === tabId);
+                });
+                tabContents.forEach(content => {
+                    content.classList.toggle('active', content.id === tabId);
+                });
+                 // 해당 탭의 서브네비게이션만 보이도록 처리
+                subNavContainers.forEach(nav => {
+                    nav.style.display = nav.closest('.tab-content').id === tabId ? 'block' : 'none';
+                });
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    switchTab(button.dataset.tab);
+                });
+            });
+
+            // --- Sub-navigation Smooth Scroll ---
+            const subNavButtons = document.querySelectorAll('.sub-nav-button');
+            subNavButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = button.dataset.target;
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // 초기 탭 설정
+            switchTab('skin');
+        });
+    </script>
+</body>
+</html>
