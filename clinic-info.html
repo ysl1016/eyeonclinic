@@ -3,101 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>진료안내 - 이연의원 EYEON CLINIC</title>
-    
+    <title>진료안내 | EYEON Clinic</title>
+        
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Noto Sans KR -->
+       
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     <style>
-        body { 
-            font-family: 'Noto Sans KR', Manrope; 
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
         }
-        .nav-active { 
-            color: #3b82f6; 
-            font-weight: 700; 
+    
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
         }
-        
-        /* 페이드 인 애니메이션 */
-        .fade-in {
+    
+        .font-eng { font-family: 'Manrope', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-calligraphy { font-family: 'Nanum Myeongjo', serif; }
+            
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        .bg-metallic-copper { background-color: var(--metallic-copper); }
+            
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-metallic-copper { color: var(--metallic-copper); }
+        .text-white { color: var(--white); }
+    
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+    
+        /* 스크롤 애니메이션 기본 클래스 */
+        .reveal, .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
-        
-        .fade-in.visible {
+    
+        .reveal.visible, .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* 정보 카드 호버 효과 */
-        .info-card {
-            transition: all 0.3s ease;
+    
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* 운영시간 테이블 스타일 */
-        .schedule-table td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .schedule-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* 지도 컨테이너 */
-        .map-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .nav-active {
+            color: var(--emerald-teal) !important;
+            font-weight: 600;
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="antialiased">
 
-    <!-- Header & Navigation -->
-    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+    <!-- Header & Navigation (from index.html) -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                <a href="index.html" id="header-logo" class="text-2xl font-bold text-white transition-colors duration-300">EYEON</a>
                 
-                <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이연EYEON</a>
-                    <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md main-nav-active">진료안내</a>
-                    <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
-                    <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
-                    <a href="events.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이벤트안내</a>
-                    <a href="skin-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">피부/윤곽클리닉</a>
-                    <a href="obesity-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비만클리닉</a>
-                    <a href="notice.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
-                    <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
+                    <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이연EYEON</a>
+                    <a href="clinic-info.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">진료안내</a>
+                    <a href="doctor.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">의료진소개</a>
+                    <a href="schedule.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료일정</a>
+                    <a href="events.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이벤트안내</a>
+                    <a href="skin-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비만클리닉</a>
+                    <a href="notice.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">공지사항</a>
+                    <a href="costs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비급여 비용안내</a>
                 </nav>
 
-                <!-- Mobile Navigation Button -->
                 <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6 text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
-            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600 nav-active">진료안내</a>
+            <a href="clinic-info.html" class="block py-2 text-blue-600 font-bold">진료안내</a>
             <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
             <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
             <a href="events.html" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
@@ -108,305 +110,227 @@
         </div>
     </header>
 
-    <main class="py-12 md:py-20">
-        <div class="container mx-auto px-6">
-            <!-- 페이지 헤더 -->
-            <div class="text-center mb-16 fade-in">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">진료안내</h1>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">편리한 위치와 쾌적한 환경에서<br>최상의 의료 서비스를 제공합니다</p>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-6 rounded-full"></div>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2940&auto=format&fit=crop" 
+                     alt="현대적이고 전문적인 병원 내부 이미지" 
+                     class="w-full h-full object-cover opacity-30"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Clinic+Info';">
             </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    진료안내
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    편안하고 쾌적한 환경에서 최상의 의료 서비스를 경험하실 수 있도록, 이연의원이 함께합니다.
+                </p>
+            </div>
+        </section>
 
-            <!-- 지도 및 위치 정보 -->
-            <div class="max-w-6xl mx-auto space-y-12">
-                
-                <!-- 지도 섹션 -->
-                <div class="fade-in">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">오시는 길</h2>
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                        <div class="map-container">
-                            <!-- 실제 이연의원 주소로 업데이트된 Google Maps iframe -->
-                            <iframe 
-                                src="https://maps.google.com/maps?q=경기도%20용인시%20수지구%20신봉2로%2015&t=&z=17&ie=UTF8&iwloc=&output=embed"
-                                width="100%" 
-                                height="400" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-                        <div class="p-6 md:p-8">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-map-marker-alt text-blue-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-gray-800 mb-1">주소</h3>
-                                        <p class="text-gray-600">경기도 용인시 수지구 신봉2로 15<br>홍천말프라자2 3층</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-subway text-green-600"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-gray-800 mb-1">대중교통</h3>
-                                        <p class="text-gray-600">신분당선 성복역 3번 출구<br>도보 15분 거리</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6 flex flex-col sm:flex-row gap-3">
-                                <a href="https://map.naver.com/v5/search/경기도%20용인시%20수지구%20신봉2로%2015%20홍천말프라자2%203층" 
-                                   target="_blank" 
-                                   class="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold text-center hover:bg-green-700 transition-colors">
-                                    <i class="fas fa-map-marked-alt mr-2"></i>네이버 지도에서 보기
-                                </a>
-                                <a href="https://maps.google.com/maps?q=경기도+용인시+수지구+신봉2로+15+홍천말프라자2+3층" 
-                                   target="_blank" 
-                                   class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold text-center hover:bg-blue-700 transition-colors">
-                                    <i class="fas fa-route mr-2"></i>구글 지도 길찾기
-                                </a>
-                            </div>
+        <!-- Location & Hours Section -->
+        <section class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Visit Us</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">최상의 의료 서비스를 제공하기 위해 쾌적하고 편안한 환경을 마련했습니다.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <div class="reveal">
+                        <div class="rounded-2xl overflow-hidden shadow-lg h-full">
+                             <iframe src="https://maps.google.com/maps?q=경기도%20용인시%20수지구%20신봉2로%2015&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; min-height: 450px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
-                </div>
-
-                <!-- 운영시간 -->
-                <div class="fade-in">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">운영시간</h2>
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                        <div class="p-6 md:p-8">
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                <!-- 운영시간 테이블 -->
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                        <i class="fas fa-clock text-blue-600 mr-3"></i>
-                                        진료시간표
-                                    </h3>
-                                    <div class="bg-gray-50 rounded-lg overflow-hidden">
-                                        <table class="w-full schedule-table">
-                                            <tbody>
-                                                <tr class="hover:bg-gray-100">
-                                                    <td class="font-medium text-gray-800">월요일</td>
-                                                    <td class="text-gray-600">09:00 - 18:00</td>
-                                                </tr>
-                                                <tr class="hover:bg-gray-100">
-                                                    <td class="font-medium text-gray-800">화요일</td>
-                                                    <td class="text-gray-600">09:00 - 18:00</td>
-                                                </tr>
-                                                <tr class="bg-red-50 hover:bg-red-100">
-                                                    <td class="font-medium text-red-700">수요일</td>
-                                                    <td class="text-red-600 font-medium">휴진</td>
-                                                </tr>
-                                                <tr class="hover:bg-gray-100">
-                                                    <td class="font-medium text-gray-800">목요일</td>
-                                                    <td class="text-gray-600">09:00 - 18:00</td>
-                                                </tr>
-                                                <tr class="hover:bg-gray-100">
-                                                    <td class="font-medium text-gray-800">금요일</td>
-                                                    <td class="text-gray-600">09:00 - 18:00</td>
-                                                </tr>
-                                                <tr class="bg-blue-50 hover:bg-blue-100">
-                                                    <td class="font-medium text-blue-700">토요일</td>
-                                                    <td class="text-blue-600 font-medium">09:00 - 13:00<br><span class="text-xs">(점심시간 없이 진료)</span></td>
-                                                </tr>
-                                                <tr class="bg-gray-100 hover:bg-gray-200">
-                                                    <td class="font-medium text-gray-700">일요일/공휴일</td>
-                                                    <td class="text-gray-600 font-medium">휴진</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- 중요 안내사항 -->
-                                <div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                        <i class="fas fa-info-circle text-green-600 mr-3"></i>
-                                        중요 안내사항
-                                    </h3>
-                                    <div class="space-y-4">
-                                        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
-                                                <h4 class="font-semibold text-red-700">정기휴진</h4>
-                                            </div>
-                                            <p class="text-red-600 mt-1">매주 수요일은 정기휴진입니다</p>
-                                        </div>
-                                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-utensils text-blue-500 mr-2"></i>
-                                                <h4 class="font-semibold text-blue-700">점심시간</h4>
-                                            </div>
-                                            <p class="text-blue-600 mt-1">13:00 - 14:00 (월, 화, 목, 금)</p>
-                                        </div>
-                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-calendar-check text-green-500 mr-2"></i>
-                                                <h4 class="font-semibold text-green-700">토요일 진료</h4>
-                                            </div>
-                                            <p class="text-green-600 mt-1">점심시간 없이 연속 진료</p>
-                                        </div>
-                                    </div>
+                    <div class="reveal">
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-map-marker-alt text-emerald-teal mr-3"></i> 오시는 길</h4>
+                                <p class="text-deep-navy opacity-80">경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</p>
+                                <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                                    <a href="https://map.naver.com/v5/search/경기도%20용인시%20수지구%20신봉2로%2015%20홍천말프라자2%203층" target="_blank" class="flex-1 bg-gray-100 text-gray-800 py-3 px-4 rounded-lg font-semibold text-center hover:bg-gray-200 transition-colors text-sm">네이버 지도</a>
+                                    <a href="https://maps.google.com/maps?q=경기도+용인시+수지구+신봉2로+15+홍천말프라자2+3층" target="_blank" class="flex-1 bg-gray-100 text-gray-800 py-3 px-4 rounded-lg font-semibold text-center hover:bg-gray-200 transition-colors text-sm">구글 지도</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 편의시설 및 서비스 -->
-                <div class="fade-in">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">편의시설 및 서비스</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div class="bg-white p-6 rounded-xl shadow-lg text-center info-card">
-                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-calendar-alt text-blue-600 text-2xl"></i>
+                             <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-clock text-emerald-teal mr-3"></i> 진료시간</h4>
+                                <ul class="space-y-1 text-deep-navy opacity-80">
+                                    <li><span class="font-semibold w-24 inline-block">월,화,목,금:</span> 09:00 - 18:00</li>
+                                    <li><span class="font-semibold w-24 inline-block">토요일:</span> 09:00 - 13:00 (점심시간 없음)</li>
+                                    <li><span class="font-semibold w-24 inline-block">점심시간:</span> 13:00 - 14:00 (평일)</li>
+                                    <li class="text-metallic-copper"><span class="font-semibold w-24 inline-block">수,일,공휴일:</span> 휴진</li>
+                                </ul>
                             </div>
-                            <h3 class="font-bold text-gray-800 mb-2">예약 시스템</h3>
-                            <p class="text-sm text-gray-600">전화 예약을 통해<br>대기시간을 최소화</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg text-center info-card">
-                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-car text-green-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-bold text-gray-800 mb-2">무료 주차</h3>
-                            <p class="text-sm text-gray-600">넉넉한 주차공간으로<br>편리한 이용</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg text-center info-card">
-                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-wifi text-purple-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-bold text-gray-800 mb-2">무선 인터넷</h3>
-                            <p class="text-sm text-gray-600">대기 중에도 편리한<br>인터넷 이용</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg text-center info-card">
-                            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class="fas fa-wheelchair text-orange-600 text-2xl"></i>
-                            </div>
-                            <h3 class="font-bold text-gray-800 mb-2">장애인 편의</h3>
-                            <p class="text-sm text-gray-600">휠체어 접근 가능<br>배리어프리 환경</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 연락처 및 사업자 정보 -->
-                <div class="fade-in">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- 연락처 -->
-                        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                            <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                                <i class="fas fa-phone text-blue-600 mr-3"></i>
-                                연락처 정보
-                            </h3>
-                            <div class="space-y-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-phone-alt text-blue-600"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-600">전화번호</p>
-                                        <p class="text-lg font-semibold text-gray-800">031-896-3800</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-clock text-green-600"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-600">상담 가능 시간</p>
-                                        <p class="text-lg font-semibold text-gray-800">진료시간 내</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <a href="tel:031-896-3800" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold text-center hover:bg-blue-700 transition-colors flex items-center justify-center">
-                                    <i class="fas fa-phone mr-2"></i>지금 전화하기
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- 사업자 정보 -->
-                        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                            <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                                <i class="fas fa-building text-purple-600 mr-3"></i>
-                                사업자 정보
-                            </h3>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span class="text-gray-600">상호명</span>
-                                    <span class="font-semibold text-gray-800">이연의원</span>
-                                </div>
-                                <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span class="text-gray-600">대표자</span>
-                                    <span class="font-semibold text-gray-800">이용승</span>
-                                </div>
-                                <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                                    <span class="text-gray-600">사업자번호</span>
-                                    <span class="font-semibold text-gray-800">441-16-00876</span>
-                                </div>
-                                <div class="flex justify-between items-center py-2">
-                                    <span class="text-gray-600">개설연도</span>
-                                    <span class="font-semibold text-gray-800">2018년</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 추가 안내사항 -->
-                <div class="fade-in">
-                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl p-8 md:p-12 text-white text-center">
-                        <i class="fas fa-info-circle text-3xl text-blue-300 mb-6"></i>
-                        <h3 class="text-2xl font-bold mb-4">내원 전 안내사항</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                            <div class="bg-white/10 rounded-lg p-4">
-                                <h4 class="font-semibold mb-2 flex items-center">
-                                    <i class="fas fa-calendar-check mr-2 text-blue-300"></i>
-                                    예약 안내
-                                </h4>
-                                <p class="text-blue-100 text-sm">진료 예약은 전화로만 가능하며, 당일 예약도 접수받습니다.</p>
-                            </div>
-                            <div class="bg-white/10 rounded-lg p-4">
-                                <h4 class="font-semibold mb-2 flex items-center">
-                                    <i class="fas fa-id-card mr-2 text-blue-300"></i>
-                                    지참물
-                                </h4>
-                                <p class="text-blue-100 text-sm">신분증과 건강보험증을 반드시 지참해 주시기 바랍니다.</p>
+                             <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-phone-alt text-emerald-teal mr-3"></i> 연락처</h4>
+                                <p class="text-deep-navy opacity-80">Tel: 031-896-3800</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Amenities Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Amenities & Services</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">고객님의 편의를 위해 다양한 시설과 서비스를 제공합니다.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="reveal text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-calendar-check text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">예약 시스템</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">전화 예약을 통해 대기 시간을 최소화하고 편리한 진료를 받으실 수 있습니다.</p>
+                    </div>
+                    <div class="reveal text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300" style="transition-delay: 100ms;">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-car text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">무료 주차</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">건물 내 주차장을 무료로 이용하실 수 있어 방문이 편리합니다.</p>
+                    </div>
+                    <div class="reveal text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300" style="transition-delay: 200ms;">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-wifi text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">무선 인터넷</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">대기하시는 동안 자유롭게 사용하실 수 있는 Wi-Fi를 제공합니다.</p>
+                    </div>
+                    <div class="reveal text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300" style="transition-delay: 300ms;">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-wheelchair text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">장애인 편의시설</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">휠체어 접근이 가능한 배리어프리 환경을 갖추고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Business Info Section -->
+        <section class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <!-- Contact Info -->
+                    <div class="reveal bg-gray-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-deep-navy mb-6 flex items-center">
+                            <i class="fas fa-phone-volume text-emerald-teal mr-3"></i>
+                            연락처 정보
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-emerald-teal/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone-alt text-emerald-teal"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-deep-navy opacity-70">전화번호</p>
+                                    <p class="text-xl font-semibold text-deep-navy">031-896-3800</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-emerald-teal/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-headset text-emerald-teal"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-deep-navy opacity-70">상담 가능 시간</p>
+                                    <p class="text-lg font-semibold text-deep-navy">진료시간 내</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <a href="tel:031-896-3800" class="w-full bg-emerald-teal text-white py-3 px-6 rounded-lg font-semibold text-center hover:bg-emerald-teal-dark transition-colors flex items-center justify-center">
+                                <i class="fas fa-phone mr-2"></i>지금 전화하기
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Business Info -->
+                    <div class="reveal bg-gray-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-deep-navy mb-6 flex items-center">
+                            <i class="fas fa-building text-emerald-teal mr-3"></i>
+                            사업자 정보
+                        </h3>
+                        <div class="space-y-3 text-deep-navy opacity-90">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="opacity-70">상호명</span>
+                                <span class="font-semibold">이연의원</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="opacity-70">대표자</span>
+                                <span class="font-semibold">이용승</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="opacity-70">사업자번호</span>
+                                <span class="font-semibold">441-16-00876</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="opacity-70">개설연도</span>
+                                <span class="font-semibold">2018년</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pre-visit Guide Section (Updated) -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Pre-visit Guide</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">보다 원활하고 정확한 진료를 위해 아래 사항을 확인해주세요.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <!-- 예약 안내 -->
+                    <div class="reveal bg-gray-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-deep-navy mb-6 flex items-center">
+                            <i class="fas fa-calendar-check text-emerald-teal mr-3"></i>
+                            예약 안내
+                        </h3>
+                        <p class="text-deep-navy opacity-90 leading-relaxed">진료 예약은 전화로만 가능하며, 당일 예약도 접수받고 있습니다. 예약 없이 방문하실 경우 대기 시간이 길어질 수 있습니다.</p>
+                    </div>
+                    <!-- 지참물 안내 -->
+                    <div class="reveal bg-gray-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-deep-navy mb-6 flex items-center">
+                            <i class="fas fa-id-card text-emerald-teal mr-3"></i>
+                            지참물 안내
+                        </h3>
+                        <p class="text-deep-navy opacity-90 leading-relaxed">정확한 본인 확인과 보험 적용을 위해 신분증과 건강보험증을 반드시 지참해 주시기 바랍니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
-
-    <!-- Floating Action Buttons -->
+    
+    <!-- Floating Action Buttons (from index.html) -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
-        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
             <i class="fas fa-phone fa-lg"></i>
         </a>
-        <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
-            <i class="fab fa-kickstarter-k"></i>
+        <a href="#" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fab fa-kickstarter-k"></i> <!-- Example for KakaoTalk icon -->
         </a>
-        <button id="top-btn" class="w-14 h-14 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-opacity opacity-0">
-            <i class="fas fa-arrow-up fa-lg"></i>
+        <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
         </button>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-16">
+    <!-- Footer (from index.html) -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
+                    <h3 class="text-xl font-bold mb-2">EYEON CLINIC</h3>
                     <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
                 </div>
                 <div>
                     <h3 class="font-semibold mb-2">진료시간</h3>
                     <ul class="text-gray-400 space-y-1 text-sm">
-                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>평일: 09:00 - 18:00 (월/화/목/금: 진료, 매주 수요일 휴진)</li>
                         <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
                         <li>점심시간: 13:00 - 14:00</li>
                         <li>일요일/공휴일: 휴진</li>
@@ -414,10 +338,10 @@
                 </div>
                 <div>
                     <h3 class="font-semibold mb-2">연락처 및 주소</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
+                     <ul class="text-gray-400 space-y-1 text-sm">
                         <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
                         <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
-                    </ul>
+                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
@@ -427,48 +351,95 @@
         </div>
     </footer>
 
+    <!-- Consolidated JavaScript (from index.html) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
+            // --- Header Style Logic ---
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButtonSvg = document.querySelector('#mobile-menu-button svg');
 
-            // Scroll to top button
-            const topBtn = document.getElementById('top-btn');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 400) {
-                    topBtn.classList.remove('opacity-0');
-                    topBtn.classList.add('opacity-100');
-                } else {
-                    topBtn.classList.remove('opacity-100');
-                    topBtn.classList.add('opacity-0');
-                }
-            });
-            
-            topBtn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+            const updateHeaderStyle = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-gray-700' : 'text-white';
+                const logoColor = isScrolled ? 'text-gray-800' : 'text-white';
+                const hoverColor = isScrolled ? 'hover:text-blue-600' : 'hover:text-gray-300';
+                const activeLink = document.querySelector('.nav-link.nav-active');
 
-            // Fade-in animation
-            const faders = document.querySelectorAll('.fade-in');
-            const appearOptions = {
-                threshold: 0.2,
-                rootMargin: "0px 0px -50px 0px"
-            };
-            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        appearOnScroll.unobserve(entry.target);
+                headerLogo.classList.remove('text-white', 'text-gray-800');
+                headerLogo.classList.add(logoColor);
+
+                mobileMenuButtonSvg.classList.remove('text-white', 'text-gray-700');
+                mobileMenuButtonSvg.classList.add(isScrolled ? 'text-gray-700' : 'text-white');
+
+                navLinks.forEach(link => {
+                    if (link !== activeLink) {
+                        link.classList.remove('text-white', 'hover:text-gray-300', 'text-gray-700', 'hover:text-blue-600');
+                        link.classList.add(textColor, hoverColor);
                     }
                 });
-            }, appearOptions);
-            faders.forEach(fader => {
-                appearOnScroll.observe(fader);
-            });
+
+                if (activeLink) {
+                     if(isScrolled) {
+                        activeLink.classList.remove('text-white');
+                        activeLink.classList.add('text-emerald-teal');
+                     } else {
+                        activeLink.classList.add('text-white');
+                     }
+                }
+            };
+
+            // --- Basic UI Interactions ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            const topBtn = document.getElementById('top-btn');
+            if (topBtn) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 400) {
+                        topBtn.classList.remove('opacity-0');
+                        topBtn.classList.add('opacity-100');
+                    } else {
+                        topBtn.classList.remove('opacity-100');
+                        topBtn.classList.add('opacity-0');
+                    }
+                });
+                
+                topBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // --- Scroll Animation Logic ---
+            const animatedElements = document.querySelectorAll('.reveal');
+            if (animatedElements.length > 0) {
+                const animationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                });
+
+                animatedElements.forEach(el => {
+                    animationObserver.observe(el);
+                });
+            }
+
+            // --- Initial Execution ---
+            updateHeaderStyle();
+            window.addEventListener('scroll', updateHeaderStyle);
         });
     </script>
 </body>
