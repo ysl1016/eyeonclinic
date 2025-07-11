@@ -3,663 +3,554 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>피부/윤곽클리닉 - 이연의원 EYEON CLINIC</title>
-    
+    <title>피부/윤곽 클리닉 | EYEON Clinic</title>
+        
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Noto Sans KR -->
+       
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     <style>
-        body { 
-            font-family: 'Noto Sans KR', Manrope; 
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
         }
-        .main-nav-active { 
-            color: #3b82f6; 
-            font-weight: 700; 
+    
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
         }
-        .fade-in {
+    
+        .font-eng { font-family: 'Manrope', sans-serif; }
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        .bg-metallic-copper { background-color: var(--metallic-copper); }
+    
+        /* 스크롤 애니메이션 */
+        .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
-        .fade-in.visible {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
+    
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-active {
+            color: var(--emerald-teal) !important;
+            font-weight: 600;
+        }
+
         /* Tab Styles */
         .tab-button {
             transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
         }
         .tab-button.active {
-            color: #ffffff;
-            background-color: #3b82f6;
+            color: var(--emerald-teal);
+            border-bottom-color: var(--emerald-teal);
             font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
         .tab-content {
             display: none;
         }
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         /* Hide scrollbar but allow scrolling */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="antialiased">
 
     <!-- Header & Navigation -->
-    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="text-2xl font-bold text-gray-800">이연의원</a>
+                <a href="index.html" id="header-logo" class="text-2xl font-bold text-white transition-colors duration-300">EYEON</a>
                 
-                <!-- Desktop Navigation -->
                 <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                    <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이연EYEON</a>
-                    <a href="clinic-info.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료안내</a>
-                    <a href="doctor.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">의료진소개</a>
-                    <a href="schedule.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">진료일정</a>
-                    <a href="events.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">이벤트안내</a>
-                    <a href="skin-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md main-nav-active">피부/윤곽클리닉</a>
-                    <a href="obesity-clinic.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비만클리닉</a>
-                    <a href="notice.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">공지사항</a>
-                    <a href="costs.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md">비급여 비용안내</a>
+                    <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이연EYEON</a>
+                    <a href="clinic-info.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료안내</a>
+                    <a href="doctor.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">의료진소개</a>
+                    <a href="schedule.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료일정</a>
+                    <a href="events.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이벤트안내</a>
+                    <a href="skin-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비만클리닉</a>
+                    <a href="notice.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">공지사항</a>
+                    <a href="costs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비급여 비용안내</a>
                 </nav>
 
-                <!-- Mobile Navigation Button -->
                 <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6 text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white">
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
             <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
             <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
             <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
             <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
             <a href="events.html" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
-            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600 main-nav-active">피부/윤곽클리닉</a>
+            <a href="skin-clinic.html" class="block py-2 text-blue-600 font-bold">피부/윤곽클리닉</a>
             <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
             <a href="notice.html" class="block py-2 text-gray-700 hover:text-blue-600">공지사항</a>
             <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
         </div>
     </header>
 
-    <main class="py-12 md:py-20">
-        <div class="container mx-auto px-6">
-            <!-- 페이지 헤더 -->
-            <div class="text-center mb-16 fade-in">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">피부/윤곽클리닉</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">이연의원의 전문적인 시술을 통해 당신의 피부에 건강한 자신감을 되찾아 드립니다.</p>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto mt-6 rounded-full"></div>
-            </div>
-
-            <!-- Tab Navigation -->
-            <div class="mb-12 no-scrollbar overflow-x-auto">
-                <div id="tab-buttons" class="flex justify-start sm:justify-center border-b-2 border-gray-200 min-w-max">
-                    <button data-tab="laser-petit" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">레이저/쁘띠</button>
-                    <button data-tab="hair-removal" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">제모</button>
-                    <button data-tab="acne" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">여드름</button>
-                    <button data-tab="acne-cost" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">여드름 치료비용안내</button>
-                    <button data-tab="hair-loss" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">탈모</button>
-                    <button data-tab="skin-disease" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">피부질환</button>
-                    <button data-tab="aftercare" class="tab-button whitespace-nowrap text-xs px-3 py-2 sm:text-sm sm:px-4 sm:py-3 md:text-base md:px-6 text-gray-600 font-medium rounded-t-lg">시술후 주의사항</button>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="images/skin-clinic.jpg" 
+                         alt="레이저 시술을 받는 피부과 진료실" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50"></div> 
                 </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    피부/윤곽 클리닉
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    개인의 피부 상태와 얼굴의 조화를 고려한 최적의 솔루션으로 건강한 아름다움을 선사합니다.
+                </p>
             </div>
-            
-            <!-- Tab Content Area -->
-            <div id="tab-contents" class="max-w-6xl mx-auto">
-                <!-- 레이저/쁘띠 Content -->
-                <div id="laser-petit" class="tab-content space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">자연스러움 속에 숨겨진 강력한 효과</h2>
-                        <p class="mt-4 text-gray-600">이연의원의 레이저와 쁘띠 시술은 개인의 얼굴 균형과 피부 상태를 정밀하게 분석하여, 과하지 않으면서도 만족도 높은 결과를 만들어 냅니다.</p>
-                    </div>
+        </section>
 
-                    <!-- 피코토닝 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="order-2 md:order-1">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">토닝 레이저 (피코토닝)</h3>
-                            <p class="text-gray-700 mb-6">기미, 잡티 등 색소 치료에 효과적이며 부작용이 적은 최신 레이저입니다. 빠른 조사속도로 피부 손상을 최소화하며 효과적으로 색소만을 선택 파괴합니다.</p>
-                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-blue-800">시술 대상</h4>
-                                <p class="mt-2 text-blue-700 text-sm">기미, 주근깨, 잡티 / 칙칙한 피부톤 / 문신 제거</p>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/pico-toning.jpeg" alt="피코토닝 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
-                        </div>
-                    </div>
-
-                    <!-- 턱보톡스 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/jaw-botox.jpeg" alt="턱보톡스 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">턱 보톡스</h3>
-                            <p class="text-gray-700 mb-6">과도하게 발달된 턱의 저작근을 축소시켜 갸름한 V라인을 만드는 시술입니다. 정품 보톡스를 정량 사용하여 안전하고 자연스러운 효과를 보장합니다.</p>
-                             <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-green-800">시술 대상</h4>
-                                <p class="mt-2 text-green-700 text-sm">각진 사각턱 / 비대칭 턱 근육 / 이갈이 습관</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 얼굴보톡스 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                         <div class="order-2 md:order-1">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">얼굴 보톡스 (주름)</h3>
-                            <p class="text-gray-700 mb-6">이마, 미간, 눈가 등 표정으로 인해 깊어지는 주름을 완화합니다. 풍부한 임상경험으로 자연스러운 표정을 해치지 않는 정교한 시술을 진행합니다.</p>
-                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-purple-800">주요 시술 부위</h4>
-                                <p class="mt-2 text-purple-700 text-sm">이마, 미간, 눈가, 콧등, 자갈턱, 입꼬리, 잇몸 노출</p>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/facial-botox.jpeg" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
-                        </div>
-                    </div>
-
-                    <!-- 파워 V-리프팅 -->
-                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/power-lifting.jpeg" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer">
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">파워 V-리프팅</h3>
-                            <p class="text-gray-700 mb-6">수술 없이 강력한 리프팅 효과를 위한 이연의원만의 복합 프로그램입니다. 에어젯, 하이젯, 실리프팅 등을 개인의 피부 상태에 맞춰 최적의 조합으로 시술합니다.</p>
-                             <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-orange-800">시술 대상</h4>
-                                <p class="mt-2 text-orange-700 text-sm">얼굴 라인 개선 / 이중턱, 심부볼 / 처진 피부 탄력 개선</p>
-                            </div>
-                        </div>
+        <!-- Main Content with Tabs -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <!-- Tab Navigation -->
+                <div class="sticky top-16 bg-white/80 backdrop-blur-sm z-30 mb-12 border-b border-gray-200 no-scrollbar overflow-x-auto">
+                    <div id="tab-buttons" class="flex justify-start sm:justify-center min-w-max">
+                        <button data-tab="laser-petit" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">레이저/쁘띠</button>
+                        <button data-tab="hair-removal" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">제모</button>
+                        <button data-tab="acne" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">여드름</button>
+                        <button data-tab="hair-loss" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">탈모</button>
+                        <button data-tab="skin-disease" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">피부질환</button>
+                        <button data-tab="aftercare" class="tab-button whitespace-nowrap px-4 py-3 sm:px-6 sm:py-4 text-gray-500 hover:text-emerald-teal font-medium">시술 후 주의사항</button>
                     </div>
                 </div>
-
-                <!-- 다른 탭들의 Content 영역 (향후 추가) -->
-                <!-- 제모 Content -->
-                <div id="hair-removal" class="tab-content space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">통증은 적게, 효과는 높게!</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">이연의원의 제모는 755nm 파장의 아포지급 제모레이저를 사용하여 모낭을 정확히 파괴하고, 강력한 냉각장치로 통증과 피부 자극을 최소화합니다.</p>
-                    </div>
-
-                    <!-- 제모 가격 정보 -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-                         <div class="text-center mb-8">
-                            <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">HAIR REMOVAL</span>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-2">이연의원 제모 비용안내</h3>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <!-- 겨드랑이 제모 -->
-                            <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
-                                <p class="text-gray-500">가장 없애고 싶은 부위</p>
-                                <h4 class="text-lg font-semibold my-1">겨드랑이 깔끔하게</h4>
-                                <p class="text-4xl font-extrabold text-gray-800 my-3">2.2<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="bg-gray-700 text-white font-semibold py-2 rounded-lg">겨드랑이 제모 1회</div>
-                            </div>
-                            <!-- 인중 제모 -->
-                            <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
-                                <p class="text-gray-500">이것만 보여</p>
-                                <h4 class="text-lg font-semibold my-1">인중 깔끔하게</h4>
-                                <p class="text-4xl font-extrabold text-blue-600 my-3">2.2<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="bg-blue-600 text-white font-semibold py-2 rounded-lg">인중 제모 1회</div>
-                            </div>
-                            <!-- 남자 턱수염 제모 -->
-                            <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
-                                <p class="text-gray-500">남자도 깔끔하게</p>
-                                <h4 class="text-lg font-semibold my-1">남성 턱수염</h4>
-                                <p class="text-4xl font-extrabold text-gray-800 my-3">3.3<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="bg-gray-700 text-white font-semibold py-2 rounded-lg">남성 턱(아래) 제모 1회</div>
-                            </div>
-                            <!-- 종아리 제모 -->
-                            <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
-                                <p class="text-gray-500">매끈한 종아리</p>
-                                <h4 class="text-lg font-semibold my-1">종아리를 매끈하게</h4>
-                                <p class="text-4xl font-extrabold text-pink-500 my-3">6.6<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="bg-pink-500 text-white font-semibold py-2 rounded-lg">종아리 제모 1회</div>
-                            </div>
-                        </div>
-                        <div class="text-center mt-8 text-sm text-gray-600">
-                            <p>∗ 이외에도 다양한 부위의 제모가 가능하며, 5회 패키지로 진행하시면 훨씬 경제적입니다.</p>
-                            <p>∗ 제모와 함께 토닝레이저를 진행하시면 훨씬 효과가 좋습니다.</p>
-                        </div>
-                    </div>
+                
+                <!-- Tab Content Area -->
+                <div id="tab-contents" class="max-w-6xl mx-auto">
                     
-                    <!-- 제모 시 유의사항 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/hair-removal-info.jpeg" alt="제모 시술 정보" class="w-full h-full object-cover gallery-image cursor-pointer">
+                    <!-- 레이저/쁘띠 Content -->
+                    <div id="laser-petit" class="tab-content space-y-16">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">자연스러움 속에 숨겨진 강력한 효과</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">이연의원의 레이저와 쁘띠 시술은 개인의 얼굴 균형과 피부 상태를 정밀하게 분석하여, 과하지 않으면서도 만족도 높은 결과를 만들어 냅니다.</p>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">레이저 제모 시 유의사항</h3>
-                            <ul class="space-y-4">
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-semibold">시술 전 면도</h4>
-                                        <p class="text-gray-600 text-sm">시술 1일 전, 제모할 부위를 미리 면도하고 오시면 레이저의 효율이 높아져 제모 효과가 극대화됩니다.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-semibold">자외선 차단</h4>
-                                        <p class="text-gray-600 text-sm">시술 부위가 햇볕에 노출되지 않도록 자외선 차단제를 꼼꼼히 발라 색소침착을 예방해야 합니다.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-semibold">시술 후 관리</h4>
-                                        <p class="text-gray-600 text-sm">시술 후에는 가려움, 물집, 모낭염 등이 발생할 수 있습니다. 이를 예방하기 위해 처방된 약을 잘 복용하고 보습제를 충분히 발라주세요.</p>
-                                    </div>
-                                </li>
-                                 <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
-                                    <div>
-                                        <h4 class="font-semibold">시술 간격</h4>
-                                        <p class="text-gray-600 text-sm">일반적으로 1개월 간격으로 5~6회 시술을 권장하며, 개인의 털 상태에 따라 달라질 수 있습니다.</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- 여드름 Content -->
-                <div id="acne" class="tab-content space-y-20">
-                     <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">여드름, 조기 치료가 평생 피부를 좌우합니다</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">피지 분비, 여드름균 등 복합적인 원인으로 발생하는 여드름은 방치할 경우 영구적인 흉터를 남길 수 있습니다. 이연의원은 개인별 원인과 상태에 맞는 맞춤 치료로 건강한 피부를 되찾아 드립니다.</p>
-                    </div>
-
-                    <!-- 여드름 스켈링 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="order-2 md:order-1">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">여드름 스켈링 (스피드 스켈링 + I2PL)</h3>
-                            <p class="text-gray-700 mb-6">여드름 치료의 가장 기본이 되는 시술입니다. 막힌 모공을 열어 피지를 압출하고, 필링을 통해 염증을 제거하며 피부결을 정돈합니다. I2PL 레이저를 병행하여 염증성 여드름 치료 효과를 극대화합니다.</p>
-                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-blue-800">치료 Point</h4>
-                                <p class="mt-2 text-blue-700 text-sm">초기 비염증성 여드름부터 염증성 여드름까지 적용 가능하며, 치료 기간은 3~6개월 정도 소요됩니다. 약물치료를 병행하면 더욱 효과적입니다.</p>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-scaling.jpeg" alt="여드름 스켈링 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
-                        </div>
-                    </div>
-
-                    <!-- 아트레이저 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                        <div class="rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-art-laser.jpeg" alt="아트레이저 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">여드름 염증/붉음증: 아트레이저</h3>
-                            <p class="text-gray-700 mb-6">여드름 중기 이상에서 발생하는 염증과 붉음증은 여드름균에 의한 염증이 주 원인입니다. 아트레이저는 근본적인 원인인 여드름균을 제거하고 염증을 개선하여 정상적인 피부로 회복시킵니다.</p>
-                             <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-green-800">아트레이저 특징</h4>
-                                <p class="mt-2 text-green-700 text-sm">여드름의 근본 원인에 작용하여 재발을 줄이고, 염증 후 붉은 자국 개선에 탁월한 효과를 보입니다.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 흉터레이저 -->
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                         <div class="order-2 md:order-1">
-                            <h3 class="text-2xl font-bold text-gray-800 mb-4">여드름 흉터: 프락셀 레이저</h3>
-                            <p class="text-gray-700 mb-6">여드름이 중기 이상으로 넘어가면 패인 흉터가 발생할 수 있습니다. 이러한 흉터 치료에는 콜라겐 재생이 가장 중요하며, 프락셀 레이저가 가장 효과적인 치료법 중 하나입니다.</p>
-                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
-                                <h4 class="font-semibold text-purple-800">프락셀 레이저 원리</h4>
-                                <p class="mt-2 text-purple-700 text-sm">피부에 미세한 구멍을 내어 피부의 자연적인 재생 과정을 유도하고, 콜라겐 합성을 촉진하여 패인 흉터를 채워 올립니다.</p>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                            <img src="images/acne-scar-laser.jpeg" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover gallery-image cursor-pointer" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/94a3b8?text=Image';">
-                        </div>
-                    </div>
-                </div>
-                <!-- 여드름 치료비용안내 Content -->
-                <div id="acne-cost" class="tab-content space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">여드름 치료, 어떻게 해야 할까?</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">여드름은 피지 분비, 각질, 여드름균 등 여러 원인이 복합적으로 작용하는 피부질환입니다. 이연의원은 약물치료와 함께 개인별 원인에 맞는 적절한 시술을 병행하여 흉터 없이 깨끗한 피부로의 회복을 돕습니다.</p>
-                    </div>
-
-                    <!-- 여드름 치료 비용 카드 섹션 -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-                        <div class="text-center mb-8">
-                            <span class="text-sm font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">ACNE TREATMENT</span>
-                            <h3 class="text-2xl font-bold text-gray-800 mt-2">여드름 치료 시술비용 안내</h3>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <!-- 여드름 압출 -->
-                            <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">여드름 압출</h4>
-                                <p class="text-xs text-gray-500 mb-3">피지를 막는 각질제거</p>
-                                <p class="text-5xl font-extrabold text-gray-800">5.5<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-gray-700 text-white font-semibold py-2 rounded-lg text-sm">아쿠아필</div>
-                            </div>
-                            <!-- 근본적인 피지억제 -->
-                             <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">근본적인 피지억제</h4>
-                                <p class="text-xs text-gray-500 mb-3">근본적인 피지억제</p>
-                                <p class="text-5xl font-extrabold text-purple-600">12.1<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-purple-600 text-white font-semibold py-2 rounded-lg text-sm">1450nm 아트레이저</div>
-                            </div>
-                            <!-- 아트레이저 패키지 -->
-                            <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">아트레이저 패키지</h4>
-                                <p class="text-xs text-gray-500 mb-3">레이저 4회</p>
-                                <p class="text-5xl font-extrabold text-red-600">39.6<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-red-600 text-white font-semibold py-2 rounded-lg text-sm">아트레이저 X 4회</div>
-                            </div>
-                             <!-- 여드름 붉음증 -->
-                            <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">여드름 붉음증</h4>
-                                <p class="text-xs text-gray-500 mb-3">피어오른 혈색소 제거</p>
-                                <p class="text-5xl font-extrabold text-indigo-600">11.0<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-indigo-600 text-white font-semibold py-2 rounded-lg text-sm">여드름 혈관레이저</div>
-                            </div>
-                            <!-- 여드름 모공 및 흉터 -->
-                            <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">여드름 모공 및 흉터</h4>
-                                <p class="text-xs text-gray-500 mb-3">모공/흉터 동시 치료</p>
-                                <p class="text-5xl font-extrabold" style="color: #8B4513;">14.3<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-yellow-900 text-white font-semibold py-2 rounded-lg text-sm">MIMO 프락셀 레이저</div>
-                            </div>
-                             <!-- 여드름자국 및 착색 -->
-                            <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md">
-                                <h4 class="font-semibold">여드름자국 및 착색</h4>
-                                <p class="text-xs text-gray-500 mb-3">깊어진 자국 하얗게</p>
-                                <p class="text-5xl font-extrabold text-blue-600">44.0<span class="text-2xl font-medium ml-1">만원</span></p>
-                                <div class="mt-3 bg-blue-600 text-white font-semibold py-2 rounded-lg text-sm">레이저토닝 8회+색소레이저 1회</div>
-                            </div>
-                        </div>
-                    </div>
-
-                     <!-- 치료 시 고려사항 -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-                         <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center"><i class="fas fa-notes-medical text-blue-500 mr-2"></i>치료 시 고려사항</h3>
-                         <div class="grid md:grid-cols-2 gap-6">
-                            <div class="bg-blue-50 p-6 rounded-lg">
-                                <h4 class="font-semibold text-blue-800 mb-2">개인별 맞춤 프로그램</h4>
-                                <p class="text-sm text-gray-700">본 여드름 치료는 개인의 상태에 따라 치료 프로그램과 비용이 달라질 수 있으므로, 정확한 진단 후 상담이 필요합니다.</p>
-                            </div>
-                             <div class="bg-green-50 p-6 rounded-lg">
-                                <h4 class="font-semibold text-green-800 mb-2">약물 치료 병행</h4>
-                                <p class="text-sm text-gray-700">항생제와 같은 경구제 복용을 원하지 않는 경우, 효과적인 치료를 위해 레이저 시술 병행이 필수적입니다.</p>
-                            </div>
-                         </div>
-                         <div class="mt-6 bg-red-50 p-4 rounded-lg text-center">
-                              <p class="text-sm text-red-700"><i class="fas fa-exclamation-circle mr-2"></i>여드름 치료는 비급여 항목으로, 국민건강보험이 적용되지 않습니다.</p>
-                         </div>
-                    </div>
-                </div>
-                <!-- 탈모 Content -->
-                <div id="hair-loss" class="tab-content space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">탈모, 과학적인 진단으로 원인을 찾습니다</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">탈모는 유전, 호르몬, 두피 질환 등 다양한 원인으로 발생하며 남성과 여성의 양상이 다릅니다. 조기 진단을 통해 원인을 정확히 파악하고 맞춤 치료를 시작하는 것이 중요합니다.</p>
-                    </div>
-
-                    <!-- 진단 프로세스 -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center"><i class="fas fa-search-plus text-blue-500 mr-2"></i>이연의원 탈모 진단 프로세스</h3>
-                        <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">본원에서는 두피 전용 진단 장비를 이용하여 모발의 밀도와 굵기, 두피의 모근 상태까지 정밀하게 분석하여 탈모의 정확한 원인과 진행 상태를 진단합니다.</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-microscope text-3xl text-blue-600 mb-3"></i>
-                                <h4 class="font-semibold">모낭 상태 분석</h4>
-                                <p class="text-sm text-gray-500 mt-1">고배율 현미경으로 확인</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-chart-bar text-3xl text-blue-600 mb-3"></i>
-                                <h4 class="font-semibold">모발 데이터 측정</h4>
-                                <p class="text-sm text-gray-500 mt-1">밀도 및 굵기 데이터화</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-lg">
-                                <i class="fas fa-stethoscope text-3xl text-blue-600 mb-3"></i>
-                                <h4 class="font-semibold">유형별 맞춤 진단</h4>
-                                <p class="text-sm text-gray-500 mt-1">의료진의 정밀 문진</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 치료 사례별 정리 -->
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
-                        <div class="text-center mb-8">
-                           <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">HAIRCARE</span>
-                           <h3 class="text-2xl font-bold text-gray-800 mt-2">유형별 탈모 치료</h3>
-                        </div>
-                       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- 남성형 탈모 -->
-                            <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-blue-500">
-                                <h4 class="font-bold text-xl text-gray-800 mb-4 flex items-center"><i class="fas fa-male text-blue-500 mr-3"></i>남성형 탈모</h4>
-                                <div class="space-y-4">
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700">정수리형 탈모 (지루성 피부염 동반)</h5>
-                                        <p class="text-sm text-gray-600 mt-1">심한 지루성 피부염으로 인해 악화된 정수리 탈모에 대해 복합 치료를 진행하여 두피 건강과 모발 밀도를 함께 개선합니다.</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700">M자형 탈모</h5>
-                                        <p class="text-sm text-gray-600 mt-1">유전적 요인이 큰 M자형 탈모는 약물 치료와 함께 모낭 주사 치료를 병행하여 진행을 늦추고 발모를 촉진합니다.</p>
-                                    </div>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="order-2 md:order-1">
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">토닝 레이저 (피코토닝)</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">기미, 잡티 등 색소 치료에 효과적이며 부작용이 적은 최신 레이저입니다. 빠른 조사속도로 피부 손상을 최소화하며 효과적으로 색소만을 선택 파괴합니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>시술 대상</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">기미, 주근깨, 잡티 / 칙칙한 피부톤 / 문신 제거</p>
                                 </div>
                             </div>
-                            <!-- 여성형 탈모 -->
-                            <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-pink-500">
-                                <h4 class="font-bold text-xl text-gray-800 mb-4 flex items-center"><i class="fas fa-female text-pink-500 mr-3"></i>여성형 탈모</h4>
-                                 <div class="space-y-4">
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700">정수리형(가르마) 탈모</h5>
-                                        <p class="text-sm text-gray-600 mt-1">여성에게 가장 흔한 유형으로, 가르마 부위가 넓어지는 양상을 보입니다. 두피 영양 공급과 혈액순환을 개선하는 주사 치료를 통해 모발 밀도를 효과적으로 높일 수 있습니다.</p>
-                                    </div>
-                                     <div>
-                                        <h5 class="font-semibold text-gray-700">휴지기 탈모</h5>
-                                        <p class="text-sm text-gray-600 mt-1">스트레스나 출산, 급격한 다이어트 후 발생하는 일시적인 탈모입니다. 정확한 원인 진단과 함께 두피 회복 치료를 진행하여 모발 사이클을 정상화합니다.</p>
-                                    </div>
+                            <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1616394584738-65b434411561?q=80&w=2940&auto=format&fit=crop" alt="레이저 시술 이미지" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600983322233-16887ca4625b?q=80&w=2940&auto=format&fit=crop" alt="보톡스 시술 관련 이미지" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">턱 보톡스</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">과도하게 발달된 턱의 저작근을 축소시켜 갸름한 V라인을 만드는 시술입니다. 정품 보톡스를 정량 사용하여 안전하고 자연스러운 효과를 보장합니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>시술 대상</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">각진 사각턱 / 비대칭 턱 근육 / 이갈이 습관</p>
                                 </div>
                             </div>
-                       </div>
-                    </div>
-                    
-                    <!-- 마무리 문구 -->
-                    <div class="text-center pt-10">
-                        <h3 class="text-2xl font-bold text-gray-800">탈모 치료, 골든타임을 놓치지 마세요.</h3>
-                        <p class="text-gray-600 mt-4">탈모가 의심될 때, 이연의원에서 정확한 진단과 조기 치료를 시작하는 것이 가장 중요합니다.</p>
-                        <a href="tel:031-896-3800" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
-                            전화 상담 예약
-                        </a>
-                    </div>
-                </div>
-                <!-- 피부질환 Content -->
-                <div id="skin-disease" class="tab-content space-y-20">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">피부질환, 섣부른 자가진단은 금물입니다</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">가벼운 알레르기부터 다른 질병의 신호일 수 있는 증상까지, 피부에 나타나는 다양한 질환은 정확한 진단과 조기 치료가 중요합니다. 민간요법이나 부정확한 연고 사용은 오히려 상태를 악화시킬 수 있습니다.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- 알레르기 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-allergies text-3xl text-red-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">알레르기 피부질환</h3>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-3">습진, 가려움증, 두드러기, 피부 묘기증 등 다양한 알레르기 반응은 정확한 원인 파악과 항원에 대한 회피, 적절한 약물 치료가 필요합니다.</p>
                         </div>
-
-                        <!-- 사마귀/티눈 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                            <div class="flex items-center mb-4">
-                               <i class="fas fa-hand-paper text-3xl text-yellow-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">사마귀/티눈</h3>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="order-2 md:order-1">
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">얼굴 보톡스 (주름)</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">이마, 미간, 눈가 등 표정으로 인해 깊어지는 주름을 완화합니다. 풍부한 임상경험으로 자연스러운 표정을 해치지 않는 정교한 시술을 진행합니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>주요 시술 부위</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">이마, 미간, 눈가, 콧등, 자갈턱, 입꼬리, 잇몸 노출</p>
+                                </div>
                             </div>
-                            <p class="text-sm text-gray-600 mb-3">바이러스성인 사마귀와 지속적인 압력으로 생기는 티눈은 원인이 다릅니다. 통증이 적은 냉동응고술, 크기가 큰 경우 레이저 치료로 효과적으로 제거합니다.</p>
+                            <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1599387739444-2493545a05f1?q=80&w=2940&auto=format&fit=crop" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover">
+                            </div>
                         </div>
-                        
-                        <!-- 손발무좀 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                             <div class="flex items-center mb-4">
-                                <i class="fas fa-shoe-prints text-3xl text-green-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">손/발/손발톱 무좀</h3>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1596548455234-3d84a7134845?q=80&w=2940&auto=format&fit=crop" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover">
                             </div>
-                            <p class="text-sm text-gray-600 mb-3">무좀균에 의해 발생하는 전염성 질환입니다. 연고, 경구 항진균제 등 상태에 맞는 치료가 필요하며, 특히 손발톱 무좀은 3개월 이상의 꾸준한 치료가 중요합니다.</p>
-                        </div>
-
-                        <!-- 대상포진 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-bolt text-3xl text-indigo-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">대상포진</h3>
+                            <div>
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">파워 V-리프팅</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">수술 없이 강력한 리프팅 효과를 위한 이연의원만의 복합 프로그램입니다. 에어젯, 하이젯, 실리프팅 등을 개인의 피부 상태에 맞춰 최적의 조합으로 시술합니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>시술 대상</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">얼굴 라인 개선 / 이중턱, 심부볼 / 처진 피부 탄력 개선</p>
+                                </div>
                             </div>
-                            <p class="text-sm text-gray-600 mb-3">수두 바이러스에 의한 수포성 질환으로, 극심한 통증을 동반합니다. 신경통 합병증 예방을 위해 빠른 항바이러스제 투여가 핵심이며, 본원에서는 신경통까지 전문적으로 치료합니다.</p>
-                        </div>
-
-                        <!-- 화상치료 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                           <div class="flex items-center mb-4">
-                                <i class="fas fa-fire-alt text-3xl text-orange-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">화상치료</h3>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-3">화상은 열 손상으로, 일반 상처와 다릅니다. 흐르는 차가운 물로 15분 이상 냉각하는 초기 응급처치 후, 즉시 병원을 방문하여 흉터와 후유증을 최소화해야 합니다.</p>
-                        </div>
-
-                         <!-- 기타 질환 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
-                           <div class="flex items-center mb-4">
-                                <i class="fas fa-plus-circle text-3xl text-gray-500 mr-4"></i>
-                                <h3 class="text-xl font-bold text-gray-800">기타 피부질환</h3>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-3">원인 불명의 발진, 염증 등 모든 피부 문제에 대해 정확한 진단과 치료를 제공합니다. 망설이지 말고 내원하여 상담받으세요.</p>
                         </div>
                     </div>
 
-                    <!-- 마무리 문구 -->
-                    <div class="text-center pt-16">
-                        <h3 class="text-2xl font-bold text-gray-800">피부질환도 믿고 맡길 수 있는 이연의원</h3>
-                        <p class="text-gray-600 mt-4">정확한 진단 없이 바르는 연고는 진단을 어렵게 할 수 있습니다. 지금 바로 전문가와 상담하세요.</p>
-                        <a href="tel:031-896-3800" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
-                            피부질환 바로 문의하기
-                        </a>
+                    <!-- 제모 Content -->
+                    <div id="hair-removal" class="tab-content space-y-16">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">통증은 적게, 효과는 높게!</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">이연의원의 제모는 755nm 파장의 아포지급 제모레이저를 사용하여 모낭을 정확히 파괴하고, 강력한 냉각장치로 통증과 피부 자극을 최소화합니다.</p>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 reveal">
+                             <div class="text-center mb-8">
+                                <span class="text-sm font-semibold text-emerald-teal bg-emerald-teal/10 px-3 py-1 rounded-full">HAIR REMOVAL</span>
+                                <h3 class="text-2xl font-bold text-deep-navy mt-2">이연의원 제모 비용안내</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <p class="text-gray-500">가장 없애고 싶은 부위</p>
+                                    <h4 class="text-lg font-semibold my-1">겨드랑이 깔끔하게</h4>
+                                    <p class="text-4xl font-extrabold text-deep-navy my-3">2.2<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="text-sm">겨드랑이 제모 1회</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <p class="text-gray-500">이것만 보여</p>
+                                    <h4 class="text-lg font-semibold my-1">인중 깔끔하게</h4>
+                                    <p class="text-4xl font-extrabold text-emerald-teal my-3">2.2<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="text-sm">인중 제모 1회</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <p class="text-gray-500">남자도 깔끔하게</p>
+                                    <h4 class="text-lg font-semibold my-1">남성 턱수염</h4>
+                                    <p class="text-4xl font-extrabold text-deep-navy my-3">3.3<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="text-sm">남성 턱(아래) 제모 1회</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <p class="text-gray-500">매끈한 종아리</p>
+                                    <h4 class="text-lg font-semibold my-1">종아리를 매끈하게</h4>
+                                    <p class="text-4xl font-extrabold text-emerald-teal my-3">6.6<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="text-sm">종아리 제모 1회</div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-8 text-sm text-gray-600">
+                                <p>∗ 이외에도 다양한 부위의 제모가 가능하며, 5회 패키지로 진행하시면 훨씬 경제적입니다.</p>
+                                <p>∗ 제모와 함께 토닝레이저를 진행하시면 훨씬 효과가 좋습니다.</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1621611681421-1b0a54e1978a?q=80&w=2940&auto=format&fit=crop" alt="제모 시술 정보" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">레이저 제모 시 유의사항</h3>
+                                <ul class="space-y-4 text-deep-navy opacity-90">
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-emerald-teal mt-1 mr-3"></i><div><strong class="font-semibold">시술 전 면도:</strong> 시술 1일 전, 제모할 부위를 미리 면도하고 오시면 레이저 효율이 높아집니다.</div></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-emerald-teal mt-1 mr-3"></i><div><strong class="font-semibold">자외선 차단:</strong> 시술 부위가 햇볕에 노출되지 않도록 자외선 차단제를 꼼꼼히 발라 색소침착을 예방해야 합니다.</div></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-emerald-teal mt-1 mr-3"></i><div><strong class="font-semibold">시술 후 관리:</strong> 시술 후에는 가려움, 물집, 모낭염 등이 발생할 수 있습니다. 이를 예방하기 위해 처방된 약을 잘 복용하고 보습제를 충분히 발라주세요.</div></li>
+                                    <li class="flex items-start"><i class="fas fa-check-circle text-emerald-teal mt-1 mr-3"></i><div><strong class="font-semibold">시술 간격:</strong> 일반적으로 1개월 간격으로 5~6회 시술을 권장하며, 개인의 털 상태에 따라 달라질 수 있습니다.</div></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- 시술후 주의사항 Content -->
-                <div id="aftercare" class="tab-content space-y-12">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-800">시술 후 관리, 효과를 완성하는 마지막 단계입니다</h2>
-                        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">피부/미용 시술은 시술만큼이나 후처치 및 사후관리가 중요합니다. 아래 시술별 주의사항을 꼼꼼히 확인하시어 보다 높은 시술 효과를 누리시길 바랍니다.</p>
+
+                    <!-- 여드름 Content (통합) -->
+                    <div id="acne" class="tab-content space-y-16">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">여드름, 조기 치료가 평생 피부를 좌우합니다</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">피지 분비, 각질, 여드름균 등 여러 원인이 복합적으로 작용하는 여드름은 방치할 경우 영구적인 흉터를 남길 수 있습니다. 이연의원은 약물치료와 함께 개인별 원인에 맞는 적절한 시술을 병행하여 흉터 없이 깨끗한 피부로의 회복을 돕습니다.</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                             <div class="order-2 md:order-1">
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">여드름 스켈링 & 아트레이저</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">여드름 치료의 기본인 스켈링으로 막힌 모공을 열고 피지를 압출하며, 아트레이저로 여드름의 근본 원인인 여드름균을 제거하고 염증을 개선하여 재발을 줄입니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>치료 Point</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">초기 여드름부터 염증성 여드름, 붉은 자국 개선에 효과적이며 약물치료를 병행하면 더욱 좋습니다.</p>
+                                </div>
+                            </div>
+                            <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600803932099-01fee3a43657?q=80&w=2940&auto=format&fit=crop" alt="여드름 치료 이미지" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                         <div class="grid md:grid-cols-2 gap-12 items-center reveal">
+                            <div class="rounded-2xl shadow-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1580281657527-47f249e9db94?q=80&w=2940&auto=format&fit=crop" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-deep-navy mb-4">여드름 흉터: 프락셀 레이저</h3>
+                                <p class="text-deep-navy opacity-80 mb-6">여드름이 중기 이상으로 넘어가면 패인 흉터가 발생할 수 있습니다. 이러한 흉터 치료에는 콜라겐 재생이 가장 중요하며, 프락셀 레이저가 가장 효과적인 치료법 중 하나입니다.</p>
+                                <div class="bg-emerald-teal/10 border-l-4 border-emerald-teal p-4 rounded-r-lg">
+                                    <h4 class="font-semibold text-emerald-teal flex items-center"><i class="fas fa-check-circle mr-2"></i>프락셀 원리</h4>
+                                    <p class="mt-2 text-deep-navy opacity-80 text-sm">피부에 미세한 구멍을 내어 피부의 자연적인 재생 과정을 유도하고, 콜라겐 합성을 촉진하여 패인 흉터를 채워 올립니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 reveal">
+                            <div class="text-center mb-8">
+                                <span class="text-sm font-semibold text-emerald-teal bg-emerald-teal/10 px-3 py-1 rounded-full">ACNE TREATMENT</span>
+                                <h3 class="text-2xl font-bold text-deep-navy mt-2">여드름 치료 시술비용 안내</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">여드름 압출</h4>
+                                    <p class="text-xs text-gray-500 mb-3">피지를 막는 각질제거</p>
+                                    <p class="text-4xl font-extrabold text-deep-navy">5.5<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">아쿠아필</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">근본적인 피지억제</h4>
+                                    <p class="text-xs text-gray-500 mb-3">근본적인 피지억제</p>
+                                    <p class="text-4xl font-extrabold text-deep-navy">12.1<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">1450nm 아트레이저</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">아트레이저 패키지</h4>
+                                    <p class="text-xs text-gray-500 mb-3">레이저 4회</p>
+                                    <p class="text-4xl font-extrabold text-emerald-teal">39.6<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">아트레이저 X 4회</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">여드름 붉음증</h4>
+                                    <p class="text-xs text-gray-500 mb-3">피어오른 혈색소 제거</p>
+                                    <p class="text-4xl font-extrabold text-deep-navy">11.0<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">여드름 혈관레이저</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">여드름 모공 및 흉터</h4>
+                                    <p class="text-xs text-gray-500 mb-3">모공/흉터 동시 치료</p>
+                                    <p class="text-4xl font-extrabold text-deep-navy">14.3<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">MIMO 프락셀 레이저</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all">
+                                    <h4 class="font-semibold">여드름자국 및 착색</h4>
+                                    <p class="text-xs text-gray-500 mb-3">깊어진 자국 하얗게</p>
+                                    <p class="text-4xl font-extrabold text-emerald-teal">44.0<span class="text-xl font-medium ml-1">만원</span></p>
+                                    <div class="mt-3 text-sm">레이저토닝 8회+색소레이저 1회</div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-8 text-sm text-gray-600">
+                                <p><i class="fas fa-exclamation-circle mr-1"></i>여드름 치료는 비급여 항목으로, 국민건강보험이 적용되지 않습니다.</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- CO2 레이저 주의사항 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-circle-nodes text-2xl text-blue-500 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-800">CO2 레이저 (점/사마귀/비립종 등)</h3>
-                            </div>
-                            <ol class="list-decimal list-inside space-y-3 text-sm text-gray-700">
-                                <li>시술 후 붙여드린 습윤밴드(듀오덤)가 하얗게 부풀어 오르면 갈아주시고, 그렇지 않으면 2일에 1회씩 교체합니다. (최소 7일 이상)</li>
-                                <li>습윤밴드를 붙인 상태로 세안이나 샤워가 가능합니다.</li>
-                                <li>밴드를 뗀 후에는 매 4시간마다 재생크림과 자외선 차단제를 꼼꼼히 발라줍니다.</li>
-                                <li>가피(딱지)가 생긴 경우, 하루 2~3회 처방 연고를 바르고 자연스럽게 떨어지도록 둡니다.</li>
-                                <li>색소침착 예방을 위해 시술 후 최소 1주일간은 햇빛 노출, 사우나, 격한 운동을 피합니다.</li>
-                                <li>크기가 큰 병변은 1~3개월 후 추가 치료가 필요할 수 있습니다. (비용 별도)</li>
-                            </ol>
+                    <!-- 탈모 Content -->
+                    <div id="hair-loss" class="tab-content space-y-16">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">탈모, 과학적인 진단으로 원인을 찾습니다</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">탈모는 유전, 호르몬, 두피 질환 등 다양한 원인으로 발생합니다. 두피 진단 장비로 모발 밀도, 굵기, 모근 상태를 정밀 분석하여 맞춤 치료를 시작하는 것이 중요합니다.</p>
                         </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 reveal">
+                            <h3 class="text-2xl font-bold text-deep-navy mb-6 text-center"><i class="fas fa-search-plus text-emerald-teal mr-2"></i>이연의원 탈모 진단 프로세스</h3>
+                            <p class="text-center text-deep-navy opacity-80 mb-8 max-w-3xl mx-auto">본원에서는 두피 전용 진단 장비를 이용하여 모발의 밀도와 굵기, 두피의 모근 상태까지 정밀하게 분석하여 탈모의 정확한 원인과 진행 상태를 진단합니다.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <i class="fas fa-microscope text-3xl text-emerald-teal mb-3"></i>
+                                    <h4 class="font-semibold">모낭 상태 분석</h4>
+                                    <p class="text-sm text-gray-500 mt-1">고배율 현미경으로 확인</p>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <i class="fas fa-chart-bar text-3xl text-emerald-teal mb-3"></i>
+                                    <h4 class="font-semibold">모발 데이터 측정</h4>
+                                    <p class="text-sm text-gray-500 mt-1">밀도 및 굵기 데이터화</p>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-lg">
+                                    <i class="fas fa-stethoscope text-3xl text-emerald-teal mb-3"></i>
+                                    <h4 class="font-semibold">유형별 맞춤 진단</h4>
+                                    <p class="text-sm text-gray-500 mt-1">의료진의 정밀 문진</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10 reveal">
+                            <div class="text-center mb-8">
+                               <span class="text-sm font-semibold text-emerald-teal bg-emerald-teal/10 px-3 py-1 rounded-full">HAIRCARE</span>
+                               <h3 class="text-2xl font-bold text-deep-navy mt-2">유형별 탈모 치료</h3>
+                            </div>
+                           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-emerald-teal">
+                                    <h4 class="font-bold text-xl text-deep-navy mb-4 flex items-center"><i class="fas fa-male text-emerald-teal mr-3"></i>남성형 탈모</h4>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-semibold text-deep-navy opacity-90">정수리형 탈모 (지루성 피부염 동반)</h5>
+                                            <p class="text-sm text-deep-navy opacity-70 mt-1">심한 지루성 피부염으로 인해 악화된 정수리 탈모에 대해 복합 치료를 진행하여 두피 건강과 모발 밀도를 함께 개선합니다.</p>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-deep-navy opacity-90">M자형 탈모</h5>
+                                            <p class="text-sm text-deep-navy opacity-70 mt-1">유전적 요인이 큰 M자형 탈모는 약물 치료와 함께 모낭 주사 치료를 병행하여 진행을 늦추고 발모를 촉진합니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-emerald-teal">
+                                    <h4 class="font-bold text-xl text-deep-navy mb-4 flex items-center"><i class="fas fa-female text-emerald-teal mr-3"></i>여성형 탈모</h4>
+                                     <div class="space-y-4">
+                                        <div>
+                                            <h5 class="font-semibold text-deep-navy opacity-90">정수리형(가르마) 탈모</h5>
+                                            <p class="text-sm text-deep-navy opacity-70 mt-1">여성에게 가장 흔한 유형으로, 가르마 부위가 넓어지는 양상을 보입니다. 두피 영양 공급과 혈액순환을 개선하는 주사 치료를 통해 모발 밀도를 효과적으로 높일 수 있습니다.</p>
+                                        </div>
+                                         <div>
+                                            <h5 class="font-semibold text-deep-navy opacity-90">휴지기 탈모</h5>
+                                            <p class="text-sm text-deep-navy opacity-70 mt-1">스트레스나 출산, 급격한 다이어트 후 발생하는 일시적인 탈모입니다. 정확한 원인 진단과 함께 두피 회복 치료를 진행하여 모발 사이클을 정상화합니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
 
-                        <!-- 일반 레이저 시술 주의사항 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                            <div class="flex items-center mb-4">
-                               <i class="fas fa-radiation text-2xl text-green-500 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-800">일반 레이저 시술 (토닝, I2PL 등)</h3>
-                            </div>
-                           <ol class="list-decimal list-inside space-y-3 text-sm text-gray-700">
-                                <li>시술 후 2일간은 얼음주머니 등으로 시술 부위를 10분간 냉각하고 30분 휴식하는 과정을 3~4회 반복하면 좋습니다.</li>
-                                <li>재생크림을 첫 3일간은 4시간마다, 그 후에는 하루 2회씩 꾸준히 발라줍니다.</li>
-                                <li>실내에 있더라도 3시간 간격으로 자외선 차단제를 발라 색소침착을 예방합니다.</li>
-                                <li>시술 후 생긴 가피(딱지)는 절대 억지로 떼지 말고 자연스럽게 떨어지도록 둡니다.</li>
-                                <li>시술 후 1주일간은 음주, 흡연 및 체온을 높이는 운동, 사우나, 목욕을 피해야 합니다.</li>
-                                <li>홍조, 통증, 붉음증이 지속되거나 기타 이상 증상이 있다면 즉시 병원으로 문의해주시기 바랍니다.</li>
-                            </ol>
+                    <!-- 피부질환 Content -->
+                    <div id="skin-disease" class="tab-content space-y-16">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">피부질환, 섣부른 자가진단은 금물입니다</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">가벼운 알레르기부터 다른 질병의 신호일 수 있는 증상까지, 피부에 나타나는 다양한 질환은 정확한 진단과 조기 치료가 중요합니다. 민간요법이나 부정확한 연고 사용은 오히려 상태를 악화시킬 수 있습니다.</p>
                         </div>
-                        
-                        <!-- 프락셀/필링 후 주의사항 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                             <div class="flex items-center mb-4">
-                                <i class="fas fa-layer-group text-2xl text-purple-500 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-800">프락셀/필링 후 주의사항</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                                <i class="fas fa-allergies text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">알레르기</h3>
+                                <p class="text-sm text-deep-navy opacity-70">습진, 가려움증, 두드러기, 피부 묘기증 등 다양한 알레르기 반응은 정확한 원인 파악과 항원에 대한 회피, 적절한 약물 치료가 필요합니다.</p>
                             </div>
-                            <ol class="list-decimal list-inside space-y-3 text-sm text-gray-700">
-                                <li>시술 당일에는 세안과 화장을 피하고, 다음날부터 가능합니다.</li>
-                                <li>시술 후 일주일간은 목욕, 사우나, 격한 운동 등 피부에 자극을 줄 수 있는 환경을 피합니다.</li>
-                                <li>붓기, 따가움, 붉은 기운, 각질 등은 자연스러운 과정이며 보통 일주일 내에 호전됩니다. 증상이 심해지면 즉시 병원으로 문의 바랍니다.</li>
-                            </ol>
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                               <i class="fas fa-hand-paper text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">사마귀/티눈</h3>
+                                <p class="text-sm text-deep-navy opacity-70">바이러스성인 사마귀와 지속적인 압력으로 생기는 티눈은 원인이 다릅니다. 통증이 적은 냉동응고술, 크기가 큰 경우 레이저 치료로 효과적으로 제거합니다.</p>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                                <i class="fas fa-shoe-prints text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">손/발/손발톱 무좀</h3>
+                                <p class="text-sm text-deep-navy opacity-70">무좀균에 의해 발생하는 전염성 질환입니다. 연고, 경구 항진균제 등 상태에 맞는 치료가 필요하며, 특히 손발톱 무좀은 3개월 이상의 꾸준한 치료가 중요합니다.</p>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                                <i class="fas fa-bolt text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">대상포진</h3>
+                                <p class="text-sm text-deep-navy opacity-70">수두 바이러스에 의한 수포성 질환으로, 극심한 통증을 동반합니다. 신경통 합병증 예방을 위해 빠른 항바이러스제 투여가 핵심이며, 본원에서는 신경통까지 전문적으로 치료합니다.</p>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                                <i class="fas fa-fire-alt text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">화상치료</h3>
+                                <p class="text-sm text-deep-navy opacity-70">화상은 열 손상으로, 일반 상처와 다릅니다. 흐르는 차가운 물로 15분 이상 냉각하는 초기 응급처치 후, 즉시 병원을 방문하여 흉터와 후유증을 최소화해야 합니다.</p>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-shadow">
+                                <i class="fas fa-plus-circle text-3xl text-emerald-teal mb-4"></i>
+                                <h3 class="text-xl font-bold text-deep-navy mb-2">기타 피부질환</h3>
+                                <p class="text-sm text-deep-navy opacity-70">원인 불명의 발진, 염증 등 모든 피부 문제에 대해 정확한 진단과 치료를 제공합니다. 망설이지 말고 내원하여 상담받으세요.</p>
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- 보톡스 시술 후 주의사항 -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                           <div class="flex items-center mb-4">
-                                <i class="fas fa-syringe text-2xl text-red-500 mr-3"></i>
-                                <h3 class="text-xl font-bold text-gray-800">보톡스 시술 후 주의사항</h3>
+                    <!-- 시술후 주의사항 Content -->
+                    <div id="aftercare" class="tab-content space-y-12">
+                        <div class="text-center reveal">
+                            <h2 class="text-3xl font-bold text-deep-navy">시술 후 관리, 효과를 완성하는 마지막 단계입니다</h2>
+                            <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">피부/미용 시술은 시술만큼이나 후처치 및 사후관리가 중요합니다. 아래 시술별 주의사항을 꼼꼼히 확인하시어 보다 높은 시술 효과를 누리시길 바랍니다.</p>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 reveal">
+                            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                                <div class="flex items-center mb-4">
+                                    <i class="fas fa-circle-nodes text-2xl text-emerald-teal mr-3"></i>
+                                    <h3 class="text-xl font-bold text-deep-navy">CO2 레이저 (점/사마귀/비립종 등)</h3>
+                                </div>
+                                <ol class="list-decimal list-inside space-y-3 text-sm text-deep-navy opacity-80">
+                                    <li>시술 후 붙여드린 습윤밴드(듀오덤)가 하얗게 부풀어 오르면 갈아주시고, 그렇지 않으면 2일에 1회씩 교체합니다. (최소 7일 이상)</li>
+                                    <li>습윤밴드를 붙인 상태로 세안이나 샤워가 가능합니다.</li>
+                                    <li>밴드를 뗀 후에는 매 4시간마다 재생크림과 자외선 차단제를 꼼꼼히 발라줍니다.</li>
+                                    <li>가피(딱지)가 생긴 경우, 하루 2~3회 처방 연고를 바르고 자연스럽게 떨어지도록 둡니다.</li>
+                                    <li>색소침착 예방을 위해 시술 후 최소 1주일간은 햇빛 노출, 사우나, 격한 운동을 피합니다.</li>
+                                </ol>
                             </div>
-                            <ol class="list-decimal list-inside space-y-3 text-sm text-gray-700">
-                                <li>드물게 멍, 부종, 붉음증이 나타날 수 있으나 대부분 자연스럽게 사라집니다.</li>
-                                <li>시술 후 2~3시간 동안은 눕지 않는 것이 좋습니다.</li>
-                                <li>시술 부위를 문지르거나 강하게 자극하지 마십시오. 약물이 주변으로 퍼져 원치 않는 효과가 나타날 수 있습니다. (턱 보톡스의 경우 딱딱하거나 질긴 음식 피하기)</li>
-                                <li>일시적으로 표정이 어색할 수 있으나 보통 1~2주 안에 자연스러워집니다.</li>
-                                <li>효과는 개인차가 있으며 보통 2~3주부터 나타나기 시작하여 4~12개월간 지속됩니다.</li>
-                            </ol>
+                            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                                <div class="flex items-center mb-4">
+                                   <i class="fas fa-radiation text-2xl text-emerald-teal mr-3"></i>
+                                    <h3 class="text-xl font-bold text-deep-navy">일반 레이저 시술 (토닝, I2PL 등)</h3>
+                                </div>
+                               <ol class="list-decimal list-inside space-y-3 text-sm text-deep-navy opacity-80">
+                                    <li>시술 후 2일간은 얼음주머니 등으로 시술 부위를 10분간 냉각하고 30분 휴식하는 과정을 3~4회 반복하면 좋습니다.</li>
+                                    <li>재생크림을 첫 3일간은 4시간마다, 그 후에는 하루 2회씩 꾸준히 발라줍니다.</li>
+                                    <li>실내에 있더라도 3시간 간격으로 자외선 차단제를 발라 색소침착을 예방합니다.</li>
+                                    <li>시술 후 생긴 가피(딱지)는 절대 억지로 떼지 말고 자연스럽게 떨어지도록 둡니다.</li>
+                                    <li>시술 후 1주일간은 음주, 흡연 및 체온을 높이는 운동, 사우나, 목욕을 피해야 합니다.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                                 <div class="flex items-center mb-4">
+                                    <i class="fas fa-layer-group text-2xl text-emerald-teal mr-3"></i>
+                                    <h3 class="text-xl font-bold text-deep-navy">프락셀/필링 후 주의사항</h3>
+                                </div>
+                                <ol class="list-decimal list-inside space-y-3 text-sm text-deep-navy opacity-80">
+                                    <li>시술 당일에는 세안과 화장을 피하고, 다음날부터 가능합니다.</li>
+                                    <li>시술 후 일주일간은 목욕, 사우나, 격한 운동 등 피부에 자극을 줄 수 있는 환경을 피합니다.</li>
+                                    <li>붓기, 따가움, 붉은 기운, 각질 등은 자연스러운 과정이며 보통 일주일 내에 호전됩니다. 증상이 심해지면 즉시 병원으로 문의 바랍니다.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                               <div class="flex items-center mb-4">
+                                    <i class="fas fa-syringe text-2xl text-emerald-teal mr-3"></i>
+                                    <h3 class="text-xl font-bold text-deep-navy">보톡스 시술 후 주의사항</h3>
+                                </div>
+                                <ol class="list-decimal list-inside space-y-3 text-sm text-deep-navy opacity-80">
+                                    <li>드물게 멍, 부종, 붉음증이 나타날 수 있으나 대부분 자연스럽게 사라집니다.</li>
+                                    <li>시술 후 2~3시간 동안은 눕지 않는 것이 좋습니다.</li>
+                                    <li>시술 부위를 문지르거나 강하게 자극하지 마십시오. 약물이 주변으로 퍼져 원치 않는 효과가 나타날 수 있습니다. (턱 보톡스의 경우 딱딱하거나 질긴 음식 피하기)</li>
+                                    <li>효과는 개인차가 있으며 보통 2~3주부터 나타나기 시작하여 4~12개월간 지속됩니다.</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
-
+    
     <!-- Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
-        <a href="tel:031-896-3800" class="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
             <i class="fas fa-phone fa-lg"></i>
         </a>
-        <a href="#" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors">
-            <i class="fab fa-kickstarter-k"></i> <!-- 카카오톡 아이콘 예시 -->
+        <a href="#" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fab fa-kickstarter-k"></i>
         </a>
-        <button id="top-btn" class="w-14 h-14 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-opacity opacity-0">
-             <i class="fas fa-arrow-up fa-lg"></i>
+        <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+            <i class="fas fa-arrow-up fa-lg"></i>
         </button>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white pt-10 pb-6 mt-16">
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-2">이연의원 EYEON CLINIC</h3>
+                    <h3 class="text-xl font-bold mb-2">EYEON CLINIC</h3>
                     <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
                 </div>
                 <div>
                     <h3 class="font-semibold mb-2">진료시간</h3>
                     <ul class="text-gray-400 space-y-1 text-sm">
-                        <li>평일: 09:00 - 18:00(월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>평일: 09:00 - 18:00 (월/화/목/금: 진료, 매주 수요일 휴진)</li>
                         <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
                         <li>점심시간: 13:00 - 14:00</li>
                         <li>일요일/공휴일: 휴진</li>
@@ -680,113 +571,122 @@
         </div>
     </footer>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="relative">
-            <img id="modalImage" src="" alt="Enlarged Image" class="max-w-full max-h-screen object-contain">
-            <button id="closeModal" class="absolute top-4 right-4 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center leading-none">&times;</button>
-        </div>
-    </div>
-
+    <!-- JavaScript -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Tab Navigation Logic ---
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Header Style Logic ---
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButtonSvg = document.querySelector('#mobile-menu-button svg');
 
-        function switchTab(tabId) {
+            const updateHeaderStyle = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-gray-700' : 'text-white';
+                const logoColor = isScrolled ? 'text-gray-800' : 'text-white';
+                const hoverColor = isScrolled ? 'hover:text-blue-600' : 'hover:text-gray-300';
+                const activeLink = document.querySelector('.nav-link.nav-active');
+
+                headerLogo.classList.remove('text-white', 'text-gray-800');
+                headerLogo.classList.add(logoColor);
+
+                mobileMenuButtonSvg.classList.remove('text-white', 'text-gray-700');
+                mobileMenuButtonSvg.classList.add(isScrolled ? 'text-gray-700' : 'text-white');
+
+                navLinks.forEach(link => {
+                    if (link !== activeLink) {
+                        link.classList.remove('text-white', 'hover:text-gray-300', 'text-gray-700', 'hover:text-blue-600');
+                        link.classList.add(textColor, hoverColor);
+                    }
+                });
+
+                if (activeLink) {
+                     if(isScrolled) {
+                        activeLink.classList.remove('text-white');
+                        activeLink.classList.add('text-emerald-teal');
+                     } else {
+                        activeLink.classList.add('text-white');
+                     }
+                }
+            };
+
+            // --- Tab Navigation Logic ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            function switchTab(tabId) {
+                tabButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
+                const activeContent = document.getElementById(tabId);
+
+                if (activeButton && activeContent) {
+                    activeButton.classList.add('active');
+                    activeContent.classList.add('active');
+                }
+            }
+
             tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-            tabContents.forEach(content => {
-                content.classList.remove('active', 'fade-in', 'visible');
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+                    switchTab(tabId);
+                });
             });
 
-            const activeButton = document.querySelector(`[data-tab="${tabId}"]`);
-            const activeContent = document.getElementById(tabId);
+            // Set initial active tab
+            switchTab('laser-petit');
 
-            if (activeButton && activeContent) {
-                activeButton.classList.add('active');
-                activeContent.classList.add('active');
-                setTimeout(() => {
-                    activeContent.classList.add('fade-in', 'visible');
-                }, 50);
+            // --- Basic UI Interactions ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
             }
-        }
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.dataset.tab;
-                switchTab(tabId);
-            });
-        });
-
-        switchTab('laser-petit');
-
-        // --- Other Scripts (Menu, Animation, etc.) ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-        
-        const topBtn = document.getElementById('top-btn');
-        if (topBtn) {
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 400) {
-                    topBtn.classList.remove('opacity-0');
-                    topBtn.classList.add('opacity-100');
-                } else {
-                    topBtn.classList.remove('opacity-100');
-                    topBtn.classList.add('opacity-0');
-                }
-            });
-            
-            topBtn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-        
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-        faders.forEach(fader => appearOnScroll.observe(fader));
-
-        // --- Image Modal Logic ---
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const closeModal = document.getElementById('closeModal');
-        const galleryImages = document.querySelectorAll('.gallery-image');
-
-        galleryImages.forEach(image => {
-            image.addEventListener('click', function() {
-                modalImage.src = this.src;
-                imageModal.classList.remove('hidden');
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
-            imageModal.classList.add('hidden');
-            modalImage.src = ''; // Clear image src
-        });
-
-        // Close modal when clicking outside the image
-        imageModal.addEventListener('click', function(e) {
-            if (e.target === imageModal) {
-                imageModal.classList.add('hidden');
-                modalImage.src = '';
+            const topBtn = document.getElementById('top-btn');
+            if (topBtn) {
+                window.addEventListener('scroll', function() {
+                    topBtn.classList.toggle('opacity-100', window.scrollY > 400);
+                    topBtn.classList.toggle('opacity-0', window.scrollY <= 400);
+                });
+                
+                topBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
+
+            // --- Scroll Animation Logic ---
+            const animatedElements = document.querySelectorAll('.reveal');
+            if (animatedElements.length > 0) {
+                const animationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                });
+
+                animatedElements.forEach(el => {
+                    animationObserver.observe(el);
+                });
+            }
+
+            // --- Initial Execution ---
+            updateHeaderStyle();
+            window.addEventListener('scroll', updateHeaderStyle);
         });
-    });
     </script>
 </body>
 </html>
