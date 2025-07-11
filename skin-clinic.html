@@ -83,6 +83,64 @@
         /* Hide scrollbar but allow scrolling */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 이미지 모달 스타일 */
+        .image-modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content-image {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 800px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0.5); opacity: 0;}
+            to {transform:scale(1); opacity: 1;}
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close-modal-btn:hover,
+        .close-modal-btn:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 이미지에 커서 포인터 추가 */
+        .enlargeable-image {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .enlargeable-image:hover {
+            opacity: 0.7;
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -177,12 +235,12 @@
                                 </div>
                             </div>
                             <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/pico-toning.jpeg" alt="레이저 시술 이미지" class="w-full h-full object-cover">
+                                <img src="images/pico-toning.jpeg" alt="레이저 시술 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 gap-12 items-center reveal">
                             <div class="rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/jaw-botox.jpeg" alt="보톡스 시술 관련 이미지" class="w-full h-full object-cover">
+                                <img src="images/jaw-botox.jpeg" alt="보톡스 시술 관련 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-deep-navy mb-4">턱 보톡스</h3>
@@ -203,12 +261,12 @@
                                 </div>
                             </div>
                             <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/facial-botox.jpeg" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover">
+                                <img src="images/facial-botox.jpeg" alt="얼굴보톡스 시술 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 gap-12 items-center reveal">
                             <div class="rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/power-lifting.jpeg" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover">
+                                <img src="images/power-lifting.jpeg" alt="파워 V-리프팅 시술 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-deep-navy mb-4">파워 V-리프팅</h3>
@@ -265,7 +323,7 @@
                         </div>
                         <div class="grid md:grid-cols-2 gap-12 items-center reveal">
                             <div class="rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/hair-removal-info.jpeg" alt="제모 시술 정보" class="w-full h-full object-cover">
+                                <img src="images/hair-removal-info.jpeg" alt="제모 시술 정보" class="w-full h-full object-cover enlargeable-image">
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-deep-navy mb-4">레이저 제모 시 유의사항</h3>
@@ -295,12 +353,12 @@
                                 </div>
                             </div>
                             <div class="order-1 md:order-2 rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/acne-art-laser.jpeg" alt="여드름 치료 이미지" class="w-full h-full object-cover">
+                                <img src="images/acne-art-laser.jpeg" alt="여드름 치료 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                         </div>
                          <div class="grid md:grid-cols-2 gap-12 items-center reveal">
                             <div class="rounded-2xl shadow-xl overflow-hidden">
-                                <img src="images/acne-scar-laser.jpeg" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover">
+                                <img src="images/acne-scar-laser.jpeg" alt="여드름 흉터 레이저 시술 이미지" class="w-full h-full object-cover enlargeable-image">
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-deep-navy mb-4">여드름 흉터: 프락셀 레이저</h3>
@@ -571,6 +629,12 @@
         </div>
     </footer>
 
+    <!-- Image Modal HTML -->
+    <div id="imageModal" class="image-modal">
+      <span class="close-modal-btn">&times;</span>
+      <img class="modal-content-image" id="modalImage">
+    </div>
+
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -592,8 +656,10 @@
                 headerLogo.classList.remove('text-white', 'text-gray-800');
                 headerLogo.classList.add(logoColor);
 
-                mobileMenuButtonSvg.classList.remove('text-white', 'text-gray-700');
-                mobileMenuButtonSvg.classList.add(isScrolled ? 'text-gray-700' : 'text-white');
+                if (mobileMenuButtonSvg) {
+                    mobileMenuButtonSvg.classList.remove('text-white', 'text-gray-700');
+                    mobileMenuButtonSvg.classList.add(isScrolled ? 'text-gray-700' : 'text-white');
+                }
 
                 navLinks.forEach(link => {
                     if (link !== activeLink) {
@@ -681,6 +747,33 @@
                 animatedElements.forEach(el => {
                     animationObserver.observe(el);
                 });
+            }
+
+            // --- Image Modal Logic ---
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const images = document.querySelectorAll('.enlargeable-image');
+            const closeBtn = document.querySelector(".close-modal-btn");
+
+            images.forEach(image => {
+                image.onclick = function(){
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            });
+
+            // 닫기 버튼(x)을 클릭하면 모달을 닫습니다.
+            if(closeBtn) {
+                closeBtn.onclick = function() {
+                  modal.style.display = "none";
+                }
+            }
+
+            // 모달 외부를 클릭하면 모달을 닫습니다.
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
             }
 
             // --- Initial Execution ---
