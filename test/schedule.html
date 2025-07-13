@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진료일정 | EYEON Clinic</title>
+        
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+       
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        /* Calendar Styles */
+        .calendar-cell {
+            height: 120px;
+            width: 14.28%;
+            position: relative;
+            transition: all 0.2s ease;
+            vertical-align: top;
+            overflow: hidden;
+        }
+        .admin-mode .calendar-cell:not(.disabled) {
+            cursor: pointer;
+        }
+        .admin-mode .calendar-cell:not(.disabled):hover {
+            background-color: #eff6ff;
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            overflow: visible;
+        }
+        .schedule-event {
+            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-top: 4px;
+            color: white;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .disabled { color: #d1d5db; }
+        
+        /* New Calendar Color Styles */
+        .holiday-bg { background-color: rgba(128, 0, 32, 0.05); } /* Light Burgundy */
+        .wednesday-bg { background-color: rgba(10, 35, 66, 0.05); } /* Light Navy */
+
+        .event-holiday { background-color: var(--burgundy); }
+        .event-regular-off { background-color: var(--deep-navy); }
+        .event-special { background-color: var(--emerald-teal); }
+        .event-time-change { background-color: var(--metallic-copper); }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+            bottom: 40px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" id="header-logo" class="text-2xl font-bold text-white transition-colors duration-300">EYEON</a>
+                
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이연EYEON</a>
+                    <a href="clinic-info.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료안내</a>
+                    <a href="doctor.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">의료진소개</a>
+                    <a href="schedule.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">진료일정</a>
+                    <a href="events.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이벤트안내</a>
+                    <a href="skin-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비만클리닉</a>
+                    <a href="notice.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">공지사항</a>
+                    <a href="costs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비급여 비용안내</a>
+                </nav>
+
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
+            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
+            <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
+            <a href="schedule.html" class="block py-2 text-blue-600 font-bold">진료일정</a>
+            <a href="events.html" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
+            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
+            <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
+            <a href="notice.html" class="block py-2 text-gray-700 hover:text-blue-600">공지사항</a>
+            <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="../images/schedule-hero.jpg" 
+                         alt="달력과 시계가 있는 차분한 이미지" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50"></div> 
+                </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    진료일정
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    이연의원의 진료일정을 확인하고 방문 계획을 세워보세요.
+                </p>
+            </div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <!-- Notices -->
+                <div class="max-w-5xl mx-auto mb-16 reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-2xl p-8 shadow-md">
+                            <h3 class="text-2xl font-bold text-deep-navy mb-4 flex items-center">
+                                <i class="fas fa-bullhorn text-emerald-teal mr-3"></i>
+                                정기 휴진 안내
+                            </h3>
+                            <p class="text-deep-navy opacity-80 leading-relaxed">
+                                이연 안티에이징 연구소 및 메디컬 필라테스 호두의 일정 관계로 <strong class="font-semibold text-deep-navy">매주 수요일은 휴진</strong>입니다. 보다 나은 진료를 위한 휴무이오니 양해를 부탁드립니다.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-8 shadow-md">
+                            <h3 class="text-2xl font-bold text-deep-navy mb-4 flex items-center">
+                                <i class="fas fa-clock text-emerald-teal mr-3"></i>
+                                금요일 진료시간
+                            </h3>
+                            <p class="text-deep-navy opacity-80 leading-relaxed">
+                                금요일 진료는 <strong class="font-semibold text-emerald-teal">오후 6시까지</strong>입니다. 내원에 참고해주시기 바랍니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 max-w-6xl mx-auto reveal">
+                    <div class="flex justify-between items-center mb-8">
+                        <button id="prevMonth" class="p-3 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-teal/50">
+                            <i class="fas fa-chevron-left text-gray-600"></i>
+                        </button>
+                        <h2 id="currentMonth" class="text-2xl md:text-3xl font-bold text-deep-navy font-eng tracking-tight"></h2>
+                        <button id="nextMonth" class="p-3 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-teal/50">
+                            <i class="fas fa-chevron-right text-gray-600"></i>
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-fixed">
+                            <thead>
+                                <tr class="text-center">
+                                    <th class="py-3 px-1 text-red-600 font-medium text-sm">일</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">월</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">화</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">수</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">목</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">금</th>
+                                    <th class="py-3 px-1 text-blue-600 font-medium text-sm">토</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody">
+                               <tr><td colspan="7" class="text-center p-10 text-gray-500">달력을 불러오는 중...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-8 flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-3 justify-center items-center border-t pt-6">
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--burgundy);"></div><span class="text-xs sm:text-sm text-gray-600">휴진</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--deep-navy);"></div><span class="text-xs sm:text-sm text-gray-600">정기휴진</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--emerald-teal);"></div><span class="text-xs sm:text-sm text-gray-600">특별진료</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--metallic-copper);"></div><span class="text-xs sm:text-sm text-gray-600">시간변경</span></div>
+                        <button id="adminToggle" class="ml-auto bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm"><i class="fas fa-cog mr-2"></i>관리자 로그인</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">일정 관리</h3>
+                <button id="closeScheduleModal" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <p class="text-gray-600 mb-4">선택한 날짜: <span id="selectedDate" class="font-semibold"></span></p>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">일정 유형</label>
+                    <select id="scheduleType" class="w-full p-2 border rounded-lg">
+                        <option value="">일반 진료</option>
+                        <option value="holiday">휴진</option>
+                        <option value="special">특별진료</option>
+                        <option value="timeChange">진료시간 변경</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">메모</label>
+                    <textarea id="scheduleMemo" class="w-full p-2 border rounded-lg" rows="3" placeholder="일정에 대한 메모를 입력하세요 (예: 오전 휴진)"></textarea>
+                </div>
+                <div id="timeChangeSection" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">변경된 진료시간</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="time" id="startTime" class="p-2 border rounded-lg" value="09:00">
+                        <input type="time" id="endTime" class="p-2 border rounded-lg" value="18:00">
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button id="saveSchedule" class="flex-1 bg-emerald-teal text-white py-2 px-4 rounded-lg hover:opacity-90 transition-colors disabled:bg-opacity-50"><i class="fas fa-save mr-2"></i>저장</button>
+                    <button id="deleteSchedule" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"><i class="fas fa-trash mr-2"></i>삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 class="font-bold text-xl mb-4">관리자 로그인</h4>
+            <div class="space-y-3">
+                <input type="email" id="loginEmail" placeholder="이메일" class="w-full p-2 border rounded-md">
+                <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full p-2 border rounded-md">
+                <p id="loginError" class="text-red-500 text-sm h-4"></p>
+            </div>
+            <div class="flex justify-end mt-4">
+                 <button id="cancelLogin" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submitLogin" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90 disabled:bg-opacity-50">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 id="confirmMessage" class="font-bold mb-4 text-center"></h4>
+            <div class="flex justify-center mt-6">
+                <button id="cancelConfirm" class="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-4">취소</button>
+                <button id="confirmAction" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">확인</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="#" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fab fa-kickstarter-k"></i>
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+             <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00 (월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyB-LCbB5jfGfoi5BS6qRdfxzrbHbe6vWr4",
+          authDomain: "eyeon-clinic-website.firebaseapp.com",
+          projectId: "eyeon-clinic-website",
+          storageBucket: "eyeon-clinic-website.firebasestorage.app",
+          messagingSenderId: "765605581069",
+          appId: "1:765605581069:web:ee49f0531ff0b55b72a044",
+          measurementId: "G-FMRGG5P8H6"
+        };
+        
+        let db, auth;
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            document.getElementById('calendarBody').innerHTML = `<tr><td colspan="7" class="text-center p-10 text-red-500">페이지 초기화에 실패했습니다. Firebase 구성 정보를 확인해주세요.</td></tr>`;
+        }
+
+        const calendarBody = document.getElementById('calendarBody');
+        const currentMonthEl = document.getElementById('currentMonth');
+        const adminToggleBtn = document.getElementById('adminToggle');
+        
+        const scheduleModal = document.getElementById('scheduleModal');
+        const loginModal = document.getElementById('loginModal');
+        const confirmModal = document.getElementById('confirmModal');
+
+        let currentDate = new Date();
+        let selectedDateStr = null;
+        let isAdminMode = false;
+        let scheduleData = {};
+        let confirmCallback = null;
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = `toast ${isError ? 'bg-red-500' : 'bg-emerald-teal'}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        if (db) {
+            onSnapshot(collection(db, "schedule"), (snapshot) => {
+                scheduleData = {};
+                snapshot.forEach((doc) => scheduleData[doc.id] = doc.data());
+                renderCalendar(); 
+            }, (error) => {
+                console.error("Firebase data fetch error: ", error);
+                calendarBody.innerHTML = `<tr><td colspan="7" class="text-center p-10 text-red-500">데이터를 불러오는 데 실패했습니다.</td></tr>`;
+            });
+        }
+        
+        onAuthStateChanged(auth, (user) => {
+            isAdminMode = !!user;
+            adminToggleBtn.innerHTML = isAdminMode ? '<i class="fas fa-lock-open mr-2"></i>로그아웃' : '<i class="fas fa-cog mr-2"></i>관리자 로그인';
+            adminToggleBtn.classList.toggle('bg-emerald-teal', isAdminMode);
+            adminToggleBtn.classList.toggle('bg-gray-600', !isAdminMode);
+            document.body.classList.toggle('admin-mode', isAdminMode);
+            renderCalendar();
+        });
+
+        adminToggleBtn.addEventListener('click', () => {
+            if (isAdminMode) {
+                signOut(auth).catch(error => showToast('로그아웃 실패: ' + error.message, true));
+            } else {
+                loginModal.classList.add('active');
+                document.getElementById('loginEmail').focus();
+            }
+        });
+
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            
+            currentMonthEl.textContent = `${year}년 ${month + 1}월`;
+            calendarBody.innerHTML = '';
+            
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    cell.className = 'calendar-cell border p-2';
+                    
+                    if ((i === 0 && j < firstDay) || date > lastDate) {
+                        cell.classList.add('disabled', 'bg-gray-50');
+                    } else {
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                        cell.dataset.date = dateStr;
+                        
+                        const dateNumber = document.createElement('div');
+                        dateNumber.className = 'font-medium mb-1 text-sm text-right pr-1';
+                        dateNumber.textContent = date;
+                        cell.appendChild(dateNumber);
+                        
+                        if (j === 0) dateNumber.classList.add('text-red-500');
+                        if (j === 6) dateNumber.classList.add('text-blue-500');
+                        
+                        if (j === 3) {
+                            cell.classList.add('wednesday-bg');
+                            cell.appendChild(createEventDiv('정기 휴진', 'event-regular-off'));
+                        }
+
+                        if (scheduleData[dateStr]) {
+                            const { type, memo, startTime, endTime } = scheduleData[dateStr];
+                            if(type) {
+                                const eventDiv = createEventDiv(memo || getEventTypeKorean(type), getEventColor(type), startTime, endTime);
+                                if (type === 'holiday') cell.classList.add('holiday-bg');
+                                cell.appendChild(eventDiv);
+                            }
+                        }
+
+                        if (isAdminMode) cell.addEventListener('click', () => openScheduleModal(dateStr));
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+                if (date > lastDate) break;
+            }
+        }
+        
+        function createEventDiv(memo, colorClass, startTime, endTime) {
+            const event = document.createElement('div');
+            event.className = `schedule-event ${colorClass}`;
+            event.textContent = (startTime && endTime) ? `${memo} (${startTime}~${endTime})` : memo;
+            return event;
+        }
+
+        function getEventColor(type) {
+            return { 
+                holiday: 'event-holiday', 
+                special: 'event-special', 
+                timeChange: 'event-time-change' 
+            }[type] || 'bg-gray-400';
+        }
+        
+        function getEventTypeKorean(type) {
+            return { holiday: '휴진', special: '특별진료', timeChange: '진료시간변경' }[type] || '';
+        }
+
+        function openScheduleModal(dateStr) {
+            selectedDateStr = dateStr;
+            const schedule = scheduleData[dateStr] || {};
+            document.getElementById('selectedDate').textContent = dateStr;
+            document.getElementById('scheduleType').value = schedule.type || '';
+            document.getElementById('scheduleMemo').value = schedule.memo || '';
+            document.getElementById('startTime').value = schedule.startTime || '09:00';
+            document.getElementById('endTime').value = schedule.endTime || '18:00';
+            document.getElementById('timeChangeSection').classList.toggle('hidden', schedule.type !== 'timeChange');
+            scheduleModal.classList.add('active');
+        }
+
+        function showConfirmModal(message, callback) {
+            document.getElementById('confirmMessage').textContent = message;
+            confirmCallback = callback;
+            confirmModal.classList.add('active');
+        }
+
+        async function saveSchedule() {
+            const type = document.getElementById('scheduleType').value;
+            const memo = document.getElementById('scheduleMemo').value;
+            if (!type && !memo) return deleteSchedule(); 
+
+            const saveBtn = document.getElementById('saveSchedule');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>저장 중...';
+
+            const dataToSave = { type, memo };
+            if (type === 'timeChange') {
+                dataToSave.startTime = document.getElementById('startTime').value;
+                dataToSave.endTime = document.getElementById('endTime').value;
+            }
+            
+            try {
+                await setDoc(doc(db, "schedule", selectedDateStr), dataToSave);
+                showToast('일정이 저장되었습니다.');
+                scheduleModal.classList.remove('active');
+            } catch (error) {
+                showToast('저장 실패: ' + error.message, true);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save mr-2"></i>저장';
+            }
+        }
+
+        function deleteSchedule() {
+            showConfirmModal(`${selectedDateStr}의 일정을 정말 삭제하시겠습니까?`, async () => {
+                if (scheduleData[selectedDateStr]) {
+                    try {
+                        await deleteDoc(doc(db, "schedule", selectedDateStr));
+                        showToast('일정이 삭제되었습니다.');
+                    } catch (error) {
+                        showToast('삭제 실패: ' + error.message, true);
+                    }
+                }
+                scheduleModal.classList.remove('active');
+            });
+        }
+        
+        document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+        document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+        document.getElementById('closeScheduleModal').addEventListener('click', () => scheduleModal.classList.remove('active'));
+        document.getElementById('saveSchedule').addEventListener('click', saveSchedule);
+        document.getElementById('deleteSchedule').addEventListener('click', deleteSchedule);
+        document.getElementById('scheduleType').addEventListener('change', function() {
+            document.getElementById('timeChangeSection').classList.toggle('hidden', this.value !== 'timeChange');
+        });
+        
+        document.getElementById('cancelLogin').addEventListener('click', () => loginModal.classList.remove('active'));
+        const handleLogin = async () => {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorP = document.getElementById('loginError');
+            errorP.textContent = '';
+            document.getElementById('submitLogin').disabled = true;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginModal.classList.remove('active');
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+            } catch (error) {
+                errorP.textContent = '로그인 정보가 올바르지 않습니다.';
+            } finally {
+                document.getElementById('submitLogin').disabled = false;
+            }
+        };
+        document.getElementById('submitLogin').addEventListener('click', handleLogin);
+        document.getElementById('loginPassword').addEventListener('keydown', (e) => e.key === 'Enter' && handleLogin());
+
+        document.getElementById('cancelConfirm').addEventListener('click', () => confirmModal.classList.remove('active'));
+        document.getElementById('confirmAction').addEventListener('click', () => {
+            if (confirmCallback) confirmCallback();
+            confirmModal.classList.remove('active');
+        });
+    </script>
+    
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

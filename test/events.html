@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 안내 | EYEON Clinic</title>
+        
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+       
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        /* 이벤트 카드 스타일 */
+        .promo-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .promo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" id="header-logo" class="text-2xl font-bold text-white transition-colors duration-300">EYEON</a>
+                
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이연EYEON</a>
+                    <a href="clinic-info.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료안내</a>
+                    <a href="doctor.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">의료진소개</a>
+                    <a href="schedule.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료일정</a>
+                    <a href="events.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">이벤트안내</a>
+                    <a href="skin-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비만클리닉</a>
+                    <a href="notice.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">공지사항</a>
+                    <a href="costs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비급여 비용안내</a>
+                </nav>
+
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
+            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
+            <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
+            <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
+            <a href="events.html" class="block py-2 text-blue-600 font-bold">이벤트안내</a>
+            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
+            <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
+            <a href="notice.html" class="block py-2 text-gray-700 hover:text-blue-600">공지사항</a>
+            <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0">
+                <img src="../images/events.jpg" 
+                     alt="두 연인이 뜻깊은 이벤트를 보내는 장면면" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/50"></div> 
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    이벤트 안내
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    이연의원에서 준비한 특별한 혜택으로 건강과 아름다움을 동시에 관리하세요.
+                </p>
+            </div>
+        </section>
+
+        <!-- Promotions Content Section -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg reveal">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-deep-navy">2025년 7월 여름맞이 이벤트</h2>
+                        <p class="mt-4 text-deep-navy opacity-70 max-w-2xl mx-auto">
+                            폭염과 함께 찾아온 7월, 이연의원에서 준비한 쿨한 혜택으로 짙어진 잡티, 푸석한 모발, 늘어난 체중 고민을 해결하세요!
+                        </p>
+                        <div class="mt-8 inline-block bg-emerald-teal text-white font-bold text-lg px-6 py-3 rounded-lg shadow-md">
+                            <i class="fas fa-calendar-alt mr-2"></i>이벤트 기간: 2025년 7월 10일 ~ 7월 24일
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Event cards -->
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">화이트닝 기본패키지</h3>
+                            <p class="text-sm text-gray-500 mb-4">잡티 없는 맑은 피부</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">44.0<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">레이저토닝 10회 + 색소레이저 1회</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">파워풀 화이트닝</h3>
+                            <p class="text-sm text-gray-500 mb-4">기미특화 레이저시술</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">77.0<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">듀얼토닝 6회 + 제네시스 4회</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-hot-pink">
+                            <h3 class="font-bold text-lg text-deep-navy">하이드로리프팅</h3>
+                            <p class="text-sm text-gray-500 mb-4">주름/탄력/보습 한번에</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">16.5<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">하이드로리프팅 1회 + 주름보톡스 1부위</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">슈퍼젯 리프팅 패키지</h3>
+                            <p class="text-sm text-gray-500 mb-4">강력한 V라인 리프팅</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">33.0<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">에어젯 1회 + 슈링크 200샷</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-hot-pink">
+                            <h3 class="font-bold text-lg text-deep-navy">슈링크 여름맞이 특가</h3>
+                            <p class="text-sm text-gray-500 mb-4">갸름한 턱선 집중 공략</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">8.8<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">슈링크 300샷</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">프락셀 패키지</h3>
+                            <p class="text-sm text-gray-500 mb-4">모공/흉터 개선</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">44.0<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">프락셀 2회 + 줄기재생앰플 2회</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-hot-pink">
+                            <h3 class="font-bold text-lg text-deep-navy">여드름 아트레이저</h3>
+                            <p class="text-sm text-gray-500 mb-4">염증성 여드름 치료</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">38.5<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">아트레이저 4회</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">뉴-뱅퀴시</h3>
+                            <p class="text-sm text-gray-500 mb-4">통증없이 체지방만 쏙!</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">28.6<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">복부 4회 (비만약 1개월 처방 무료)</p>
+                        </div>
+                        <div class="promo-card bg-white rounded-xl p-6 shadow-md border-t-4 border-gray-200">
+                            <h3 class="font-bold text-lg text-deep-navy">두피 메조테라피</h3>
+                            <p class="text-sm text-gray-500 mb-4">모발을 풍성하게</p>
+                            <div class="my-4">
+                                <span class="text-4xl font-bold text-emerald-teal">44.0<span class="text-xl font-medium ml-1">만원</span></span>
+                            </div>
+                            <p class="text-gray-600 flex-grow">두피시술 10회 (탈모약 처방 별도)</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center text-sm text-gray-500 border-t pt-8">
+                        <p><i class="fas fa-exclamation-circle mr-1 text-emerald-teal"></i> 본 이벤트는 기간 한정 이벤트로 1인 1회 등록 가능하며, 인원 초과 시 공지 없이 조기 마감될 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="#" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fab fa-kickstarter-k"></i>
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+            <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00 (월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
