@@ -412,11 +412,6 @@
                     document.getElementById('write-new-post-btn').addEventListener('click', () => openWriteModal());
                     document.getElementById('logout-btn').addEventListener('click', handleLogout);
                 }
-            } else {
-                if(!postId) { // 목록 뷰에만 로그인 버튼 표시
-                    controlsContainer.innerHTML = `<button id="login-btn" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-user-shield mr-2"></i>관리자 로그인</button>`;
-                    document.getElementById('login-btn').addEventListener('click', () => loginModal.classList.add('active'));
-                }
             }
         };
 

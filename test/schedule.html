@@ -88,8 +88,7 @@
             animation: slideUp 0.3s ease-out;
         }
         @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(20px); opacity: 0; }\n            to { transform: translateY(0); opacity: 1; }
         }
 
         /* Toast Notification */
@@ -481,8 +480,7 @@
                         showToast('일정이 삭제되었습니다.');
                     } catch (error) {
                         showToast('삭제 실패: ' + error.message, true);
-                    }
-                }
+                    }\n                }
                 scheduleModal.classList.remove('active');
             });
         }
