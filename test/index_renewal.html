@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EYEON Clinic | Science-Led Anti-Aging</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        .font-eng {
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-calligraphy {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+        
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        .bg-metallic-copper { background-color: var(--metallic-copper); }
+        
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-metallic-copper { color: var(--metallic-copper); }
+        .text-white { color: var(--white); }
+
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+
+        /* 기본 스크롤 애니메이션 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 저널 카드를 위한 부드러운 애니메이션 */
+        .reveal-journal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal-journal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .header-scrolled {
+            background-color: rgba(248, 248, 248, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            transition: background-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+        }
+        .service-card .card-content, .service-card .card-icon {
+            transition: color 0.4s ease;
+        }
+        .service-card:hover {
+            color: var(--white);
+            transform: translateY(-8px);
+        }
+        .service-card:hover .card-content {
+            color: var(--white);
+        }
+        .service-card:hover .card-icon {
+            color: var(--white) !important;
+            transform: scale(1.1);
+        }
+        .card-icon {
+             transition: color 0.4s ease, transform 0.4s ease;
+        }
+        
+        .service-card.rejuvenate:hover { background-color: var(--emerald-teal); }
+        .service-card.contour:hover { background-color: var(--deep-navy); }
+        .service-card.restore:hover { background-color: var(--metallic-copper); }
+        .service-card.wellness:hover { background-color: #5a687a; }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="index_renewal.html" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
+                
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="about-eyeon.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">About EYEON</a>
+                    <a href="services.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Services</a>
+                    <a href="journal.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Journal</a>
+                    <a href="promotion.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="pricing.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Pricing</a>
+                </nav>
+
+                <div class="flex items-center">
+                    <a href="#" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="about-eyeon.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">About EYEON</a>
+            <a href="services.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Services</a>
+            <a href="journal.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Journal</a>
+            <a href="promotion.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Promotions</a>
+            <a href="pricing.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Pricing</a>
+            <div class="p-4">
+                <a href="#" class="block w-full text-center bg-emerald-teal text-white font-semibold px-5 py-3 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1531306728358-217d52496a24?q=80&w=2940&auto=format&fit=crop" 
+                     alt="추상적인 과학적 배경 이미지" 
+                     class="w-full h-full object-cover opacity-20"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=EYEON';">
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight text-white">
+                    The Intersection of<br>Data & Beauty.
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    데이터와 과학적 근거를 통해 완성되는 개인 맞춤 안티에이징. <br class="hidden md:block">이연의원은 당신만의 건강한 아름다움을 설계합니다.
+                </p>
+                <div class="mt-10">
+                    <a href="#" class="bg-metallic-copper text-white font-semibold px-8 py-4 rounded-full hover:opacity-90 transition-opacity">Discover Your Solution</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Our Approach</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">이연의원은 복잡한 시술 대신, 당신의 목표에 집중합니다. 당신에게 필요한 솔루션을 만나보세요.</p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- 카드 1: Rejuvenate -->
+                    <a href="#" class="block p-8 rounded-2xl shadow-sm reveal service-card rejuvenate">
+                        <i class="fas fa-leaf text-4xl mb-6 card-icon text-emerald-teal"></i>
+                        <div class="card-content">
+                            <h3 class="font-eng text-xl font-bold">Rejuvenate</h3>
+                            <p class="mt-2 opacity-60">피부결, 톤, 탄력을 개선하여<br>건강한 피부의 근본을 되찾습니다.</p>
+                        </div>
+                    </a>
+                    <!-- 카드 2: Contour -->
+                    <a href="#" class="block p-8 rounded-2xl shadow-sm reveal service-card contour" style="transition-delay: 100ms;">
+                        <i class="fas fa-gem text-4xl mb-6 card-icon text-deep-navy"></i>
+                        <div class="card-content">
+                            <h3 class="font-eng text-xl font-bold">Contour</h3>
+                            <p class="mt-2 opacity-60">자연스러운 리프팅과 윤곽 정리로<br>세련된 얼굴 라인을 완성합니다.</p>
+                        </div>
+                    </a>
+                    <!-- 카드 3: Restore -->
+                    <a href="#" class="block p-8 rounded-2xl shadow-sm reveal service-card restore" style="transition-delay: 200ms;">
+                        <i class="fas fa-fill-drip text-4xl mb-6 card-icon text-metallic-copper"></i>
+                        <div class="card-content">
+                             <h3 class="font-eng text-xl font-bold">Restore</h3>
+                             <p class="mt-2 opacity-60">시간의 흐름으로 잃어버린 볼륨을<br>채워 얼굴의 균형을 되찾습니다.</p>
+                        </div>
+                    </a>
+                    <!-- 카드 4: Wellness -->
+                    <a href="#" class="block p-8 rounded-2xl shadow-sm reveal service-card wellness" style="transition-delay: 300ms;">
+                        <i class="fas fa-heart-pulse text-4xl mb-6 card-icon" style="color: #5a687a;"></i>
+                        <div class="card-content">
+                            <h3 class="font-eng text-xl font-bold">Wellness</h3>
+                            <p class="mt-2 opacity-60">기능의학, 스포츠의학을 통해<br>내면의 건강에서 시작되는 아름다움.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div class="relative rounded-2xl shadow-lg w-full h-[600px] lg:h-auto lg:min-h-[700px] overflow-hidden reveal bg-deep-navy">
+                        <div class="relative z-10 flex flex-col justify-center items-center h-full text-white text-center p-8 md:p-12">
+                            <h3 class="font-inter font-bold tracking-wider" style="font-size: 5.67rem; line-height: 1;">Dr. LEE</h3>
+                            <p class="font-calligraphy mt-6 max-w-md leading-relaxed opacity-90 tracking-wide" style="font-size: 0.65rem;">
+                                "Beauty is not merely a matter of the skin's surface. As a family medicine specialist, I find the root cause of aging through scientific analysis based on an individual's health status, lifestyle, and data. I correct the body's balance with sports medicine, fill the inner health with functional medicine, and design the most precise solutions with the latest AI technology. This is the core of the integrated anti-aging that EYEON pursues."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal">
+                        <h2 class="font-eng text-[2.06rem] md:text-[2.47rem] font-bold tracking-tighter text-deep-navy">Architect of EYEON</h2>
+                        <p class="mt-6 text-lg text-deep-navy opacity-80 leading-relaxed">
+                            "아름다움은 단순히 피부 표면의 문제가 아닙니다. 저는 가정의학 전문의로서, 한 사람의 건강 상태, 생활 습관, 그리고 데이터에 기반한 과학적 분석을 통해 노화의 근본 원인을 찾습니다. 스포츠의학으로 신체의 균형을 바로잡고, 기능의학으로 내면의 건강을 채우며, 최신 AI 기술로 가장 정밀한 솔루션을 설계합니다. 이것이 바로 이연(EYEON)이 추구하는 통합적 안티에이징의 핵심입니다."
+                        </p>
+                        <p class="mt-6 font-bold text-lg text-deep-navy">이용승 Dr. Lee Yong-seung</p>
+                        <p class="text-deep-navy opacity-60">가정의학과 전문의 / 이연의원 대표원장</p>
+                        <div class="mt-8 flex items-center gap-4">
+                            <span class="font-semibold text-deep-navy">Dr. LEE's Philosophy</span>
+                            <a href="#" class="bg-emerald-teal text-white text-xs font-semibold px-4 py-1.5 rounded-full hover:bg-emerald-teal-dark transition-colors">more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Journal of EYEON</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">최신 의학 정보와 데이터 과학으로 풀어내는 안티에이징의 비밀. 이연의원의 인사이트를 만나보세요.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal">
+                        <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2930&auto=format&fit=crop" class="w-full h-56 object-cover" alt="AI와 피부 과학 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+1';">
+                        <div class="p-8">
+                            <p class="text-sm font-semibold text-metallic-copper">DEEP DIVE</p>
+                            <h3 class="mt-2 text-xl font-bold h-16 text-deep-navy">AI는 어떻게 당신의 피부 나이를 예측하는가?</h3>
+                            <a href="#" class="mt-4 font-semibold text-emerald-teal inline-block">Read More</a>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal" style="transition-delay: 150ms;">
+                        <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=2940&auto=format&fit=crop" class="w-full h-56 object-cover" alt="스포츠 의학과 통증 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+2';">
+                        <div class="p-8">
+                            <p class="text-sm font-semibold text-metallic-copper">SPORTS MEDICINE</p>
+                            <h3 class="mt-2 text-xl font-bold h-16 text-deep-navy">만성 통증, 피부 노화를 가속화시키는 주범</h3>
+                            <a href="#" class="mt-4 font-semibold text-emerald-teal inline-block">Read More</a>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 reveal-journal" style="transition-delay: 300ms;">
+                        <img src="https://images.unsplash.com/photo-1528716321680-815a8cdb8cbe?q=80&w=2831&auto=format&fit=crop" class="w-full h-56 object-cover" alt="기능의학과 영양 이미지" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Journal+3';">
+                        <div class="p-8">
+                            <p class="text-sm font-semibold text-metallic-copper">FUNCTIONAL MEDICINE</p>
+                            <h3 class="mt-2 text-xl font-bold h-16 text-deep-navy">당신의 장 건강이 피부 톤을 결정한다</h3>
+                            <a href="#" class="mt-4 font-semibold text-emerald-teal inline-block">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-eng tracking-tighter">EYEON</h3>
+                    <p class="mt-4 text-gray-400">Science-Led Anti-Aging Clinic</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Contact & Location</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone-alt fa-fw mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Hours</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>월,화,목,금: 09:00 - 18:00</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>수,일,공휴일: 휴진</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 EYEON Clinic. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                    headerLogo.classList.remove('text-white');
+                    headerLogo.classList.add('text-deep-navy');
+                    mobileMenuButton.classList.remove('text-white');
+                    mobileMenuButton.classList.add('text-deep-navy');
+                    menuItems.forEach(item => {
+                        item.classList.remove('text-white');
+                        item.classList.add('text-deep-navy');
+                    });
+                } else {
+                    header.classList.remove('header-scrolled');
+                    headerLogo.classList.remove('text-deep-navy');
+                    headerLogo.classList.add('text-white');
+                    mobileMenuButton.classList.remove('text-deep-navy');
+                    mobileMenuButton.classList.add('text-white');
+                    menuItems.forEach(item => {
+                        item.classList.remove('text-deep-navy');
+                        item.classList.add('text-white');
+                    });
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-journal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
