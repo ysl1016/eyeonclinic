@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal | EYEON Clinic</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- SimpleMDE Markdown Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <!-- Marked.js to render Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        .font-eng {
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-calligraphy {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+        
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-white { color: var(--white); }
+
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-scrolled {
+            background-color: rgba(248, 248, 248, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Markdown Editor & Viewer 스타일 */
+        .editor-toolbar, .CodeMirror { border-radius: 0.5rem; border-color: #d1d5db; }
+        .CodeMirror-scroll { min-height: 250px; }
+        .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        .prose a { color: var(--emerald-teal); text-decoration: underline; }
+        .prose h1, .prose h2, .prose h3 { font-weight: 700; color: var(--deep-navy); }
+        .prose p, .prose ul, .prose ol { color: var(--deep-navy); opacity: 0.9; }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="index_renewal.html" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
+                
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="about-eyeon.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">About EYEON</a>
+                    <a href="services.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Services</a>
+                    <a href="journal.html" class="nav-menu-item text-emerald-teal opacity-100 transition-colors duration-300">Journal</a>
+                    <a href="promotion.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="pricing.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Pricing</a>
+                </nav>
+
+                <div class="flex items-center">
+                    <a href="#" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="about-eyeon.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">About EYEON</a>
+            <a href="services.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Services</a>
+            <a href="journal.html" class="block px-6 py-3 text-emerald-teal font-semibold">Journal</a>
+            <a href="promotion.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Promotions</a>
+            <a href="pricing.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Pricing</a>
+            <div class="p-4">
+                <a href="#" class="block w-full text-center bg-emerald-teal text-white font-semibold px-5 py-3 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=2940&auto=format&fit=crop" 
+                     alt="책들이 있는 서재 이미지" 
+                     class="w-full h-full object-cover opacity-30"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Journal';">
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    Journal of EYEON
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    최신 의학 정보와 데이터 과학으로 풀어내는 안티에이징의 비밀. 이연의원의 깊이 있는 인사이트를 만나보세요.
+                </p>
+            </div>
+        </section>
+
+        <!-- Journal Content Area -->
+        <section class="py-20 md:py-28">
+            <div id="journal-content" class="container mx-auto px-6">
+                <!-- 이 영역은 JavaScript에 의해 동적으로 채워집니다. -->
+            </div>
+        </section>
+    </main>
+    
+    <!-- Write/Edit Modal -->
+    <div id="write-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center pb-3 mb-4 border-b">
+                <h3 id="modal-title" class="text-2xl font-bold">새 글 작성</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg">
+                <textarea id="post-content"></textarea>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
+                    <button id="save-post" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:bg-emerald-teal-dark">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-eng tracking-tighter">EYEON</h3>
+                    <p class="mt-4 text-gray-400">Science-Led Anti-Aging Clinic</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Contact & Location</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone-alt fa-fw mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Hours</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>월,화,목,금: 09:00 - 18:00</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>수,일,공휴일: 휴진</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 EYEON Clinic. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, doc, getDoc, updateDoc, deleteDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        // --- All functions must be defined before they are called ---
+
+        // --- DOM Elements ---
+        const journalContent = document.getElementById('journal-content');
+        const writeModal = document.getElementById('write-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelPost = document.getElementById('cancel-post');
+        const savePost = document.getElementById('save-post');
+        const modalTitle = document.getElementById('modal-title');
+        const postTitleInput = document.getElementById('post-title');
+        
+        // --- State and Config ---
+        let db, auth;
+        let firebaseInitialized = false;
+        let simplemde;
+        let currentPostId = null; 
+        let isAdmin = false;
+
+        const mockPosts = [
+            {
+                id: 'mock1',
+                title: 'AI는 어떻게 당신의 피부 나이를 예측하는가?',
+                content: 'AI 기술은 수많은 임상 데이터를 학습하여, 눈에 보이지 않는 미세한 변화까지 감지합니다. 이를 통해 현재의 피부 상태를 정밀하게 진단하고, 미래의 노화 패턴을 예측하여 가장 효과적인 개인 맞춤형 안티에이징 솔루션을 제안할 수 있습니다...',
+                createdAt: new Date('2025-07-10T10:00:00')
+            },
+            {
+                id: 'mock2',
+                title: '만성 통증, 피부 노화를 가속화시키는 주범',
+                content: '지속적인 통증은 스트레스 호르몬인 코르티솔 수치를 높여 피부의 콜라겐을 파괴하고 염증 반응을 촉진합니다. 이연의원에서는 스포츠의학적 접근을 통해 통증의 근본 원인을 해결하고, 건강한 신체와 피부를 되찾도록 돕습니다...',
+                createdAt: new Date('2025-07-08T14:30:00')
+            },
+            {
+                id: 'mock3',
+                title: '당신의 장 건강이 피부 톤을 결정한다',
+                content: '장내 미생물 불균형은 전신 염증을 유발하고 피부 트러블의 직접적인 원인이 될 수 있습니다. 기능의학 검사를 통해 장 건강을 진단하고, 맞춤형 영양 요법으로 맑고 건강한 피부를 만들어갑니다...',
+                createdAt: new Date('2025-07-05T09:00:00')
+            }
+        ];
+        
+        function initializeEditor(content = '') {
+            if (simplemde) {
+                simplemde.toTextArea();
+                simplemde = null;
+            }
+            simplemde = new SimpleMDE({ 
+                element: document.getElementById("post-content"),
+                initialValue: content,
+                spellChecker: false,
+                status: false,
+            });
+        }
+
+        function openWriteModal(postId = null, title = '', content = '') {
+            currentPostId = postId;
+            modalTitle.textContent = postId ? '글 수정' : '새 글 작성';
+            postTitleInput.value = title;
+            initializeEditor(content);
+            writeModal.classList.add('active');
+        }
+
+        function closeWriteModal() { writeModal.classList.remove('active'); }
+
+        async function savePostData() {
+            if (!firebaseInitialized) {
+                alert('Firebase가 연결되지 않아 저장할 수 없습니다.');
+                return;
+            }
+            const title = postTitleInput.value;
+            const content = simplemde.value();
+            if (!title || !content) {
+                alert('제목과 내용을 모두 입력해주세요.');
+                return;
+            }
+
+            try {
+                if (currentPostId) {
+                    const postRef = doc(db, "journal", currentPostId);
+                    await updateDoc(postRef, { title, content });
+                } else {
+                    await addDoc(collection(db, "journal"), { title, content, createdAt: new Date() });
+                }
+                closeWriteModal();
+                renderJournal(); 
+            } catch (error) {
+                console.error("Error saving post: ", error);
+                alert("저장에 실패했습니다.");
+            }
+        }
+
+        async function deletePost(postId) {
+            if (!firebaseInitialized) {
+                alert('Firebase가 연결되지 않아 삭제할 수 없습니다.');
+                return;
+            }
+            if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
+                await deleteDoc(doc(db, "journal", postId));
+                renderListView();
+            }
+        }
+
+        function renderPostList(posts) {
+            const postList = document.getElementById('post-list');
+            if(!postList) return;
+            postList.innerHTML = '';
+            if (posts.length === 0) {
+                postList.innerHTML = '<p class="text-center text-gray-500">게시물이 없습니다.</p>';
+            } else {
+                posts.forEach((post, index) => {
+                    const card = document.createElement('a');
+                    card.href = `#${post.id}`;
+                    card.className = "block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 reveal";
+                    card.style.transitionDelay = `${index * 100}ms`;
+                    
+                    const excerpt = marked.parse(post.content || '').replace(/<[^>]*>/g, '').substring(0, 120);
+
+                    card.innerHTML = `
+                        <div class="p-8">
+                            <p class="text-sm font-semibold text-metallic-copper">${post.createdAt.toLocaleDateString()}</p>
+                            <h3 class="mt-2 text-xl font-bold text-deep-navy group-hover:text-emerald-teal transition">${post.title}</h3>
+                            <p class="mt-2 text-sm opacity-70">${excerpt}...</p>
+                            <div class="mt-4 font-semibold text-emerald-teal inline-flex items-center">Read More <i class="fas fa-arrow-right ml-2"></i></div>
+                        </div>
+                    `;
+                    postList.appendChild(card);
+                });
+                const revealElements = document.querySelectorAll('.reveal');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                revealElements.forEach(el => observer.observe(el));
+            }
+        }
+
+        async function renderListView(forceMock = false) {
+            window.location.hash = '';
+            journalContent.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2">
+                        <div class="flex justify-between items-center mb-8 reveal">
+                            <h2 class="font-eng text-2xl font-bold">All Posts</h2>
+                            ${isAdmin ? '<button id="write-new-post" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Write Post</button>' : ''}
+                        </div>
+                        <div id="post-list" class="space-y-8">
+                            <!-- 게시물 로딩 중... -->
+                        </div>
+                    </div>
+                    <aside class="lg:col-span-1">
+                        <div class="sticky top-28 p-6 bg-white rounded-2xl shadow-sm reveal">
+                            <h3 class="font-eng text-xl font-bold mb-4">Medical Resources</h3>
+                            <ul class="space-y-4">
+                                <li><a href="https://www.aad.org" target="_blank" class="flex items-center group"><span class="flex items-center justify-center w-5 h-5 mr-3 text-gray-400 group-hover:text-emerald-teal transition"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182a9.818 9.818 0 1 1 0 19.636A9.818 9.818 0 0 1 12 2.182zM12 6.545c1.74 0 3.164 1.424 3.164 3.164v4.363h-1.818V9.709c0-.74-.605-1.345-1.345-1.345s-1.345.605-1.345 1.345v4.364H8.836V9.71c0-1.74 1.424-3.164 3.164-3.164z"/></svg></span><span class="group-hover:text-emerald-teal transition">American Academy of Dermatology</span></a></li>
+                                <li><a href="https://www.aafp.org" target="_blank" class="flex items-center group"><span class="flex items-center justify-center w-5 h-5 mr-3 text-gray-400 group-hover:text-emerald-teal transition"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182a9.818 9.818 0 1 1 0 19.636A9.818 9.818 0 0 1 12 2.182zm-1.09 3.273h2.182v2.182h-2.182zm0 3.272h2.182v7.636h-2.182z"/></svg></span><span class="group-hover:text-emerald-teal transition">American Academy of Family Physicians</span></a></li>
+                                <li><a href="https://jamanetwork.com/" target="_blank" class="flex items-center group"><span class="flex items-center justify-center w-5 h-5 mr-3 text-gray-400 group-hover:text-emerald-teal transition"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 0L0 6v12l12 6 12-6V6L12 0zm0 2.22L21.78 7.11v9.78L12 21.78 2.22 16.89V7.11L12 2.22zM12 5.455l-6.545 3.273v6.545L12 18.545l6.545-3.272V8.728L12 5.455z"/></svg></span><span class="group-hover:text-emerald-teal transition">JAMA Network</span></a></li>
+                                <li><a href="https://www.nejm.org/" target="_blank" class="flex items-center group"><span class="flex items-center justify-center w-5 h-5 mr-3 text-gray-400 group-hover:text-emerald-teal transition"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182a9.818 9.818 0 1 1 0 19.636A9.818 9.818 0 0 1 12 2.182zm-4.364 4.363h8.727v2.182H7.636zm0 3.272h8.727v2.182H7.636zm0 3.273h5.455v2.182H7.636z"/></svg></span><span class="group-hover:text-emerald-teal transition">The New England Journal of Medicine</span></a></li>
+                                <li><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="flex items-center group"><span class="flex items-center justify-center w-5 h-5 mr-3 text-gray-400 group-hover:text-emerald-teal transition"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182a9.818 9.818 0 1 1 0 19.636A9.818 9.818 0 0 1 12 2.182zM9.818 6.545c-1.2 0-2.182.982-2.182 2.182s.982 2.182 2.182 2.182 2.182-.982 2.182-2.182S11.018 6.545 9.818 6.545zm4.364 0v9.818h-2.182V9.818c0-1.2-.982-2.182-2.182-2.182H6.545V5.455h7.637z"/></svg></span><span class="group-hover:text-emerald-teal transition">PubMed</span></a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            `;
+            
+            if (!firebaseInitialized || forceMock) {
+                renderPostList(mockPosts);
+                if(document.getElementById('write-new-post')) {
+                    document.getElementById('write-new-post').addEventListener('click', () => alert('Firebase 연결 후 사용 가능합니다.'));
+                }
+                return;
+            }
+
+            const q = query(collection(db, "journal"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (querySnapshot) => {
+                const posts = [];
+                querySnapshot.forEach((doc) => {
+                    posts.push({ id: doc.id, ...doc.data(), createdAt: doc.data().createdAt.toDate() });
+                });
+                renderPostList(posts);
+            }, (error) => {
+                console.error("게시물 로딩 실패:", error);
+                renderPostList(mockPosts);
+            });
+
+            if (isAdmin) {
+                document.getElementById('write-new-post').addEventListener('click', () => openWriteModal());
+            }
+        }
+        
+        async function renderDetailView(postId) {
+            if (!firebaseInitialized) {
+                const post = mockPosts.find(p => p.id === postId);
+                if (post) {
+                    // Render mock detail view
+                } else {
+                    renderListView(true);
+                }
+                return;
+            }
+
+            const docRef = doc(db, "journal", postId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const post = docSnap.data();
+                journalContent.innerHTML = `
+                    <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg reveal visible">
+                        <div class="mb-8 text-center">
+                            <h1 class="text-3xl md:text-4xl font-bold text-deep-navy">${post.title}</h1>
+                            <p class="mt-4 text-gray-500">${new Date(post.createdAt.toDate()).toLocaleString()}</p>
+                        </div>
+                        <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
+                        <div class="flex justify-between items-center mt-12 border-t pt-6">
+                            <a href="#" id="back-to-list" class="text-emerald-teal hover:underline">&larr; Back to Journal</a>
+                            ${isAdmin ? `
+                            <div class="space-x-2">
+                                <button id="edit-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-sm">수정</button>
+                                <button id="delete-post" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">삭제</button>
+                            </div>` : ''}
+                        </div>
+                    </div>
+                `;
+                document.getElementById('back-to-list').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderListView();
+                });
+                if (isAdmin) {
+                    document.getElementById('edit-post').addEventListener('click', () => openWriteModal(postId, post.title, post.content));
+                    document.getElementById('delete-post').addEventListener('click', () => deletePost(postId));
+                }
+            } else {
+                renderListView();
+            }
+        }
+        
+        async function renderJournal() {
+            const postIdFromHash = window.location.hash.substring(1);
+            if (postIdFromHash) {
+                renderDetailView(postIdFromHash);
+            } else {
+                renderListView(!firebaseInitialized);
+            }
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Firebase Init
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                firebaseInitialized = true;
+            } catch (error) {
+                console.error("Firebase 초기화 실패:", error);
+                firebaseInitialized = false;
+            }
+
+            // Setup event listeners that don't depend on Firebase
+            closeModal.addEventListener('click', closeWriteModal);
+            cancelPost.addEventListener('click', cancelPost);
+            savePost.addEventListener('click', savePostData);
+            window.addEventListener('hashchange', renderJournal);
+
+            // Initialize Firebase and dependent listeners
+            if (firebaseInitialized) {
+                onAuthStateChanged(auth, (user) => {
+                    isAdmin = !!user;
+                    renderJournal();
+                });
+            } else {
+                renderJournal();
+            }
+
+            // Header & General Page Scripts
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-deep-navy' : 'text-white';
+                const activeColorClass = 'text-emerald-teal';
+                
+                headerLogo.classList.remove('text-white', 'text-deep-navy');
+                headerLogo.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                mobileMenuButton.classList.remove('text-white', 'text-deep-navy');
+                mobileMenuButton.classList.add(isScrolled ? 'text-deep-navy' : 'text-white');
+
+                menuItems.forEach(item => {
+                    const isActive = item.getAttribute('href') === 'journal.html';
+                    if (isActive) {
+                        item.classList.add(activeColorClass);
+                        item.classList.remove('text-white', 'text-deep-navy', 'opacity-90');
+                    } else {
+                        item.classList.remove('text-white', 'text-deep-navy');
+                        item.classList.add(textColor, 'opacity-90');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
