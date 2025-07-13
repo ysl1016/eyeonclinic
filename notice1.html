@@ -253,22 +253,20 @@
 
     <!-- Firebase SDK & App Logic -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
+        // Firebase SDK 로드
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-    
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        // 사용자 제공 Firebase 구성 정보
         const firebaseConfig = {
-          apiKey: "AIzaSyCGRF48VlqERYVHWfaCJ3IlfZ00bNad2IA",
-          authDomain: "eyeon-clinic-notice.firebaseapp.com",
-          projectId: "eyeon-clinic-notice",
-          storageBucket: "eyeon-clinic-notice.firebasestorage.app",
-          messagingSenderId: "367090029799",
-          appId: "1:367090029799:web:19e3cc50081f778e59fe42",
-          measurementId: "G-6JCD02NTZW"
+            apiKey: "AIzaSyCGRF48VlqERYVHWfaCJ3IlfZ00bNad2IA",
+            authDomain: "eyeon-clinic-notice.firebaseapp.com",
+            projectId: "eyeon-clinic-notice",
+            storageBucket: "eyeon-clinic-notice.firebasestorage.app",
+            messagingSenderId: "367090029799",
+            appId: "1:367090029799:web:19e3cc50081f778e59fe42",
+            measurementId: "G-6JCD02NTZW"
         };
 
         // Firebase 초기화
