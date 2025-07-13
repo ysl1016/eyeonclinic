@@ -292,6 +292,9 @@
                 <div id="progress-bar" class="bg-emerald-teal h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
             <p id="progress-text" class="text-center mt-2 text-sm font-semibold">0%</p>
+            <div class="text-center mt-4">
+                <button id="cancel-upload-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">업로드 취소</button>
+            </div>
         </div>
     </div>
 
@@ -379,11 +382,13 @@
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
         const imageUploadInput = document.getElementById('image-upload-input');
+        const cancelUploadBtn = document.getElementById('cancel-upload-btn');
         
         // 상태 변수
         let simplemde;
         let currentPostId = null;
         let isAdmin = false;
+        let currentUploadTask = null; // 업로드 작업을 추적하기 위한 변수
 
         // --- UI 렌더링 함수 ---
         
@@ -557,25 +562,27 @@
             progressText.textContent = '0%';
 
             const storageRef = ref(storage, `notices/${Date.now()}_${file.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, file);
+            currentUploadTask = uploadBytesResumable(storageRef, file);
 
-            uploadTask.on('state_changed', 
+            currentUploadTask.on('state_changed', 
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     progressBar.style.width = progress + '%';
                     progressText.textContent = Math.round(progress) + '%';
                 }, 
                 (error) => {
+                    currentUploadTask = null;
                     uploadProgressModal.classList.remove('active');
-                    console.error("Upload failed", error);
                     if (error.code === 'storage/unauthorized') {
-                        alert('이미지 업로드에 실패했습니다. Firebase Storage의 보안 규칙을 확인해주세요.\n(관리자만 업로드 가능하도록 설정해야 합니다.)');
-                    } else {
-                        alert('이미지 업로드에 실패했습니다.');
+                        alert('이미지 업로드 권한이 없습니다. Firebase Storage 보안 규칙을 확인해주세요.');
+                    } else if (error.code !== 'storage/canceled') {
+                         alert('이미지 업로드에 실패했습니다.');
                     }
+                    console.error("Upload failed", error);
                 }, 
                 () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    currentUploadTask = null;
+                    getDownloadURL(currentUploadTask.snapshot.ref).then((downloadURL) => {
                         const cm = simplemde.codemirror;
                         const doc = cm.getDoc();
                         const cursor = doc.getCursor();
@@ -687,6 +694,12 @@
         document.getElementById('cancel-login').addEventListener('click', closeLoginModal);
         document.getElementById('submit-login').addEventListener('click', handleLogin);
         imageUploadInput.addEventListener('change', handleImageUpload);
+        cancelUploadBtn.addEventListener('click', () => {
+            if (currentUploadTask) {
+                currentUploadTask.cancel();
+                uploadProgressModal.classList.remove('active');
+            }
+        });
 
         // 이메일과 비밀번호 필드에서 Enter 키 입력 시 로그인 처리
         document.getElementById('login-email').addEventListener('keydown', (e) => {
