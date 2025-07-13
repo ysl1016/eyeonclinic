@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About EYEON | Science-Led Anti-Aging Clinic</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        .font-eng {
+            font-family: 'Manrope', sans-serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-calligraphy {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+        
+        .bg-deep-navy { background-color: var(--deep-navy); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+        .bg-metallic-copper { background-color: var(--metallic-copper); }
+        
+        .text-deep-navy { color: var(--deep-navy); }
+        .text-emerald-teal { color: var(--emerald-teal); }
+        .text-metallic-copper { color: var(--metallic-copper); }
+        .text-white { color: var(--white); }
+
+        .hover\:bg-emerald-teal-dark:hover { background-color: #006a66; }
+        .hover\:text-emerald-teal:hover { color: var(--emerald-teal); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header-scrolled {
+            background-color: rgba(248, 248, 248, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 
+      네비게이션 바 (Header)
+      - 메인 페이지와 동일한 구조와 기능을 유지합니다.
+      - 현재 페이지인 'About EYEON' 메뉴에 활성화 스타일을 적용할 수 있습니다. (예: text-emerald-teal)
+    -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="index_renewal.html" id="header-logo" class="text-2xl font-bold font-eng tracking-tighter text-white transition-colors duration-300">EYEON</a>
+                
+                <nav id="desktop-menu" class="hidden lg:flex items-center space-x-8 text-sm font-medium">
+                    <a href="about-eyeon.html" class="nav-menu-item text-emerald-teal opacity-100 transition-colors duration-300">About EYEON</a>
+                    <a href="services.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Services</a>
+                    <a href="journal.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Journal</a>
+                    <a href="promotion.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Promotions</a>
+                    <a href="pricing.html" class="nav-menu-item text-white opacity-90 hover:opacity-100 hover:text-emerald-teal transition-colors duration-300">Pricing</a>
+                </nav>
+
+                <div class="flex items-center">
+                    <a href="#" class="hidden lg:inline-block bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+                    <button id="mobile-menu-button" class="lg:hidden ml-4 text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <a href="about-eyeon.html" class="block px-6 py-3 text-emerald-teal font-semibold">About EYEON</a>
+            <a href="services.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Services</a>
+            <a href="journal.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Journal</a>
+            <a href="promotion.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Promotions</a>
+            <a href="pricing.html" class="block px-6 py-3 text-deep-navy hover:bg-gray-50">Pricing</a>
+            <div class="p-4">
+                <a href="#" class="block w-full text-center bg-emerald-teal text-white font-semibold px-5 py-3 rounded-full hover:bg-emerald-teal-dark transition-colors">Book Now</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 
+          Hero Section
+          - 'About' 페이지의 핵심 철학을 전달합니다.
+          - 병원 내부의 따뜻하고 전문적인 공간을 보여주는 이미지를 배경으로 사용합니다.
+        -->
+        <section class="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0 bg-deep-navy">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2940&auto=format&fit=crop" 
+                     alt="현대적이고 전문적인 병원 내부 이미지" 
+                     class="w-full h-full object-cover opacity-30"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=About+EYEON';">
+            </div>
+            <div class="relative z-10 px-6 reveal">
+                <h1 class="font-eng text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    About EYEON Clinic
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    우리는 피상적인 아름다움을 넘어, 당신의 건강한 삶과 조화를 이루는 통합적 솔루션을 연구하고 제공합니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 
+          Our Philosophy Section
+          - 이연의원의 핵심 진료 철학을 3가지 키워드로 나누어 설명합니다.
+          - 아이콘과 간결한 텍스트로 가독성을 높입니다.
+        -->
+        <section class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Our Philosophy</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">이연의원은 세 가지 핵심 원칙을 바탕으로 당신을 만납니다.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <div class="reveal">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-microscope text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">근본 원인 탐구</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">단순히 나타난 증상이 아닌, 기능의학적 관점에서 노화와 질병의 근본 원인을 찾아 해결합니다.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 150ms;">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-brain text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">데이터 기반 진단</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">정밀한 검사와 데이터 분석, AI 기술을 활용하여 개인에게 가장 최적화된 맞춤형 솔루션을 설계합니다.</p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-emerald-teal/10 rounded-full">
+                            <i class="fas fa-hand-holding-heart text-2xl text-emerald-teal"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-deep-navy">통합적 접근</h3>
+                        <p class="mt-2 text-deep-navy opacity-70">피부, 신체, 내면의 건강이 모두 연결되어 있다는 믿음으로, 통합적인 관점의 치료 계획을 수립합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          The Doctor Section
+          - 원장님의 프로필을 상세히 소개합니다. 기존 doctor.html의 내용을 현대적인 디자인으로 재구성합니다.
+        -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                 <div class="grid lg:grid-cols-5 gap-12 items-start">
+                    <div class="lg:col-span-2 reveal">
+                        <img src="https://avatars.githubusercontent.com/u/10897863?v=4" 
+                             alt="이용승 원장 프로필 이미지" 
+                             class="rounded-2xl shadow-lg w-full"
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x1000/cccccc/333333?text=Dr.+Lee';">
+                    </div>
+                    <div class="lg:col-span-3 reveal">
+                        <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Meet Dr. Lee Yong-seung</h2>
+                        <p class="mt-4 text-lg text-deep-navy opacity-80">가정의학과 전문의 / 이연의원 대표원장</p>
+                        <div class="mt-8 prose prose-lg max-w-none text-deep-navy opacity-90">
+                            <p>
+                                한양대학교 의과대학을 졸업하고 분당차병원에서 가정의학과 전문의 과정을 수료했습니다. 이후 CHA 의과학대학교 강남차병원 전임의, 분당차병원 대체의학대학원 석사 과정을 거치며 통합의학에 대한 깊이를 더했습니다. 청담 린클리닉 원장, 반포 호두의원 대표원장을 역임하며 풍부한 임상 경험을 쌓았으며, 현재는 이연의원에서 환자 한 분 한 분에게 최적화된 안티에이징 솔루션을 제공하고 있습니다.
+                            </p>
+                            
+                            <div class="mt-10 pt-8 border-t border-gray-200">
+                                <h4 class="font-bold text-emerald-teal mb-4">주요 학력 및 경력</h4>
+                                <ul class="text-base space-y-2">
+                                    <li>한양대학교 의과대학 졸업</li>
+                                    <li>분당차병원 레지던트/전문의 수료</li>
+                                    <li>CHA 의과학대학교 강남차병원 전임의</li>
+                                    <li>분당차병원 대체의학대학원 대체의학 석사</li>
+                                    <li>前) 청담 린클리닉 원장</li>
+                                    <li>前) 반포 호두의원 대표원장</li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-10 pt-8 border-t border-gray-200">
+                                <h4 class="font-bold text-emerald-teal mb-4">학회 활동 및 미디어</h4>
+                                <ul class="text-base space-y-2">
+                                    <li>대한비만미용치료학회, 대한미용성형레이저의학회 정회원</li>
+                                    <li>대한스포츠의학회 평생회원, 대한통증학회 정회원</li>
+                                    <li>SBS CNBC, MBN, MBC 등 다수 방송 프로그램 의학 자문 및 인터뷰</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+          Location & Hours Section
+          - clinic-info.html의 내용을 바탕으로 진료시간과 위치 정보를 시각적으로 전달합니다.
+        -->
+        <section class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto reveal">
+                    <h2 class="font-eng text-3xl md:text-4xl font-bold tracking-tighter text-deep-navy">Visit Us</h2>
+                    <p class="mt-4 text-deep-navy opacity-70 text-lg">최상의 의료 서비스를 제공하기 위해 쾌적하고 편안한 환경을 마련했습니다.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <div class="reveal">
+                        <div class="rounded-2xl overflow-hidden shadow-lg">
+                             <iframe src="https://maps.google.com/maps?q=경기도%20용인시%20수지구%20신봉2로%2015&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-map-marker-alt text-emerald-teal mr-3"></i> Location</h4>
+                                <p class="text-deep-navy opacity-80">경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</p>
+                            </div>
+                             <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-clock text-emerald-teal mr-3"></i> Clinic Hours</h4>
+                                <ul class="space-y-1 text-deep-navy opacity-80">
+                                    <li><span class="font-semibold w-20 inline-block">월,화,목,금:</span> 09:00 - 18:00</li>
+                                    <li><span class="font-semibold w-20 inline-block">토요일:</span> 09:00 - 13:00 (점심시간 없음)</li>
+                                    <li><span class="font-semibold w-20 inline-block">점심시간:</span> 13:00 - 14:00</li>
+                                    <li class="text-metallic-copper"><span class="font-semibold w-20 inline-block">수,일,공휴일:</span> 휴진</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h4 class="text-xl font-bold text-deep-navy mb-3 flex items-center"><i class="fas fa-phone-alt text-emerald-teal mr-3"></i> Contact</h4>
+                                <p class="text-deep-navy opacity-80">Tel: 031-896-3800</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-eng tracking-tighter">EYEON</h3>
+                    <p class="mt-4 text-gray-400">Science-Led Anti-Aging Clinic</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Contact & Location</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone-alt fa-fw mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt fa-fw mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white">Hours</h4>
+                    <ul class="mt-4 space-y-2 text-gray-400">
+                        <li>월,화,목,금: 09:00 - 18:00</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>수,일,공휴일: 휴진</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 EYEON Clinic. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const menuItems = document.querySelectorAll('.nav-menu-item');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            const handleScroll = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                
+                const textColor = isScrolled ? 'text-deep-navy' : 'text-white';
+                const hoverColor = 'hover:text-emerald-teal';
+                const activeColor = 'text-emerald-teal';
+
+                headerLogo.classList.remove('text-white', 'text-deep-navy');
+                headerLogo.classList.add(textColor);
+
+                mobileMenuButton.classList.remove('text-white', 'text-deep-navy');
+                mobileMenuButton.classList.add(textColor);
+
+                menuItems.forEach(item => {
+                    // 현재 활성화된 메뉴가 아니라면 색상 변경
+                    if (!item.classList.contains(activeColor)) {
+                        item.classList.remove('text-white', 'text-deep-navy');
+                        item.classList.add(textColor);
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); 
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
