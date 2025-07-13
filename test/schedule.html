@@ -480,7 +480,8 @@
                         showToast('일정이 삭제되었습니다.');
                     } catch (error) {
                         showToast('삭제 실패: ' + error.message, true);
-                    }\n                }
+                    }
+                }
                 scheduleModal.classList.remove('active');
             });
         }
@@ -519,6 +520,76 @@
         document.getElementById('confirmAction').addEventListener('click', () => {
             if (confirmCallback) confirmCallback();
             confirmModal.classList.remove('active');
+        });
+    </script>
+    
+    <!-- General Page Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButtonSvg = document.querySelector('#mobile-menu-button svg');
+            const updateHeaderStyle = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                const textColor = isScrolled ? 'text-gray-700' : 'text-white';
+                const logoColor = isScrolled ? 'text-gray-800' : 'text-white';
+                const hoverColor = isScrolled ? 'hover:text-blue-600' : 'hover:text-gray-300';
+                const activeLink = document.querySelector('.nav-link.nav-active');
+
+                headerLogo.classList.remove('text-white', 'text-gray-800');
+                headerLogo.classList.add(logoColor);
+                mobileMenuButtonSvg.classList.remove('text-white', 'text-gray-700');
+                mobileMenuButtonSvg.classList.add(isScrolled ? 'text-gray-700' : 'text-white');
+
+                navLinks.forEach(link => {
+                    if (link !== activeLink) {
+                        link.classList.remove('text-white', 'hover:text-gray-300', 'text-gray-700', 'hover:text-blue-600');
+                        link.classList.add(textColor, hoverColor);
+                    }
+                });
+
+                if (activeLink) {
+                     if(isScrolled) {
+                        activeLink.classList.remove('text-white');
+                        activeLink.classList.add('text-emerald-teal');
+                     } else {
+                        activeLink.classList.add('text-white');
+                     }
+                }
+            };
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+
+            const topBtn = document.getElementById('top-btn');
+            if (topBtn) {
+                window.addEventListener('scroll', () => {
+                    topBtn.classList.toggle('opacity-100', window.scrollY > 400);
+                    topBtn.classList.toggle('opacity-0', window.scrollY <= 400);
+                });
+                topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            const animatedElements = document.querySelectorAll('.reveal');
+            if (animatedElements.length > 0) {
+                const animationObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                animatedElements.forEach(el => animationObserver.observe(el));
+            }
+
+            updateHeaderStyle();
+            window.addEventListener('scroll', updateHeaderStyle);
         });
     </script>
     
