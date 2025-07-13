@@ -1,5 +1,19 @@
 
-        document.addEventListener('DOMContentLoaded', function() {
+        function loadComponent(url,- elementId) {
+            return fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Promise.all([
+                loadComponent('components/_header.html', 'header-placeholder'),
+                loadComponent('components/_footer.html', 'footer-placeholder'),
+                loadComponent('components/_floating_buttons.html', 'floating-buttons-placeholder')
+            ]);
+
             // --- Header Style Logic ---
             const header = document.getElementById('header');
             const headerLogo = document.getElementById('header-logo');
