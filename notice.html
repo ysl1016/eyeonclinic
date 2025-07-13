@@ -52,13 +52,87 @@
             font-weight: 600;
         }
 
-        /* Markdown Editor & Viewer 스타일 */
+        /* Markdown Editor 스타일 */
         .editor-toolbar, .CodeMirror { border-radius: 0.5rem; border-color: #d1d5db; }
         .CodeMirror-scroll { min-height: 250px; }
-        .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; }
-        .prose a { color: var(--emerald-teal); text-decoration: underline; }
-        .prose h1, .prose h2, .prose h3 { font-weight: 700; color: var(--deep-navy); }
-        .prose p, .prose ul, .prose ol { color: var(--deep-navy); opacity: 0.9; }
+
+        /* --- START: 게시물 콘텐츠 스타일링 --- */
+        .post-content h1, .post-content h2, .post-content h3, .post-content h4 {
+            color: var(--deep-navy);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+        .post-content h1 { font-size: 1.875rem; line-height: 2.25rem; }
+        .post-content h2 { font-size: 1.5rem; line-height: 2rem; }
+        .post-content h3 { font-size: 1.25rem; line-height: 1.75rem; }
+        .post-content p {
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+            color: #374151;
+        }
+        .post-content ul, .post-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: #374151;
+        }
+        .post-content ul { list-style-type: disc; }
+        .post-content ol { list-style-type: decimal; }
+        .post-content li { margin-bottom: 0.5rem; }
+        .post-content a {
+            color: var(--emerald-teal);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #d1d5db;
+            padding-left: 1rem;
+            margin-left: 0;
+            font-style: italic;
+            color: #6b7280;
+        }
+        .post-content pre {
+            background-color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .post-content code {
+            font-family: monospace;
+            background-color: #e5e7eb;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .post-content pre code { background-color: transparent; padding: 0; }
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .post-content hr {
+            border-top: 1px solid #e5e7eb;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .post-content th, .post-content td {
+            border: 1px solid #d1d5db;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        .post-content th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        /* --- END: 게시물 콘텐츠 스타일링 --- */
 
         /* 모달 스타일 */
         .modal {
@@ -182,7 +256,11 @@
             <h3 id="modal-title" class="text-2xl font-bold text-deep-navy mb-4">새 글 작성</h3>
             <div class="space-y-4">
                 <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg">
-                <textarea id="post-content"></textarea>
+                <div id="editor-container">
+                    <textarea id="post-content"></textarea>
+                </div>
+                <input type="file" id="image-upload-input" class="hidden" accept="image/*">
+
                 <div class="flex justify-end space-x-2">
                     <button id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
                     <button id="save-post" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">저장</button>
@@ -202,6 +280,20 @@
             <div class="flex justify-end mt-4">
                  <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
                 <button id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Progress Modal -->
+    <div id="upload-progress-modal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 class="font-bold text-xl mb-4">이미지 업로드 중</h4>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+                <div id="progress-bar" class="bg-emerald-teal h-4 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <p id="progress-text" class="text-center mt-2 text-sm font-semibold">0%</p>
+            <div class="text-center mt-4">
+                <button id="cancel-upload-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">업로드 취소</button>
             </div>
         </div>
     </div>
@@ -257,6 +349,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
         import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
         // 사용자 제공 Firebase 구성 정보
         const firebaseConfig = {
@@ -270,11 +363,12 @@
         };
 
         // Firebase 초기화
-        let app, db, auth;
+        let app, db, auth, storage;
         try {
             app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
+            storage = getStorage(app);
         } catch (e) {
             console.error("Firebase 초기화에 실패했습니다. firebaseConfig를 확인해주세요.", e);
             document.getElementById('notice-container').innerHTML = `<p class="text-center text-red-500">게시판을 불러오는 데 실패했습니다. 관리자에게 문의하세요.</p>`;
@@ -284,11 +378,17 @@
         const noticeContainer = document.getElementById('notice-container');
         const writeModal = document.getElementById('write-modal');
         const loginModal = document.getElementById('login-modal');
+        const uploadProgressModal = document.getElementById('upload-progress-modal');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const imageUploadInput = document.getElementById('image-upload-input');
+        const cancelUploadBtn = document.getElementById('cancel-upload-btn');
         
         // 상태 변수
         let simplemde;
         let currentPostId = null;
         let isAdmin = false;
+        let currentUploadTask = null; // 업로드 작업을 추적하기 위한 변수
 
         // --- UI 렌더링 함수 ---
         
@@ -345,13 +445,14 @@
 
                 if (docSnap.exists()) {
                     const post = docSnap.data();
+                    const markedOptions = { breaks: true, gfm: true };
                     noticeContainer.innerHTML = `
                         <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg">
                             <div class="mb-8 text-center border-b pb-8">
                                 <h1 class="text-3xl md:text-4xl font-bold text-deep-navy">${post.title}</h1>
                                 <p class="mt-4 text-gray-500"><i class="fas fa-calendar-alt mr-2 text-emerald-teal"></i>${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString() : '날짜 없음'}</p>
                             </div>
-                            <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
+                            <div class="post-content">${marked.parse(post.content || '', markedOptions)}</div>
                             <div class="flex justify-between items-center mt-12 border-t pt-6">
                                 <a href="#" id="back-to-list" class="text-emerald-teal hover:underline font-semibold"><i class="fas fa-arrow-left mr-2"></i>목록으로</a>
                                 <div id="detail-admin-controls" class="space-x-2"></div>
@@ -401,7 +502,7 @@
             }
         };
 
-        // --- 모달 관련 함수 ---
+        // --- 모달 및 편집기 관련 함수 ---
 
         // 글쓰기/수정 모달 열기
         const openWriteModal = (postId = null, title = '', content = '') => {
@@ -413,11 +514,27 @@
                 simplemde.toTextArea();
                 simplemde = null;
             }
+
             simplemde = new SimpleMDE({ 
                 element: document.getElementById("post-content"),
                 initialValue: content,
                 spellChecker: false,
                 status: false,
+                toolbar: [
+                    "bold", "italic", "heading", "|", 
+                    "quote", "unordered-list", "ordered-list", "|",
+                    "link", "image", 
+                    {
+                        name: "upload-image",
+                        action: function(editor){
+                            imageUploadInput.click();
+                        },
+                        className: "fa fa-upload",
+                        title: "Upload Image",
+                    },
+                    "|", "table", "horizontal-rule", "|",
+                    "preview", "side-by-side", "fullscreen"
+                ],
             });
             
             writeModal.classList.add('active');
@@ -426,7 +543,60 @@
         const closeWriteModal = () => writeModal.classList.remove('active');
         const closeLoginModal = () => loginModal.classList.remove('active');
 
-        // --- 데이터 처리 함수 (CRUD) ---
+        // --- 데이터 처리 함수 (CRUD 및 이미지 업로드) ---
+
+        // 이미지 업로드 처리
+        const handleImageUpload = (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // 2MB 용량 제한 체크
+            if (file.size > 2 * 1024 * 1024) {
+                alert('이미지 파일은 2MB를 초과할 수 없습니다.');
+                event.target.value = '';
+                return;
+            }
+
+            uploadProgressModal.classList.add('active');
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+
+            const storageRef = ref(storage, `notices/${Date.now()}_${file.name}`);
+            currentUploadTask = uploadBytesResumable(storageRef, file);
+
+            currentUploadTask.on('state_changed', 
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = Math.round(progress) + '%';
+                }, 
+                (error) => {
+                    currentUploadTask = null;
+                    uploadProgressModal.classList.remove('active');
+                    if (error.code === 'storage/unauthorized') {
+                        alert('이미지 업로드 권한이 없습니다. Firebase Storage 보안 규칙을 확인해주세요.');
+                    } else if (error.code !== 'storage/canceled') {
+                         alert('이미지 업로드에 실패했습니다.');
+                    }
+                    console.error("Upload failed", error);
+                }, 
+                () => {
+                    currentUploadTask = null;
+                    getDownloadURL(currentUploadTask.snapshot.ref).then((downloadURL) => {
+                        const cm = simplemde.codemirror;
+                        const doc = cm.getDoc();
+                        const cursor = doc.getCursor();
+                        const imageMarkdown = `\n![${file.name}](${downloadURL})\n`;
+                        doc.replaceRange(imageMarkdown, cursor);
+                        
+                        setTimeout(() => {
+                           uploadProgressModal.classList.remove('active');
+                        }, 500);
+                    });
+                }
+            );
+            event.target.value = '';
+        };
 
         // 게시물 저장/수정
         const handleSavePost = async () => {
@@ -518,11 +688,19 @@
             handleRouteChange(); // 인증 상태 변경 시 UI 다시 렌더링
         });
         
-        // 모달 이벤트 리스너
+        // 모달 및 파일 업로드 이벤트 리스너
         document.getElementById('cancel-post').addEventListener('click', closeWriteModal);
         document.getElementById('save-post').addEventListener('click', handleSavePost);
         document.getElementById('cancel-login').addEventListener('click', closeLoginModal);
         document.getElementById('submit-login').addEventListener('click', handleLogin);
+        imageUploadInput.addEventListener('change', handleImageUpload);
+        cancelUploadBtn.addEventListener('click', () => {
+            if (currentUploadTask) {
+                currentUploadTask.cancel();
+                uploadProgressModal.classList.remove('active');
+            }
+        });
+
         // 이메일과 비밀번호 필드에서 Enter 키 입력 시 로그인 처리
         document.getElementById('login-email').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') handleLogin();
