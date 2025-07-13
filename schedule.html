@@ -21,6 +21,7 @@
             --deep-navy: #0A2342;
             --emerald-teal: #007F7B;
             --metallic-copper: #B87333;
+            --burgundy: #800020; /* 버건디 색상 추가 */
             --off-white: #F8F8F8;
             --white: #FFFFFF;
         }
@@ -93,9 +94,16 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .holiday { background-color: #fee2e2 !important; }
-        .wednesday { background-color: #fef3c7 !important; }
         .disabled { color: #d1d5db; }
+        
+        /* New Calendar Color Styles */
+        .holiday-bg { background-color: rgba(128, 0, 32, 0.05); } /* Light Burgundy */
+        .wednesday-bg { background-color: rgba(10, 35, 66, 0.05); } /* Light Navy */
+
+        .event-holiday { background-color: var(--burgundy); }
+        .event-regular-off { background-color: var(--deep-navy); }
+        .event-special { background-color: var(--emerald-teal); }
+        .event-time-change { background-color: var(--metallic-copper); }
 
         /* Modal Styles */
         .modal {
@@ -218,7 +226,7 @@
                                 정기 휴진 안내
                             </h3>
                             <p class="text-deep-navy opacity-80 leading-relaxed">
-                                이연 안티에이징 연구소 및 메디컬 필라테스 호두의 일정 관계로 <strong class="font-semibold text-emerald-teal">매주 수요일은 휴진</strong>입니다. 보다 나은 진료를 위한 휴무이오니 양해를 부탁드립니다.
+                                이연 안티에이징 연구소 및 메디컬 필라테스 호두의 일정 관계로 <strong class="font-semibold text-deep-navy">매주 수요일은 휴진</strong>입니다. 보다 나은 진료를 위한 휴무이오니 양해를 부탁드립니다.
                             </p>
                         </div>
                         <div class="bg-white rounded-2xl p-8 shadow-md">
@@ -252,7 +260,7 @@
                                     <th class="py-3 px-1 text-red-600 font-medium text-sm">일</th>
                                     <th class="py-3 px-1 text-gray-700 font-medium text-sm">월</th>
                                     <th class="py-3 px-1 text-gray-700 font-medium text-sm">화</th>
-                                    <th class="py-3 px-1 text-yellow-600 font-medium text-sm">수</th>
+                                    <th class="py-3 px-1 text-gray-700 font-medium text-sm">수</th>
                                     <th class="py-3 px-1 text-gray-700 font-medium text-sm">목</th>
                                     <th class="py-3 px-1 text-gray-700 font-medium text-sm">금</th>
                                     <th class="py-3 px-1 text-blue-600 font-medium text-sm">토</th>
@@ -264,11 +272,11 @@
                         </table>
                     </div>
 
-                    <div class="mt-8 flex flex-wrap gap-4 justify-center items-center border-t pt-6">
-                        <div class="flex items-center"><div class="w-4 h-4 bg-red-200 rounded mr-2"></div><span class="text-sm text-gray-600">휴진</span></div>
-                        <div class="flex items-center"><div class="w-4 h-4 bg-yellow-200 rounded mr-2"></div><span class="text-sm text-gray-600">정기휴진</span></div>
-                        <div class="flex items-center"><div class="w-4 h-4 bg-blue-200 rounded mr-2"></div><span class="text-sm text-gray-600">특별진료</span></div>
-                        <div class="flex items-center"><div class="w-4 h-4 bg-green-200 rounded mr-2"></div><span class="text-sm text-gray-600">시간변경</span></div>
+                    <div class="mt-8 flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-3 justify-center items-center border-t pt-6">
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--burgundy);"></div><span class="text-xs sm:text-sm text-gray-600">휴진</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--deep-navy);"></div><span class="text-xs sm:text-sm text-gray-600">정기휴진</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--emerald-teal);"></div><span class="text-xs sm:text-sm text-gray-600">특별진료</span></div>
+                        <div class="flex items-center"><div class="w-4 h-4 rounded mr-2" style="background-color: var(--metallic-copper);"></div><span class="text-xs sm:text-sm text-gray-600">시간변경</span></div>
                         <button id="adminToggle" class="ml-auto bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm"><i class="fas fa-cog mr-2"></i>관리자 로그인</button>
                     </div>
                 </div>
@@ -347,7 +355,7 @@
             <i class="fab fa-kickstarter-k"></i>
         </a>
         <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
-            <i class="fas fa-arrow-up fa-lg"></i>
+             <i class="fas fa-arrow-up fa-lg"></i>
         </button>
     </div>
 
@@ -496,15 +504,15 @@
                         if (j === 6) dateNumber.classList.add('text-blue-500');
                         
                         if (j === 3) {
-                            cell.classList.add('wednesday');
-                            cell.appendChild(createEventDiv('정기 휴진', 'bg-yellow-500'));
+                            cell.classList.add('wednesday-bg');
+                            cell.appendChild(createEventDiv('정기 휴진', 'event-regular-off'));
                         }
 
                         if (scheduleData[dateStr]) {
                             const { type, memo, startTime, endTime } = scheduleData[dateStr];
                             if(type) {
                                 const eventDiv = createEventDiv(memo || getEventTypeKorean(type), getEventColor(type), startTime, endTime);
-                                if (type === 'holiday') cell.classList.add('holiday');
+                                if (type === 'holiday') cell.classList.add('holiday-bg');
                                 cell.appendChild(eventDiv);
                             }
                         }
@@ -527,7 +535,11 @@
         }
 
         function getEventColor(type) {
-            return { holiday: 'bg-red-500', special: 'bg-blue-500', timeChange: 'bg-green-500' }[type] || 'bg-gray-400';
+            return { 
+                holiday: 'event-holiday', 
+                special: 'event-special', 
+                timeChange: 'event-time-change' 
+            }[type] || 'bg-gray-400';
         }
         
         function getEventTypeKorean(type) {
