@@ -1,0 +1,12 @@
+{
+  "name": "eyeonclinic-test",
+  "version": "1.0.0",
+  "description": "Test environment for eyeonclinic website with Tailwind CSS build process.",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./assets/dist/output.css",
+    "watch": "tailwindcss -i ./src/input.css -o ./assets/dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
