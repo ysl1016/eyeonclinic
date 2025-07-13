@@ -297,6 +297,20 @@
             </div>
         </div>
     </div>
+    
+    <!-- Hyperlink Modal -->
+    <div id="hyperlink-modal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 class="font-bold text-xl mb-4">하이퍼링크 추가</h4>
+            <div class="space-y-3">
+                <input type="text" id="hyperlink-url" placeholder="https://example.com" class="w-full p-2 border rounded-md">
+            </div>
+            <div class="flex justify-end mt-4">
+                 <button id="cancel-hyperlink" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submit-hyperlink" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">확인</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Action Buttons -->
     <div class="fixed bottom-6 right-6 space-y-3 z-40">
@@ -383,6 +397,10 @@
         const progressText = document.getElementById('progress-text');
         const imageUploadInput = document.getElementById('image-upload-input');
         const cancelUploadBtn = document.getElementById('cancel-upload-btn');
+        const hyperlinkModal = document.getElementById('hyperlink-modal');
+        const hyperlinkUrlInput = document.getElementById('hyperlink-url');
+        const submitHyperlinkBtn = document.getElementById('submit-hyperlink');
+        const cancelHyperlinkBtn = document.getElementById('cancel-hyperlink');
         
         // 상태 변수
         let simplemde;
@@ -506,9 +524,13 @@
 
         // 글쓰기/수정 모달 열기
         const openWriteModal = (postId = null, title = '', content = '') => {
+            // 새 글 작성 시 필드 초기화
+            const initialTitle = postId ? title : '';
+            const initialContent = postId ? content : '';
+
             currentPostId = postId;
             document.getElementById('modal-title').textContent = postId ? '글 수정' : '새 글 작성';
-            document.getElementById('post-title').value = title;
+            document.getElementById('post-title').value = initialTitle;
             
             if (simplemde) {
                 simplemde.toTextArea();
@@ -517,18 +539,22 @@
 
             simplemde = new SimpleMDE({ 
                 element: document.getElementById("post-content"),
-                initialValue: content,
+                initialValue: initialContent,
                 spellChecker: false,
                 status: false,
                 toolbar: [
                     "bold", "italic", "heading", "|", 
                     "quote", "unordered-list", "ordered-list", "|",
-                    "link", "image", 
+                    {
+                        name: "link",
+                        action: () => openHyperlinkModal(),
+                        className: "fa fa-link",
+                        title: "Insert Link",
+                    },
+                    "image", 
                     {
                         name: "upload-image",
-                        action: function(editor){
-                            imageUploadInput.click();
-                        },
+                        action: () => imageUploadInput.click(),
                         className: "fa fa-upload",
                         title: "Upload Image",
                     },
@@ -542,6 +568,14 @@
         
         const closeWriteModal = () => writeModal.classList.remove('active');
         const closeLoginModal = () => loginModal.classList.remove('active');
+        const closeHyperlinkModal = () => hyperlinkModal.classList.remove('active');
+
+        // 하이퍼링크 모달 열기
+        const openHyperlinkModal = () => {
+            hyperlinkUrlInput.value = 'https://';
+            hyperlinkModal.classList.add('active');
+            hyperlinkUrlInput.focus();
+        };
 
         // --- 데이터 처리 함수 (CRUD 및 이미지 업로드) ---
 
@@ -697,9 +731,22 @@
         cancelUploadBtn.addEventListener('click', () => {
             if (currentUploadTask) {
                 currentUploadTask.cancel();
-                uploadProgressModal.classList.remove('active');
             }
+            uploadProgressModal.classList.remove('active');
         });
+        cancelHyperlinkBtn.addEventListener('click', closeHyperlinkModal);
+        submitHyperlinkBtn.addEventListener('click', () => {
+            const url = hyperlinkUrlInput.value;
+            if (url && url !== 'https://') {
+                const cm = simplemde.codemirror;
+                const doc = cm.getDoc();
+                const selection = doc.getSelection();
+                const text = selection || '링크 텍스트';
+                doc.replaceSelection(`[${text}](${url})`);
+            }
+            closeHyperlinkModal();
+        });
+
 
         // 이메일과 비밀번호 필드에서 Enter 키 입력 시 로그인 처리
         document.getElementById('login-email').addEventListener('keydown', (e) => {
