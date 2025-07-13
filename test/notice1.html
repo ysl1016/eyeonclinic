@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 | EYEON Clinic</title>
+        
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+       
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+        
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- SimpleMDE Markdown Editor -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <!-- Marked.js to render Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --deep-navy: #0A2342;
+            --emerald-teal: #007F7B;
+            --metallic-copper: #B87333;
+            --off-white: #F8F8F8;
+            --white: #FFFFFF;
+        }
+    
+        body {
+            font-family: 'Manrope', 'Noto Sans KR', sans-serif;
+            background-color: var(--off-white);
+            color: var(--deep-navy);
+        }
+
+        /* Custom Color Classes */
+        .bg-metallic-copper { background-color: var(--metallic-copper); }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
+    
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-active {
+            color: var(--emerald-teal) !important;
+            font-weight: 600;
+        }
+
+        /* Markdown Editor & Viewer 스타일 */
+        .editor-toolbar, .CodeMirror { border-radius: 0.5rem; border-color: #d1d5db; }
+        .CodeMirror-scroll { min-height: 250px; }
+        .prose img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        .prose a { color: var(--emerald-teal); text-decoration: underline; }
+        .prose h1, .prose h2, .prose h3 { font-weight: 700; color: var(--deep-navy); }
+        .prose p, .prose ul, .prose ol { color: var(--deep-navy); opacity: 0.9; }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* 로딩 스피너 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--emerald-teal);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="index.html" id="header-logo" class="text-2xl font-bold text-white transition-colors duration-300">EYEON</a>
+                
+                <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                    <a href="index.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이연EYEON</a>
+                    <a href="clinic-info.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료안내</a>
+                    <a href="doctor.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">의료진소개</a>
+                    <a href="schedule.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">진료일정</a>
+                    <a href="events.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">이벤트안내</a>
+                    <a href="skin-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">피부/윤곽클리닉</a>
+                    <a href="obesity-clinic.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비만클리닉</a>
+                    <a href="notice.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md nav-active transition-colors duration-300">공지사항</a>
+                    <a href="costs.html" class="nav-link text-white hover:text-gray-300 px-3 py-2 rounded-md transition-colors duration-300">비급여 비용안내</a>
+                </nav>
+
+                <button id="mobile-menu-button" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4 bg-white shadow-lg">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-blue-600">이연EYEON</a>
+            <a href="clinic-info.html" class="block py-2 text-gray-700 hover:text-blue-600">진료안내</a>
+            <a href="doctor.html" class="block py-2 text-gray-700 hover:text-blue-600">의료진소개</a>
+            <a href="schedule.html" class="block py-2 text-gray-700 hover:text-blue-600">진료일정</a>
+            <a href="events.html" class="block py-2 text-gray-700 hover:text-blue-600">이벤트안내</a>
+            <a href="skin-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">피부/윤곽클리닉</a>
+            <a href="obesity-clinic.html" class="block py-2 text-gray-700 hover:text-blue-600">비만클리닉</a>
+            <a href="notice.html" class="block py-2 text-blue-600 font-bold">공지사항</a>
+            <a href="costs.html" class="block py-2 text-gray-700 hover:text-blue-600">비급여 비용안내</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[50vh] flex items-center justify-center text-center text-white overflow-hidden">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=2940&auto=format&fit=crop" 
+                     alt="책들이 있는 서재 이미지" 
+                     class="w-full h-full object-cover"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Notice';">
+                <div class="absolute inset-0 bg-black/50"></div>
+            </div>
+            <div class="relative z-10 px-6">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
+                    공지사항
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    이연의원의 새로운 소식과 중요한 정보를 안내해 드립니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- Notice Content Area -->
+        <section class="py-20 md:py-28">
+            <div id="notice-container" class="container mx-auto px-6">
+                <!-- JavaScript에 의해 동적으로 채워질 영역 -->
+                <div class="loader"></div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Modals -->
+    <div id="write-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title" class="text-2xl font-bold text-deep-navy mb-4">새 글 작성</h3>
+            <div class="space-y-4">
+                <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg">
+                <textarea id="post-content"></textarea>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
+                    <button id="save-post" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="login-modal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 class="font-bold text-xl mb-4">관리자 로그인</h4>
+            <div class="space-y-3">
+                <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md">
+                <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md">
+                <p id="login-error" class="text-red-500 text-sm h-4"></p>
+            </div>
+            <div class="flex justify-end mt-4">
+                 <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-40">
+        <a href="tel:031-896-3800" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fas fa-phone fa-lg"></i>
+        </a>
+        <a href="#" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+            <i class="fab fa-kickstarter-k"></i>
+        </a>
+        <button id="top-btn" class="w-14 h-14 bg-metallic-copper text-white rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-all opacity-0">
+            <i class="fas fa-arrow-up fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-6">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">EYEON CLINIC</h3>
+                    <p class="text-gray-400">최고의 의료진과 최신 장비로<br>당신의 건강과 아름다움을 지켜드립니다.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">진료시간</h3>
+                    <ul class="text-gray-400 space-y-1 text-sm">
+                        <li>평일: 09:00 - 18:00 (월/화/목/금: 진료, 매주 수요일 휴진)</li>
+                        <li>토요일: 09:00 - 13:00 (점심시간 없음)</li>
+                        <li>점심시간: 13:00 - 14:00</li>
+                        <li>일요일/공휴일: 휴진</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">연락처 및 주소</h3>
+                     <ul class="text-gray-400 space-y-1 text-sm">
+                        <li><i class="fas fa-phone-alt mr-2"></i> 031-896-3800</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 경기도 용인시 수지구 신봉2로 15, 홍천말프라자2 3층</li>
+                     </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2018 이연의원 EYEON CLINIC. All Rights Reserved.</p>
+                <p class="mt-1">본 사이트의 모든 컨텐츠는 저작권법의 보호를 받으며, 무단 전재, 복사, 배포 등을 금합니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        // Firebase SDK 로드
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+        // 사용자 제공 Firebase 구성 정보
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGRF48VlqERYVHWfaCJ3IlfZ00bNad2IA",
+            authDomain: "eyeon-clinic-notice.firebaseapp.com",
+            projectId: "eyeon-clinic-notice",
+            storageBucket: "eyeon-clinic-notice.firebasestorage.app",
+            messagingSenderId: "367090029799",
+            appId: "1:367090029799:web:19e3cc50081f778e59fe42",
+            measurementId: "G-6JCD02NTZW"
+        };
+
+        // Firebase 초기화
+        let app, db, auth;
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch (e) {
+            console.error("Firebase 초기화에 실패했습니다. firebaseConfig를 확인해주세요.", e);
+            document.getElementById('notice-container').innerHTML = `<p class="text-center text-red-500">게시판을 불러오는 데 실패했습니다. 관리자에게 문의하세요.</p>`;
+        }
+        
+        // DOM 요소
+        const noticeContainer = document.getElementById('notice-container');
+        const writeModal = document.getElementById('write-modal');
+        const loginModal = document.getElementById('login-modal');
+        
+        // 상태 변수
+        let simplemde;
+        let currentPostId = null;
+        let isAdmin = false;
+
+        // --- UI 렌더링 함수 ---
+        
+        // 게시물 목록 뷰 렌더링
+        const renderListView = async () => {
+            window.location.hash = '';
+            noticeContainer.innerHTML = `
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold text-deep-navy">All Notices</h2>
+                    <div id="admin-controls"></div>
+                </div>
+                <div id="post-list" class="space-y-4">
+                    <div class="loader"></div>
+                </div>
+            `;
+            renderAdminControls();
+
+            const postList = document.getElementById('post-list');
+            try {
+                const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    postList.innerHTML = '<p class="text-center text-gray-500 py-10">게시물이 없습니다.</p>';
+                    return;
+                }
+                
+                postList.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postEl = document.createElement('a');
+                    postEl.href = `#${doc.id}`;
+                    postEl.className = "block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300";
+                    postEl.innerHTML = `
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="text-xl font-bold text-deep-navy">${post.title}</h3>
+                            <span class="text-sm text-gray-500">${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : '날짜 없음'}</span>
+                        </div>
+                    `;
+                    postList.appendChild(postEl);
+                });
+            } catch (error) {
+                console.error("공지사항 로딩 실패:", error);
+                postList.innerHTML = '<p class="text-center text-red-500 py-10">게시물을 불러오는 데 실패했습니다.</p>';
+            }
+        };
+
+        // 게시물 상세 뷰 렌더링
+        const renderDetailView = async (postId) => {
+            noticeContainer.innerHTML = `<div class="loader"></div>`;
+            try {
+                const docRef = doc(db, "notices", postId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const post = docSnap.data();
+                    noticeContainer.innerHTML = `
+                        <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg">
+                            <div class="mb-8 text-center border-b pb-8">
+                                <h1 class="text-3xl md:text-4xl font-bold text-deep-navy">${post.title}</h1>
+                                <p class="mt-4 text-gray-500"><i class="fas fa-calendar-alt mr-2 text-emerald-teal"></i>${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString() : '날짜 없음'}</p>
+                            </div>
+                            <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
+                            <div class="flex justify-between items-center mt-12 border-t pt-6">
+                                <a href="#" id="back-to-list" class="text-emerald-teal hover:underline font-semibold"><i class="fas fa-arrow-left mr-2"></i>목록으로</a>
+                                <div id="detail-admin-controls" class="space-x-2"></div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('back-to-list').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        renderListView();
+                    });
+                    renderAdminControls(postId, post.title, post.content);
+                } else {
+                    renderListView();
+                }
+            } catch (error) {
+                console.error("게시물 상세 로딩 실패:", error);
+                noticeContainer.innerHTML = '<p class="text-center text-red-500 py-10">게시물을 불러오는 데 실패했습니다.</p>';
+            }
+        };
+        
+        // 관리자 컨트롤 버튼 렌더링
+        const renderAdminControls = (postId, title, content) => {
+            const controlsContainer = postId ? document.getElementById('detail-admin-controls') : document.getElementById('admin-controls');
+            if (!controlsContainer) return;
+            
+            if (isAdmin) {
+                if(postId) { // 상세 뷰
+                    controlsContainer.innerHTML = `
+                        <button id="edit-post-btn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-sm">수정</button>
+                        <button id="delete-post-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">삭제</button>
+                    `;
+                    document.getElementById('edit-post-btn').addEventListener('click', () => openWriteModal(postId, title, content));
+                    document.getElementById('delete-post-btn').addEventListener('click', () => deletePost(postId));
+                } else { // 목록 뷰
+                    controlsContainer.innerHTML = `
+                        <button id="write-new-post-btn" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-pen-nib mr-2"></i>글쓰기</button>
+                        <button id="logout-btn" class="ml-2 bg-gray-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-sign-out-alt mr-2"></i>로그아웃</button>
+                    `;
+                    document.getElementById('write-new-post-btn').addEventListener('click', () => openWriteModal());
+                    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+                }
+            } else {
+                if(!postId) { // 목록 뷰에만 로그인 버튼 표시
+                    controlsContainer.innerHTML = `<button id="login-btn" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-user-shield mr-2"></i>관리자 로그인</button>`;
+                    document.getElementById('login-btn').addEventListener('click', () => loginModal.classList.add('active'));
+                }
+            }
+        };
+
+        // --- 모달 관련 함수 ---
+
+        // 글쓰기/수정 모달 열기
+        const openWriteModal = (postId = null, title = '', content = '') => {
+            currentPostId = postId;
+            document.getElementById('modal-title').textContent = postId ? '글 수정' : '새 글 작성';
+            document.getElementById('post-title').value = title;
+            
+            if (simplemde) {
+                simplemde.toTextArea();
+                simplemde = null;
+            }
+            simplemde = new SimpleMDE({ 
+                element: document.getElementById("post-content"),
+                initialValue: content,
+                spellChecker: false,
+                status: false,
+            });
+            
+            writeModal.classList.add('active');
+        };
+        
+        const closeWriteModal = () => writeModal.classList.remove('active');
+        const closeLoginModal = () => loginModal.classList.remove('active');
+
+        // --- 데이터 처리 함수 (CRUD) ---
+
+        // 게시물 저장/수정
+        const handleSavePost = async () => {
+            const title = document.getElementById('post-title').value;
+            const content = simplemde.value();
+            if (!title.trim() || !content.trim()) {
+                alert('제목과 내용을 모두 입력해주세요.');
+                return;
+            }
+
+            try {
+                if (currentPostId) { // 수정
+                    const postRef = doc(db, "notices", currentPostId);
+                    await updateDoc(postRef, { title, content });
+                    await renderDetailView(currentPostId);
+                } else { // 생성
+                    await addDoc(collection(db, "notices"), {
+                        title,
+                        content,
+                        createdAt: serverTimestamp()
+                    });
+                    await renderListView();
+                }
+                closeWriteModal();
+            } catch (error) {
+                console.error("저장 실패:", error);
+                alert("게시물 저장에 실패했습니다.");
+            }
+        };
+
+        // 게시물 삭제
+        const deletePost = async (postId) => {
+            if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
+                try {
+                    await deleteDoc(doc(db, "notices", postId));
+                    await renderListView();
+                } catch (error) {
+                    console.error("삭제 실패:", error);
+                    alert("게시물 삭제에 실패했습니다.");
+                }
+            }
+        };
+
+        // --- 인증 관련 함수 ---
+
+        // 로그인 처리
+        const handleLogin = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorP = document.getElementById('login-error');
+            errorP.textContent = '';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                closeLoginModal();
+            } catch (error) {
+                errorP.textContent = '로그인 정보가 올바르지 않습니다.';
+            }
+        };
+        
+        // 로그아웃 처리
+        const handleLogout = async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("로그아웃 실패:", error);
+                alert("로그아웃에 실패했습니다.");
+            }
+        };
+
+        // --- 라우팅 및 초기화 ---
+
+        // 해시 변경 감지 및 렌더링
+        const handleRouteChange = () => {
+            const postId = window.location.hash.substring(1);
+            if (postId) {
+                renderDetailView(postId);
+            } else {
+                renderListView();
+            }
+        };
+        
+        // 이벤트 리스너 설정
+        window.addEventListener('hashchange', handleRouteChange);
+        
+        // 인증 상태 변경 감지
+        onAuthStateChanged(auth, (user) => {
+            isAdmin = !!user;
+            handleRouteChange(); // 인증 상태 변경 시 UI 다시 렌더링
+        });
+        
+        // 모달 이벤트 리스너
+        document.getElementById('cancel-post').addEventListener('click', closeWriteModal);
+        document.getElementById('save-post').addEventListener('click', handleSavePost);
+        document.getElementById('cancel-login').addEventListener('click', closeLoginModal);
+        document.getElementById('submit-login').addEventListener('click', handleLogin);
+        // 이메일과 비밀번호 필드에서 Enter 키 입력 시 로그인 처리
+        document.getElementById('login-email').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+        document.getElementById('login-password').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+    </script>
+    
+    <!-- General Page Scripts (Header, etc.) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const headerLogo = document.getElementById('header-logo');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const topBtn = document.getElementById('top-btn');
+
+            const updateHeaderStyle = () => {
+                const isScrolled = window.scrollY > 50;
+                header.classList.toggle('header-scrolled', isScrolled);
+                const logoColor = isScrolled ? 'text-gray-800' : 'text-white';
+                headerLogo.classList.remove('text-white', 'text-gray-800');
+                headerLogo.classList.add(logoColor);
+                
+                const iconColor = isScrolled ? 'text-gray-700' : 'text-white';
+                mobileMenuButton.querySelector('svg').classList.remove('text-white', 'text-gray-700');
+                mobileMenuButton.querySelector('svg').classList.add(iconColor);
+
+                navLinks.forEach(link => {
+                    const isActive = link.classList.contains('nav-active');
+                    if (!isActive) {
+                        link.classList.remove('text-white', 'text-gray-700');
+                        link.classList.add(iconColor);
+                    } else {
+                         link.classList.remove('text-white');
+                         link.classList.add(isScrolled ? 'text-emerald-teal' : 'text-white');
+                    }
+                });
+            };
+
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            
+            window.addEventListener('scroll', function() {
+                updateHeaderStyle();
+                if (topBtn) {
+                    topBtn.classList.toggle('opacity-100', window.scrollY > 400);
+                    topBtn.classList.toggle('opacity-0', window.scrollY <= 400);
+                }
+            });
+
+            if (topBtn) {
+                topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            
+            updateHeaderStyle();
+        });
+    </script>
+</body>
+</html>
