@@ -1,5 +1,5 @@
 
-        function loadComponent(url,- elementId) {
+        function loadComponent(url, elementId) {
             return fetch(url)
                 .then(response => response.text())
                 .then(data => {
@@ -9,9 +9,9 @@
 
         document.addEventListener('DOMContentLoaded', async function() {
             await Promise.all([
-                loadComponent('components/_header.html', 'header-placeholder'),
-                loadComponent('components/_footer.html', 'footer-placeholder'),
-                loadComponent('components/_floating_buttons.html', 'floating-buttons-placeholder')
+                loadComponent('../components/_header.html', 'header-placeholder'),
+                loadComponent('../components/_footer.html', 'footer-placeholder'),
+                loadComponent('../components/_floating_buttons.html', 'floating-buttons-placeholder')
             ]);
 
             // --- Header Style Logic ---
