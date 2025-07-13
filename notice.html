@@ -8,13 +8,13 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
        
-    <!-- Google Fonts: Inter, Manrope, Noto Sans KR, and Nanum Myeongjo -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Manrope:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
         
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <!-- SimpleMDE Markdown Editor -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -36,23 +36,10 @@
             background-color: var(--off-white);
             color: var(--deep-navy);
         }
-    
-        .font-eng { font-family: 'Manrope', sans-serif; }
-        .text-deep-navy { color: var(--deep-navy); }
-        .text-emerald-teal { color: var(--emerald-teal); }
-        .bg-emerald-teal { background-color: var(--emerald-teal); }
+
+        /* Custom Color Classes */
         .bg-metallic-copper { background-color: var(--metallic-copper); }
-    
-        /* 스크롤 애니메이션 */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .bg-emerald-teal { background-color: var(--emerald-teal); }
     
         .header-scrolled {
             background-color: rgba(255, 255, 255, 0.9);
@@ -103,6 +90,21 @@
         @keyframes slideUp {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* 로딩 스피너 */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--emerald-teal);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -155,31 +157,29 @@
                      onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0A2342/ffffff?text=Notice';">
                 <div class="absolute inset-0 bg-black/50"></div>
             </div>
-            <div class="relative z-10 px-6 reveal">
+            <div class="relative z-10 px-6">
                 <h1 class="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white">
                     공지사항
                 </h1>
                 <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
-                    이연의원의 새로운 소식과 중요한 정보를 안내해 드립니다
+                    이연의원의 새로운 소식과 중요한 정보를 안내해 드립니다.
                 </p>
             </div>
         </section>
 
         <!-- Notice Content Area -->
         <section class="py-20 md:py-28">
-            <div id="notice-content" class="container mx-auto px-6">
-                <!-- 이 영역은 JavaScript에 의해 동적으로 채워집니다. -->
+            <div id="notice-container" class="max-w-5xl mx-auto px-6">
+                <!-- JavaScript에 의해 동적으로 채워질 영역 -->
+                <div class="loader"></div>
             </div>
         </section>
     </main>
     
-    <!-- Write/Edit Modal -->
+    <!-- Modals -->
     <div id="write-modal" class="modal">
         <div class="modal-content">
-            <div class="flex justify-between items-center pb-3 mb-4 border-b">
-                <h3 id="modal-title" class="text-2xl font-bold text-deep-navy">새 글 작성</h3>
-                <button id="close-modal" class="text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
-            </div>
+            <h3 id="modal-title" class="text-2xl font-bold text-deep-navy mb-4">새 글 작성</h3>
             <div class="space-y-4">
                 <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg">
                 <textarea id="post-content"></textarea>
@@ -191,14 +191,17 @@
         </div>
     </div>
     
-    <!-- Password Modal -->
-    <div id="password-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[60]">
-        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm">
-            <h4 class="font-bold mb-4 text-deep-navy">관리자 비밀번호를 입력하세요.</h4>
-            <input type="password" id="admin-password" class="w-full p-2 border rounded-md">
+    <div id="login-modal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 class="font-bold text-xl mb-4">관리자 로그인</h4>
+            <div class="space-y-3">
+                <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md">
+                <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md">
+                <p id="login-error" class="text-red-500 text-sm h-4"></p>
+            </div>
             <div class="flex justify-end mt-4">
-                 <button id="cancel-password" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
-                <button id="submit-password" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">확인</button>
+                 <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
             </div>
         </div>
     </div>
@@ -248,46 +251,164 @@
         </div>
     </footer>
 
+    <!-- Firebase SDK & App Logic -->
     <script type="module">
+        // Firebase SDK 로드
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, getDoc, updateDoc, deleteDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+        import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
+        // 사용자 제공 Firebase 구성 정보
         const firebaseConfig = {
-             apiKey: "YOUR_API_KEY",
-             authDomain: "YOUR_AUTH_DOMAIN",
-             projectId: "YOUR_PROJECT_ID",
-             storageBucket: "YOUR_STORAGE_BUCKET",
-             messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-             appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyCGRF48VlqERYVHWfaCJ3IlfZ00bNad2IA",
+            authDomain: "eyeon-clinic-notice.firebaseapp.com",
+            projectId: "eyeon-clinic-notice",
+            storageBucket: "eyeon-clinic-notice.firebasestorage.app",
+            messagingSenderId: "367090029799",
+            appId: "1:367090029799:web:19e3cc50081f778e59fe42",
+            measurementId: "G-6JCD02NTZW"
         };
 
-        let db, firebaseInitialized = false;
+        // Firebase 초기화
+        let app, db, auth;
         try {
-            const app = initializeApp(firebaseConfig);
+            app = initializeApp(firebaseConfig);
             db = getFirestore(app);
-            firebaseInitialized = true;
-        } catch (error) {
-            console.error("Firebase 초기화 실패:", error);
+            auth = getAuth(app);
+        } catch (e) {
+            console.error("Firebase 초기화에 실패했습니다. firebaseConfig를 확인해주세요.", e);
+            document.getElementById('notice-container').innerHTML = `<p class="text-center text-red-500">게시판을 불러오는 데 실패했습니다. 관리자에게 문의하세요.</p>`;
         }
         
-        const noticeContent = document.getElementById('notice-content');
+        // DOM 요소
+        const noticeContainer = document.getElementById('notice-container');
         const writeModal = document.getElementById('write-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        const cancelPostBtn = document.getElementById('cancel-post');
-        const savePostBtn = document.getElementById('save-post');
-        const modalTitle = document.getElementById('modal-title');
-        const postTitleInput = document.getElementById('post-title');
-        const passwordModal = document.getElementById('password-modal');
-        const adminPasswordInput = document.getElementById('admin-password');
-        const submitPasswordBtn = document.getElementById('submit-password');
-        const cancelPasswordBtn = document.getElementById('cancel-password');
-
+        const loginModal = document.getElementById('login-modal');
+        
+        // 상태 변수
         let simplemde;
-        let currentPostId = null; 
-        let currentAction = null;
-        const ADMIN_PASSWORD = "eyeon-admin-2025"; 
+        let currentPostId = null;
+        let isAdmin = false;
 
-        function initializeEditor(content = '') {
+        // --- UI 렌더링 함수 ---
+        
+        // 게시물 목록 뷰 렌더링
+        const renderListView = async () => {
+            window.location.hash = '';
+            noticeContainer.innerHTML = `
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold text-deep-navy">All Notices</h2>
+                    <div id="admin-controls"></div>
+                </div>
+                <div id="post-list" class="space-y-4">
+                    <div class="loader"></div>
+                </div>
+            `;
+            renderAdminControls();
+
+            const postList = document.getElementById('post-list');
+            try {
+                const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    postList.innerHTML = '<p class="text-center text-gray-500 py-10">게시물이 없습니다.</p>';
+                    return;
+                }
+                
+                postList.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postEl = document.createElement('a');
+                    postEl.href = `#${doc.id}`;
+                    postEl.className = "block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300";
+                    postEl.innerHTML = `
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="text-xl font-bold text-deep-navy">${post.title}</h3>
+                            <span class="text-sm text-gray-500">${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : '날짜 없음'}</span>
+                        </div>
+                    `;
+                    postList.appendChild(postEl);
+                });
+            } catch (error) {
+                console.error("공지사항 로딩 실패:", error);
+                postList.innerHTML = '<p class="text-center text-red-500 py-10">게시물을 불러오는 데 실패했습니다.</p>';
+            }
+        };
+
+        // 게시물 상세 뷰 렌더링
+        const renderDetailView = async (postId) => {
+            noticeContainer.innerHTML = `<div class="loader"></div>`;
+            try {
+                const docRef = doc(db, "notices", postId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const post = docSnap.data();
+                    noticeContainer.innerHTML = `
+                        <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg">
+                            <div class="mb-8 text-center border-b pb-8">
+                                <h1 class="text-3xl md:text-4xl font-bold text-deep-navy">${post.title}</h1>
+                                <p class="mt-4 text-gray-500"><i class="fas fa-calendar-alt mr-2 text-emerald-teal"></i>${post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString() : '날짜 없음'}</p>
+                            </div>
+                            <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
+                            <div class="flex justify-between items-center mt-12 border-t pt-6">
+                                <a href="#" id="back-to-list" class="text-emerald-teal hover:underline font-semibold"><i class="fas fa-arrow-left mr-2"></i>목록으로</a>
+                                <div id="detail-admin-controls" class="space-x-2"></div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('back-to-list').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        renderListView();
+                    });
+                    renderAdminControls(postId, post.title, post.content);
+                } else {
+                    renderListView();
+                }
+            } catch (error) {
+                console.error("게시물 상세 로딩 실패:", error);
+                noticeContainer.innerHTML = '<p class="text-center text-red-500 py-10">게시물을 불러오는 데 실패했습니다.</p>';
+            }
+        };
+        
+        // 관리자 컨트롤 버튼 렌더링
+        const renderAdminControls = (postId, title, content) => {
+            const controlsContainer = postId ? document.getElementById('detail-admin-controls') : document.getElementById('admin-controls');
+            if (!controlsContainer) return;
+            
+            if (isAdmin) {
+                if(postId) { // 상세 뷰
+                    controlsContainer.innerHTML = `
+                        <button id="edit-post-btn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-sm">수정</button>
+                        <button id="delete-post-btn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">삭제</button>
+                    `;
+                    document.getElementById('edit-post-btn').addEventListener('click', () => openWriteModal(postId, title, content));
+                    document.getElementById('delete-post-btn').addEventListener('click', () => deletePost(postId));
+                } else { // 목록 뷰
+                    controlsContainer.innerHTML = `
+                        <button id="write-new-post-btn" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-pen-nib mr-2"></i>글쓰기</button>
+                        <button id="logout-btn" class="ml-2 bg-gray-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-sign-out-alt mr-2"></i>로그아웃</button>
+                    `;
+                    document.getElementById('write-new-post-btn').addEventListener('click', () => openWriteModal());
+                    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+                }
+            } else {
+                if(!postId) { // 목록 뷰에만 로그인 버튼 표시
+                    controlsContainer.innerHTML = `<button id="login-btn" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"><i class="fas fa-user-shield mr-2"></i>관리자 로그인</button>`;
+                    document.getElementById('login-btn').addEventListener('click', () => loginModal.classList.add('active'));
+                }
+            }
+        };
+
+        // --- 모달 관련 함수 ---
+
+        // 글쓰기/수정 모달 열기
+        const openWriteModal = (postId = null, title = '', content = '') => {
+            currentPostId = postId;
+            document.getElementById('modal-title').textContent = postId ? '글 수정' : '새 글 작성';
+            document.getElementById('post-title').value = title;
+            
             if (simplemde) {
                 simplemde.toTextArea();
                 simplemde = null;
@@ -298,185 +419,123 @@
                 spellChecker: false,
                 status: false,
             });
-        }
-        
-        function showPasswordModal(action) {
-            currentAction = action;
-            passwordModal.classList.remove('hidden');
-            passwordModal.classList.add('active');
-            adminPasswordInput.focus();
-        }
-        
-        submitPasswordBtn.addEventListener('click', () => {
-            if (adminPasswordInput.value === ADMIN_PASSWORD) {
-                passwordModal.classList.add('hidden');
-                passwordModal.classList.remove('active');
-                adminPasswordInput.value = '';
-                currentAction();
-            } else {
-                alert('비밀번호가 틀렸습니다.');
-            }
-        });
-        
-        cancelPasswordBtn.addEventListener('click', () => {
-            passwordModal.classList.add('hidden');
-            passwordModal.classList.remove('active');
-        });
-
-        async function renderListView() {
-            window.location.hash = ''; 
-            noticeContent.innerHTML = `
-                <div class="flex justify-between items-center mb-8 reveal">
-                    <h2 class="font-eng text-2xl font-bold text-deep-navy">All Notices</h2>
-                    <button id="write-new-post" class="bg-emerald-teal text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity">
-                        <i class="fas fa-pen-nib mr-2"></i>글쓰기
-                    </button>
-                </div>
-                <div id="post-list" class="space-y-8">
-                    <p class="text-center text-gray-500 py-10">게시물을 불러오는 중...</p>
-                </div>
-            `;
             
-            document.getElementById('write-new-post').addEventListener('click', () => {
-                showPasswordModal(() => openWriteModal());
-            });
-
-            if (!firebaseInitialized) {
-                document.getElementById('post-list').innerHTML = '<p class="text-center text-red-500 py-10">데이터베이스에 연결할 수 없습니다. 관리자에게 문의하세요.</p>';
-                return;
-            }
-
-            const postList = document.getElementById('post-list');
-            const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
-            onSnapshot(q, (querySnapshot) => {
-                if (querySnapshot.empty) {
-                    postList.innerHTML = '<p class="text-center text-gray-500 py-10">게시물이 없습니다.</p>';
-                    return;
-                }
-                postList.innerHTML = '';
-                querySnapshot.forEach((doc, index) => {
-                    const post = doc.data();
-                    const card = document.createElement('a');
-                    card.href = `#${doc.id}`;
-                    card.className = "block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 reveal";
-                    card.style.transitionDelay = `${index * 100}ms`;
-                    
-                    const excerpt = marked.parse(post.content || '').replace(/<[^>]*>/g, '').substring(0, 150);
-
-                    card.innerHTML = `
-                        <div class="p-8">
-                            <p class="text-sm font-semibold text-emerald-teal">${new Date(post.createdAt.toDate()).toLocaleDateString()}</p>
-                            <h3 class="mt-2 text-xl font-bold text-deep-navy group-hover:text-emerald-teal transition">${post.title}</h3>
-                            <p class="mt-2 text-sm opacity-70">${excerpt}...</p>
-                            <div class="mt-4 font-semibold text-emerald-teal inline-flex items-center">자세히 보기 <i class="fas fa-arrow-right ml-2"></i></div>
-                        </div>
-                    `;
-                    postList.appendChild(card);
-                });
-                document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-            }, (error) => {
-                console.error("공지사항 로딩 실패:", error);
-                postList.innerHTML = '<p class="text-center text-red-500 py-10">게시물을 불러오는 데 실패했습니다.</p>';
-            });
-        }
-
-        async function renderDetailView(postId) {
-            if (!firebaseInitialized) {
-                alert('데이터베이스에 연결할 수 없습니다.');
-                renderListView();
-                return;
-            }
-            const docRef = doc(db, "notices", postId);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                const post = docSnap.data();
-                noticeContent.innerHTML = `
-                    <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg reveal visible">
-                        <div class="mb-8 text-center border-b pb-8">
-                            <h1 class="text-3xl md:text-4xl font-bold text-deep-navy">${post.title}</h1>
-                            <p class="mt-4 text-gray-500"><i class="fas fa-calendar-alt mr-2 text-emerald-teal"></i>${new Date(post.createdAt.toDate()).toLocaleString()}</p>
-                        </div>
-                        <div class="prose max-w-none">${marked.parse(post.content || '')}</div>
-                        <div class="flex justify-between items-center mt-12 border-t pt-6">
-                            <a href="#" id="back-to-list" class="text-emerald-teal hover:underline font-semibold"><i class="fas fa-arrow-left mr-2"></i>목록으로</a>
-                            <div class="space-x-2">
-                                <button id="edit-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-sm">수정</button>
-                                <button id="delete-post" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">삭제</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('back-to-list').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    renderListView();
-                });
-                document.getElementById('edit-post').addEventListener('click', () => showPasswordModal(() => openWriteModal(postId, post.title, post.content)));
-                document.getElementById('delete-post').addEventListener('click', () => showPasswordModal(() => deletePost(postId)));
-            } else {
-                renderListView();
-            }
-        }
-        
-        function openWriteModal(postId = null, title = '', content = '') {
-            currentPostId = postId;
-            modalTitle.textContent = postId ? '글 수정' : '새 글 작성';
-            postTitleInput.value = title;
-            initializeEditor(content);
             writeModal.classList.add('active');
-        }
-
-        function closeWriteModal() { writeModal.classList.remove('active'); }
-        cancelPostBtn.addEventListener('click', closeWriteModal);
-        closeModalBtn.addEventListener('click', closeWriteModal);
+        };
         
-        async function savePostData() {
-            const title = postTitleInput.value;
+        const closeWriteModal = () => writeModal.classList.remove('active');
+        const closeLoginModal = () => loginModal.classList.remove('active');
+
+        // --- 데이터 처리 함수 (CRUD) ---
+
+        // 게시물 저장/수정
+        const handleSavePost = async () => {
+            const title = document.getElementById('post-title').value;
             const content = simplemde.value();
-            if (!title || !content) {
+            if (!title.trim() || !content.trim()) {
                 alert('제목과 내용을 모두 입력해주세요.');
                 return;
             }
 
             try {
-                if (currentPostId) {
-                    await updateDoc(doc(db, "notices", currentPostId), { title, content });
-                    renderDetailView(currentPostId);
-                } else {
-                    await addDoc(collection(db, "notices"), { title, content, createdAt: new Date() });
-                    renderListView();
+                if (currentPostId) { // 수정
+                    const postRef = doc(db, "notices", currentPostId);
+                    await updateDoc(postRef, { title, content });
+                    await renderDetailView(currentPostId);
+                } else { // 생성
+                    await addDoc(collection(db, "notices"), {
+                        title,
+                        content,
+                        createdAt: serverTimestamp()
+                    });
+                    await renderListView();
                 }
                 closeWriteModal();
             } catch (error) {
-                console.error("Error saving post: ", error);
-                alert("저장에 실패했습니다.");
+                console.error("저장 실패:", error);
+                alert("게시물 저장에 실패했습니다.");
             }
-        }
+        };
 
-        async function deletePost(postId) {
+        // 게시물 삭제
+        const deletePost = async (postId) => {
             if (confirm('정말로 이 글을 삭제하시겠습니까?')) {
-                await deleteDoc(doc(db, "notices", postId));
-                renderListView();
+                try {
+                    await deleteDoc(doc(db, "notices", postId));
+                    await renderListView();
+                } catch (error) {
+                    console.error("삭제 실패:", error);
+                    alert("게시물 삭제에 실패했습니다.");
+                }
             }
-        }
-        
-        savePostBtn.addEventListener('click', savePostData);
+        };
 
-        function handleHashChange() {
-            const postIdFromHash = window.location.hash.substring(1);
-            if (postIdFromHash) {
-                renderDetailView(postIdFromHash);
+        // --- 인증 관련 함수 ---
+
+        // 로그인 처리
+        const handleLogin = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorP = document.getElementById('login-error');
+            errorP.textContent = '';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                closeLoginModal();
+            } catch (error) {
+                errorP.textContent = '로그인 정보가 올바르지 않습니다.';
+            }
+        };
+        
+        // 로그아웃 처리
+        const handleLogout = async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("로그아웃 실패:", error);
+                alert("로그아웃에 실패했습니다.");
+            }
+        };
+
+        // --- 라우팅 및 초기화 ---
+
+        // 해시 변경 감지 및 렌더링
+        const handleRouteChange = () => {
+            const postId = window.location.hash.substring(1);
+            if (postId) {
+                renderDetailView(postId);
             } else {
                 renderListView();
             }
-        }
+        };
         
-        window.addEventListener('hashchange', handleHashChange);
-        handleHashChange(); // Initial load
+        // 이벤트 리스너 설정
+        window.addEventListener('hashchange', handleRouteChange);
+        
+        // 인증 상태 변경 감지
+        onAuthStateChanged(auth, (user) => {
+            isAdmin = !!user;
+            handleRouteChange(); // 인증 상태 변경 시 UI 다시 렌더링
+        });
+        
+        // 모달 이벤트 리스너
+        document.getElementById('cancel-post').addEventListener('click', closeWriteModal);
+        document.getElementById('save-post').addEventListener('click', handleSavePost);
+        document.getElementById('cancel-login').addEventListener('click', closeLoginModal);
+        document.getElementById('submit-login').addEventListener('click', handleLogin);
+        // 이메일과 비밀번호 필드에서 Enter 키 입력 시 로그인 처리
+        document.getElementById('login-email').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+        document.getElementById('login-password').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
     </script>
+    
+    <!-- General Page Scripts (Header, etc.) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // This script block is for non-module JS like the header and scroll animations.
             const header = document.getElementById('header');
             const headerLogo = document.getElementById('header-logo');
             const navLinks = document.querySelectorAll('.nav-link');
@@ -509,7 +568,7 @@
 
             mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
             
-            window.addEventListener('scroll', () => {
+            window.addEventListener('scroll', function() {
                 updateHeaderStyle();
                 if (topBtn) {
                     topBtn.classList.toggle('opacity-100', window.scrollY > 400);
@@ -519,19 +578,6 @@
 
             if (topBtn) {
                 topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            }
-
-            const animatedElements = document.querySelectorAll('.reveal');
-            if (animatedElements.length > 0) {
-                const animationObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                animatedElements.forEach(el => animationObserver.observe(el));
             }
             
             updateHeaderStyle();
