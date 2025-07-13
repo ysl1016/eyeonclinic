@@ -208,17 +208,27 @@
         </div>
     </div>
     
-    <div id="login-modal" class="modal">
+    <div id="loginModal" class="modal">
         <div class="modal-content max-w-sm">
             <h4 class="font-bold text-xl mb-4">관리자 로그인</h4>
             <div class="space-y-3">
-                <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md">
-                <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md">
-                <p id="login-error" class="text-red-500 text-sm h-4"></p>
+                <input type="email" id="loginEmail" placeholder="이메일" class="w-full p-2 border rounded-md">
+                <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full p-2 border rounded-md">
+                <p id="loginError" class="text-red-500 text-sm h-4"></p>
             </div>
             <div class="flex justify-end mt-4">
-                 <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
-                <button id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
+                 <button id="cancelLogin" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                <button id="submitLogin" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90 disabled:bg-opacity-50">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content max-w-sm">
+            <h4 id="confirmMessage" class="font-bold mb-4 text-center"></h4>
+            <div class="flex justify-center mt-6">
+                <button id="cancelConfirm" class="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-4">취소</button>
+                <button id="confirmAction" class="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">확인</button>
             </div>
         </div>
     </div>
