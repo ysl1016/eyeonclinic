@@ -254,33 +254,37 @@
     <div id="write-modal" class="modal">
         <div class="modal-content">
             <h3 id="modal-title" class="text-2xl font-bold text-deep-navy mb-4">새 글 작성</h3>
-            <div class="space-y-4">
-                <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg">
-                <div id="editor-container">
-                    <textarea id="post-content"></textarea>
-                </div>
-                <input type="file" id="image-upload-input" class="hidden" accept="image/*">
+            <form onsubmit="return false;" autocomplete="off">
+                <div class="space-y-4">
+                    <input type="text" id="post-title" placeholder="제목을 입력하세요" class="w-full p-3 border rounded-md text-lg" autocomplete="off" name="post-title">
+                    <div id="editor-container">
+                        <textarea id="post-content"></textarea>
+                    </div>
+                    <input type="file" id="image-upload-input" class="hidden" accept="image/*">
 
-                <div class="flex justify-end space-x-2">
-                    <button id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
-                    <button id="save-post" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">저장</button>
+                    <div class="flex justify-end space-x-2">
+                        <button type="button" id="cancel-post" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">취소</button>
+                        <button type="button" id="save-post" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">저장</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     
     <div id="login-modal" class="modal">
         <div class="modal-content max-w-sm">
             <h4 class="font-bold text-xl mb-4">관리자 로그인</h4>
-            <div class="space-y-3">
-                <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md">
-                <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md">
-                <p id="login-error" class="text-red-500 text-sm h-4"></p>
-            </div>
-            <div class="flex justify-end mt-4">
-                 <button id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
-                <button id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
-            </div>
+            <form onsubmit="return false;" autocomplete="on">
+                <div class="space-y-3">
+                    <input type="email" id="login-email" placeholder="이메일" class="w-full p-2 border rounded-md" autocomplete="email" name="email">
+                    <input type="password" id="login-password" placeholder="비밀번호" class="w-full p-2 border rounded-md" autocomplete="current-password" name="password">
+                    <p id="login-error" class="text-red-500 text-sm h-4"></p>
+                </div>
+                <div class="flex justify-end mt-4">
+                     <button type="button" id="cancel-login" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 mr-2">취소</button>
+                    <button type="button" id="submit-login" class="px-4 py-2 bg-emerald-teal text-white rounded-md hover:opacity-90">로그인</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -587,7 +591,13 @@
             document.getElementById('post-content').value = '';
             currentPostId = null;
         };
-        const closeLoginModal = () => loginModal.classList.remove('active');
+        const closeLoginModal = () => {
+            loginModal.classList.remove('active');
+            // 로그인 모달 닫을 때 필드 초기화
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+            document.getElementById('login-error').textContent = '';
+        };
         const closeHyperlinkModal = () => hyperlinkModal.classList.remove('active');
 
         // 하이퍼링크 모달 열기
@@ -759,6 +769,9 @@
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
+                // 로그인 성공 시 입력 필드 초기화
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
                 closeLoginModal();
             } catch (error) {
                 errorP.textContent = '로그인 정보가 올바르지 않습니다.';
