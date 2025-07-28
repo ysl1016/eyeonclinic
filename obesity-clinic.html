@@ -530,6 +530,26 @@
                 button.addEventListener('click', () => {
                     const tabId = button.dataset.tab;
                     switchTab(tabId);
+                    
+                    // 해당 탭 콘텐츠의 첫 번째 h2 요소 찾기
+                    setTimeout(() => {
+                        const activeContent = document.getElementById(tabId);
+                        if (activeContent) {
+                            const firstH2 = activeContent.querySelector('h2');
+                            if (firstH2) {
+                                // h2의 위치로 스크롤 (sticky 탭 메뉴의 높이 고려)
+                                const h2Top = firstH2.getBoundingClientRect().top + window.pageYOffset;
+                                const tabMenuHeight = document.querySelector('.sticky').offsetHeight;
+                                const headerHeight = 64; // 헤더 높이
+                                const scrollPosition = h2Top - headerHeight - tabMenuHeight - 20; // 20px 여유 공간
+                                
+                                window.scrollTo({
+                                    top: scrollPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    }, 100); // 탭 전환 애니메이션 후 실행
                 });
             });
 
