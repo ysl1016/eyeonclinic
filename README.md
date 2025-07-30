@@ -15,7 +15,7 @@
 Our clinic combines traditional medical expertise with innovative treatments in aesthetic medicine, obesity management, pain management, and functional medicine, ensuring holistic care for every patient.
 
 ### 🌐 Live Website
-**Visit:** [eyeonclinic.com](https://eyeonclinic.com)
+**Visit:** [eyeonclinic.co.kr](https://eyeonclinic.co.kr)
 
 ### 📍 Clinic Information
 - **Address:** 15 Sinbong 2-ro, Suji-gu, Yongin-si, Gyeonggi-do, South Korea
@@ -227,7 +227,7 @@ eyeonclinic/
 ### Deployment Options
 
 #### GitHub Pages (Current)
-- **URL:** [eyeonclinic.com](https://eyeonclinic.com)
+- **URL:** [eyeonclinic.co.kr](https://eyeonclinic.co.kr)
 - **Branch:** `main`
 - **Custom Domain:** Configured via CNAME
 - **SSL:** Automatically provisioned
@@ -258,7 +258,7 @@ eyeonclinic/
 - **📞 Phone:** 031-896-3800
 - **📍 Address:** 15 Sinbong 2-ro, Suji-gu, Yongin-si, Gyeonggi-do, South Korea
 - **🏢 Location:** Hongcheonmal Plaza 2, 3rd Floor
-- **🌐 Website:** [eyeonclinic.com](https://eyeonclinic.com)
+- **🌐 Website:** [eyeonclinic.co.kr](https://eyeonclinic.co.kr)
 
 ### Accessibility Features
 - **Transportation:** Near Suji Station (Bundang Line)
